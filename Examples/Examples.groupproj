@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{69E999EF-2E57-48B5-87DD-994EE25456F0}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Firework\Firework.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Rain\Rain.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="Firework">
+        <MSBuild Projects="Firework\Firework.dproj"/>
+    </Target>
+    <Target Name="Firework:Clean">
+        <MSBuild Projects="Firework\Firework.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Firework:Make">
+        <MSBuild Projects="Firework\Firework.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Rain">
+        <MSBuild Projects="Rain\Rain.dproj"/>
+    </Target>
+    <Target Name="Rain:Clean">
+        <MSBuild Projects="Rain\Rain.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Rain:Make">
+        <MSBuild Projects="Rain\Rain.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="Firework;Rain"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="Firework:Clean;Rain:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="Firework:Make;Rain:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
