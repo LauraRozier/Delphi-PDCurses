@@ -1,6 +1,4 @@
 # Delphi-PDCurses
-=================
-
 Delphi wrapper for Public Domain Curses
 
 Legal Info
