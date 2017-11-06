@@ -70,7 +70,7 @@ begin
   pdcErase;
   flag := 0;
 
-  while True do
+  while pdcGetCh = PDC_ERR do
   begin
     fInitialRows := pdcSValLines;
     fInitialCols := pdcSValCols;
