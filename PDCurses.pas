@@ -701,32 +701,33 @@ var
   pdcInitPair:       function(aId, aForeColor,
                               aBackColor: SmallInt): LongInt; cdecl;
   pdcInitScr:        function: PWINDOW; cdecl;
-{
-PDCEX int     innstr(char *, int);
-PDCEX int     insch(chtype);
-PDCEX int     insdelln(int);
-PDCEX int     insertln(void);
-PDCEX int     insnstr(const char *, int);
-PDCEX int     insstr(const char *);
-PDCEX int     instr(char *);
-PDCEX int     intrflush(WINDOW *, bool);
-PDCEX bool    isendwin(void);
-PDCEX bool    is_linetouched(WINDOW *, int);
-PDCEX bool    is_wintouched(WINDOW *);
-PDCEX char   *keyname(int);
-PDCEX int     keypad(WINDOW *, bool);
-PDCEX char    killchar(void);
-PDCEX int     leaveok(WINDOW *, bool);
-PDCEX char   *longname(void);
-PDCEX int     meta(WINDOW *, bool);
-}
+  pdcInNStr:         function(aText: PAnsiChar; aCount: LongInt): LongInt; cdecl;
+  pdcInsCh:          function(aChar: TChType): LongInt; cdecl;
+  pdcInsDelLn:       function(aCount: LongInt): LongInt; cdecl;
+  pdcInsertLn:       function: LongInt; cdecl;
+  pdcInsNStr:        function(const aText: PAnsiChar;
+                              aCount: LongInt): LongInt; cdecl;
+  pdcInsStr:         function(const aText: PAnsiChar): LongInt; cdecl;
+  pdcInStr:          function(aText: PAnsiChar): LongInt; cdecl;
+  pdcIntrFlush:      function(aWindow: PWindow; aFlag: TBool): LongInt; cdecl;
+  pdcIsEndWin:       function: TBool; cdecl;
+  pdcIsLineTouched:  function(aWindow: PWindow; aLine: LongInt): TBool; cdecl;
+  pdcIsWinTouched:   function(aWindow: PWindow): TBool; cdecl;
+  pdcKeyName:        function(aKey: LongInt): PAnsiChar; cdecl;
+  pdcKeyPad:         function(aWindow: PWindow; aFlag: TBool): LongInt; cdecl;
+  pdcKillChar:       function: AnsiChar; cdecl;
+  pdcLeaveOk:        function(aWindow: PWindow; aFlag: TBool): LongInt; cdecl;
+  pdcLongName:       function: PAnsiChar; cdecl;
+  pdcMeta:           function(aWindow: PWindow; aFlag: TBool): LongInt; cdecl;
   pdcMove:           function(aY, aX: LongInt): LongInt; cdecl;
-{
-PDCEX int     mvaddch(int, int, const chtype);
-PDCEX int     mvaddchnstr(int, int, const chtype *, int);
-PDCEX int     mvaddchstr(int, int, const chtype *);
-PDCEX int     mvaddnstr(int, int, const char *, int);
-}
+  pdcMvAddCh:        function(aY, aX: LongInt;
+                              const aChar: TChType): LongInt; cdecl;
+  pdcMvAddChNStr:    function(aY, aX: LongInt; const aChar: PChType;
+                              acount: LongInt): LongInt; cdecl;
+  pdcMvAddChStr:     function(aY, aX: LongInt;
+                              const aChar: PChType): LongInt; cdecl;
+  pdcMvAddNStr:      function(aY, aX: LongInt; const aText: PAnsiChar;
+                              acount: LongInt): LongInt; cdecl;
   pdcMvAddStr:       function(aY, aX: LongInt;
                               const aText: PAnsiChar): LongInt; cdecl;
 {
@@ -774,13 +775,13 @@ PDCEX int     mvwscanw(WINDOW *, int, int, const char *, ...);
 PDCEX int     mvwvline(WINDOW *, int, int, chtype, int);
 }
   pdcNapMS:          function(aTime: LongInt): LongInt; cdecl;
-{
-PDCEX WINDOW *newpad(int, int);
-PDCEX SCREEN *newterm(const char *, FILE *, FILE *);
-PDCEX WINDOW *newwin(int, int, int, int);
-PDCEX int     nl(void);
-PDCEX int     nocbreak(void);
-}
+  pdcNewPad:         function(aLineCount, aColCount: LongInt): PWindow; cdecl;
+  pdcNewTerm:        function(const aType: PAnsiChar;
+                              aInFile, aOutFile: PFile): PScreen; cdecl;
+  pdcNewWin:         function(aLineCount, aColCount,
+                              aBegY, aBegX: LongInt): PWindow; cdecl;
+  pdcNL:             function: LongInt; cdecl;
+  pdcNoCBreak:       function: LongInt; cdecl;
   pdcNoDelay:        function(aWindow: PWindow; aFlag: TBool): LongInt; cdecl;
   pdcNoEcho:         function: LongInt; cdecl;
 {
@@ -1627,13 +1628,36 @@ begin
     pdcInitColor      := pdcGetProcAddr('init_color');
     pdcInitPair       := pdcGetProcAddr('init_pair');
     pdcInitScr        := pdcGetProcAddr('initscr');
-
+    pdcInNStr         := pdcGetProcAddr('innstr');
+    pdcInsCh          := pdcGetProcAddr('insch');
+    pdcInsDelLn       := pdcGetProcAddr('insdelln');
+    pdcInsertLn       := pdcGetProcAddr('insertln');
+    pdcInsNStr        := pdcGetProcAddr('insnstr');
+    pdcInsStr         := pdcGetProcAddr('insstr');
+    pdcInStr          := pdcGetProcAddr('instr');
+    pdcIntrFlush      := pdcGetProcAddr('intrflush');
+    pdcIsEndWin       := pdcGetProcAddr('isendwin');
+    pdcIsLineTouched  := pdcGetProcAddr('is_linetouched');
+    pdcIsWinTouched   := pdcGetProcAddr('is_wintouched');
+    pdcKeyName        := pdcGetProcAddr('keyname');
+    pdcKeyPad         := pdcGetProcAddr('keypad');
+    pdcKillChar       := pdcGetProcAddr('killchar');
+    pdcLeaveOk        := pdcGetProcAddr('leaveok');
+    pdcLongName       := pdcGetProcAddr('longname');
+    pdcMeta           := pdcGetProcAddr('meta');
     pdcMove           := pdcGetProcAddr('move');
-
+    pdcMvAddCh        := pdcGetProcAddr('mvaddch');
+    pdcMvAddChNStr    := pdcGetProcAddr('mvaddchnstr');
+    pdcMvAddChStr     := pdcGetProcAddr('mvaddchstr');
+    pdcMvAddNStr      := pdcGetProcAddr('mvaddnstr');
     pdcMvAddStr       := pdcGetProcAddr('mvaddstr');
 
     pdcNapMS          := pdcGetProcAddr('napms');
-
+    pdcNewPad         := pdcGetProcAddr('newpad');
+    pdcNewTerm        := pdcGetProcAddr('newterm');
+    pdcNewWin         := pdcGetProcAddr('newwin');
+    pdcNL             := pdcGetProcAddr('nl');
+    pdcNoCBreak       := pdcGetProcAddr('nocbreak');
     pdcNoDelay        := pdcGetProcAddr('nodelay');
     pdcNoEcho         := pdcGetProcAddr('noecho');
 
