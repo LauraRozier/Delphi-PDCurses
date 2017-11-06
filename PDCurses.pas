@@ -844,7 +844,9 @@ PDCEX int     syncok(WINDOW *, bool);
 PDCEX chtype  termattrs(void);
 PDCEX attr_t  term_attrs(void);
 PDCEX char   *termname(void);
-PDCEX void    timeout(int);
+}
+  pdcTimeout:        procedure(aDelay: LongInt); cdecl;
+{
 PDCEX int     touchline(WINDOW *, int, int);
 PDCEX int     touchwin(WINDOW *);
 PDCEX int     typeahead(int);
@@ -1664,6 +1666,8 @@ begin
     pdcRefresh        := pdcGetProcAddr('refresh');
 
     pdcStartColor     := pdcGetProcAddr('start_color');
+
+    pdcTimeout        := pdcGetProcAddr('timeout');
 
     pdcWGetCh         := pdcGetProcAddr('wgetch');
 
