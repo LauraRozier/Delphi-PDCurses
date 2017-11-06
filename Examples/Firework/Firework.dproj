@@ -76,9 +76,6 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="..\..\PDCurses_OLD.pas"/>
-        <DCCReference Include="..\..\PDPanel_OLD.pas"/>
-        <DCCReference Include="..\..\PDTerm_OLD.pas"/>
         <DCCReference Include="..\..\PDVarArgCaller.pas"/>
         <DCCReference Include="..\..\PDCurses.pas"/>
         <DCCReference Include="FW_Main.pas"/>

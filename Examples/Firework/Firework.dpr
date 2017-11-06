@@ -6,9 +6,6 @@ program Firework;
 
 uses
   SysUtils,
-  PDCurses_OLD in '..\..\PDCurses_OLD.pas',
-  PDPanel_OLD in '..\..\PDPanel_OLD.pas',
-  PDTerm_OLD in '..\..\PDTerm_OLD.pas',
   PDVarArgCaller in '..\..\PDVarArgCaller.pas',
   PDCurses in '..\..\PDCurses.pas',
   FW_Main in 'FW_Main.pas';
