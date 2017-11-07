@@ -1054,37 +1054,35 @@ PDCEX int     wvline_set(WINDOW *, const cchar_t *, int);
 
 // Quasi-standard
 var
-  pdcGetAttrs: function(aWindow: PWindow): TChType; cdecl;
-  pdcGetBegX:  function(aWindow: PWindow): LongInt; cdecl;
-  pdcGetBegY:  function(aWindow: PWindow): LongInt; cdecl;
-  pdcGetMaxX:  function(aWindow: PWindow): LongInt; cdecl;
-  pdcGetMaxY:  function(aWindow: PWindow): LongInt; cdecl;
-  pdcGetParX:  function(aWindow: PWindow): LongInt; cdecl;
-  pdcGetParY:  function(aWindow: PWindow): LongInt; cdecl;
-  pdcGetCurX:  function(aWindow: PWindow): LongInt; cdecl;
-  pdcGetCurY:  function(aWindow: PWindow): LongInt; cdecl;
-  pdcTraceOff: procedure; cdecl;
-  pdcTraceOn:  procedure; cdecl;
-  pdcUnCtrl:   function(aChar: TChType): PAnsiChar; cdecl;
+  pdcGetAttrs:        function(aWindow: PWindow): TChType; cdecl;
+  pdcGetBegX:         function(aWindow: PWindow): LongInt; cdecl;
+  pdcGetBegY:         function(aWindow: PWindow): LongInt; cdecl;
+  pdcGetMaxX:         function(aWindow: PWindow): LongInt; cdecl;
+  pdcGetMaxY:         function(aWindow: PWindow): LongInt; cdecl;
+  pdcGetParX:         function(aWindow: PWindow): LongInt; cdecl;
+  pdcGetParY:         function(aWindow: PWindow): LongInt; cdecl;
+  pdcGetCurX:         function(aWindow: PWindow): LongInt; cdecl;
+  pdcGetCurY:         function(aWindow: PWindow): LongInt; cdecl;
+  pdcTraceOff:        procedure; cdecl;
+  pdcTraceOn:         procedure; cdecl;
+  pdcUnCtrl:          function(aChar: TChType): PAnsiChar; cdecl;
 
-{
-PDCEX int     crmode(void);
-PDCEX int     nocrmode(void);
-PDCEX int     draino(int);
-PDCEX int     resetterm(void);
-PDCEX int     fixterm(void);
-PDCEX int     saveterm(void);
-PDCEX int     setsyx(int, int);
+  pdcCrMode:          function: LongInt; cdecl;
+  pdcNoCrMode:        function: LongInt; cdecl;
+  pdcDrainO:          function(aTime: LongInt): LongInt; cdecl;
+  pdcResetTerm:       function: LongInt; cdecl;
+  pdcFixTerm:         function: LongInt; cdecl;
+  pdcSaveTerm:        function: LongInt; cdecl;
+  pdcSetSYX:          function(aY, aX: LongInt): LongInt; cdecl;
 
-PDCEX int     mouse_set(unsigned long);
-PDCEX int     mouse_on(unsigned long);
-PDCEX int     mouse_off(unsigned long);
-PDCEX int     request_mouse_pos(void);
-PDCEX int     map_button(unsigned long);
-PDCEX void    wmouse_position(WINDOW *, int *, int *);
-PDCEX unsigned long getmouse(void);
-PDCEX unsigned long getbmap(void);
-}
+  pdcMouseSet:        function(aMouseButtonEvent: LongWord): LongInt; cdecl;
+  pdcMouseOn:         function(aMouseButtonEvent: LongWord): LongInt; cdecl;
+  pdcMouseOff:        function(aMouseButtonEvent: LongWord): LongInt; cdecl;
+  pdcRequestMousePos: function: LongInt; cdecl;
+  pdcMapButton:       function(aButton: LongWord): LongInt; cdecl;
+  pdcWMousePosition:  procedure(aWindow: PWindow; aY, aX: PLongWord); cdecl;
+  pdcGetMouse:        function: LongWord; cdecl;
+  pdcGetBMap:         function: LongWord; cdecl;
 
 // ncurses
 var
@@ -1689,18 +1687,35 @@ begin
     pdcWGetCh         := pdcGetProcAddr('wgetch');
 
     // Quasi-standard
-    pdcGetAttrs := pdcGetProcAddr('getattrs');
-    pdcGetBegX  := pdcGetProcAddr('getbegx');
-    pdcGetBegY  := pdcGetProcAddr('getbegy');
-    pdcGetMaxX  := pdcGetProcAddr('getmaxx');
-    pdcGetMaxY  := pdcGetProcAddr('getmaxy');
-    pdcGetParX  := pdcGetProcAddr('getparx');
-    pdcGetParY  := pdcGetProcAddr('getpary');
-    pdcGetCurX  := pdcGetProcAddr('getcurx');
-    pdcGetCurY  := pdcGetProcAddr('getcury');
-    pdcTraceOff := pdcGetProcAddr('traceoff');
-    pdcTraceOn  := pdcGetProcAddr('traceon');
-    pdcUnCtrl   := pdcGetProcAddr('unctrl');
+    pdcGetAttrs        := pdcGetProcAddr('getattrs');
+    pdcGetBegX         := pdcGetProcAddr('getbegx');
+    pdcGetBegY         := pdcGetProcAddr('getbegy');
+    pdcGetMaxX         := pdcGetProcAddr('getmaxx');
+    pdcGetMaxY         := pdcGetProcAddr('getmaxy');
+    pdcGetParX         := pdcGetProcAddr('getparx');
+    pdcGetParY         := pdcGetProcAddr('getpary');
+    pdcGetCurX         := pdcGetProcAddr('getcurx');
+    pdcGetCurY         := pdcGetProcAddr('getcury');
+    pdcTraceOff        := pdcGetProcAddr('traceoff');
+    pdcTraceOn         := pdcGetProcAddr('traceon');
+    pdcUnCtrl          := pdcGetProcAddr('unctrl');
+
+    pdcCrMode          := pdcGetProcAddr('crmode');
+    pdcNoCrMode        := pdcGetProcAddr('nocrmode');
+    pdcDrainO          := pdcGetProcAddr('draino');
+    pdcResetTerm       := pdcGetProcAddr('resetterm');
+    pdcFixTerm         := pdcGetProcAddr('fixterm');
+    pdcSaveTerm        := pdcGetProcAddr('saveterm');
+    pdcSetSYX          := pdcGetProcAddr('setsyx');
+
+    pdcMouseSet        := pdcGetProcAddr('mouse_set');
+    pdcMouseOn         := pdcGetProcAddr('mouse_on');
+    pdcMouseOff        := pdcGetProcAddr('mouse_off');
+    pdcRequestMousePos := pdcGetProcAddr('request_mouse_pos');
+    pdcMapButton       := pdcGetProcAddr('map_button');
+    pdcWMousePosition  := pdcGetProcAddr('wmouse_position');
+    pdcGetMouse        := pdcGetProcAddr('getmouse');
+    pdcGetBMap         := pdcGetProcAddr('getbmap');
 
     // ncurses
     pdcAssumeDefaultColors := pdcGetProcAddr('assume_default_colors');
