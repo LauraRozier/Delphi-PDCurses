@@ -390,7 +390,7 @@ type
   TAcsMap  = array[Char] of TChType;
   PAcsMap  = ^TAcsMap;
   PPAcsMap = ^PAcsMap;
-  TPutc    = function(aArg: LongInt): LongInt; cdecl;
+  TPutC    = function(aArg: LongInt): LongInt; cdecl;
   TWinInit = function(aWindow: PWindow; aColCount: LongInt): LongInt; cdecl;
 
 function pdcSValLines:       LongInt; inline;
@@ -837,27 +837,28 @@ PDCEX int     standend(void);
 PDCEX int     standout(void);
 }
   pdcStartColor:     function: LongInt; cdecl;
-{
-PDCEX WINDOW *subpad(WINDOW *, int, int, int, int);
-PDCEX WINDOW *subwin(WINDOW *, int, int, int, int);
-PDCEX int     syncok(WINDOW *, bool);
-PDCEX chtype  termattrs(void);
-PDCEX attr_t  term_attrs(void);
-PDCEX char   *termname(void);
-}
+  pdcSubPad:         function(aWindow: PWindow; aLineCount, aColCount,
+                              aBegY, aBegX: LongInt): PWindow; cdecl;
+  pdcSubWin:         function(aWindow: PWindow; aLineCount, aColCount,
+                              aBegY, aBegX: LongInt): PWindow; cdecl;
+  pdcSyncOk:         function(aWindow: PWindow; aFlag: TBool): LongInt; cdecl;
+  pdcTermAttrs:      function: TChType; cdecl;
+  pdcTerm_Attrs:     function: TAttr; cdecl;
+  pdcTermName:       function: PAnsiChar; cdecl;
   pdcTimeout:        procedure(aDelay: LongInt); cdecl;
-{
-PDCEX int     touchline(WINDOW *, int, int);
-PDCEX int     touchwin(WINDOW *);
-PDCEX int     typeahead(int);
-PDCEX int     untouchwin(WINDOW *);
-PDCEX void    use_env(bool);
-PDCEX int     vidattr(chtype);
-PDCEX int     vid_attr(attr_t, short, void *);
-PDCEX int     vidputs(chtype, int (*)(int));
-PDCEX int     vid_puts(attr_t, short, void *, int (*)(int));
-PDCEX int     vline(chtype, int);
-}
+  pdcTouchLine:      function(aWindow: PWindow;
+                              aStart, aCount: LongInt): LongInt; cdecl;
+  pdcTouchWin:       function(aWindow: PWindow): LongInt; cdecl;
+  pdcTypeAhead:      function(aFilDes: LongInt): LongInt; cdecl;
+  pdcUnTouchWin:     function(aWindow: PWindow): LongInt; cdecl;
+  pdcUseEnv:         procedure(aFlag: TBool); cdecl;
+  pdcVidAttr:        function(aAttr: TChType): LongInt; cdecl;
+  pdcVid_Attr:       function(aAttr: TAttr; aColorPair: SmallInt;
+                              aOpt: Pointer): LongInt; cdecl;
+  pdcVidPutS:        function(aAttr: TChType; aPutFunc: TPutC): LongInt; cdecl;
+  pdcVid_PutS:       function(aAttr: TAttr; aColorPair: SmallInt;
+                              aOpt: Pointer; aPutFunc: TPutC): LongInt; cdecl;
+  pdcVLine:          function(aChar: TChType; aCount: LongInt): LongInt; cdecl;
 
 {$IFDEF ASSEMBLER}
 {
@@ -1087,23 +1088,24 @@ PDCEX unsigned long getbmap(void);
 
 // ncurses
 var
-{
-PDCEX int     assume_default_colors(int, int);
-PDCEX const char *curses_version(void);
-PDCEX bool    has_key(int);
-PDCEX int     use_default_colors(void);
-PDCEX int     wresize(WINDOW *, int, int);
+  pdcAssumeDefaultColors: function(aFore, aBack: LongInt): LongInt; cdecl;
+  pdcCursesVersion:       function: PAnsiChar; cdecl;
+  pdcHasKey:              function(aKey: PLongInt): TBool; cdecl;
+  pdcUseDefaultColors:    function: LongInt; cdecl;
+  pdcWResize:             function(aWindow: PWindow; aLineCount,
+                                   aColCount: LongInt): LongInt; cdecl;
 
-PDCEX int     mouseinterval(int);
-PDCEX mmask_t mousemask(mmask_t, mmask_t *);
-PDCEX bool    mouse_trafo(int *, int *, bool);
-}
-  pdcNCGetMouse: function(aEvent: PMEvent): LongInt; cdecl;
-{
-PDCEX int     ungetmouse(MEVENT *);
-PDCEX bool    wenclose(const WINDOW *, int, int);
-PDCEX bool    wmouse_trafo(const WINDOW *, int *, int *, bool);
-}
+  pdcMouseInterval:       function(aInterval: LongInt): LongInt; cdecl;
+  pdcMouseMask:           function(aMask: TMMask;
+                                   aOldMask: PMMask): TMMask; cdecl;
+  pdcMouseTrafo:          function(aY, aX: PLongInt;
+                                   aToScreen: TBool): TBool; cdecl;
+  pdcNCGetMouse:          function(aEvent: PMEvent): LongInt; cdecl;
+  pdcUnGetMouse:          function(aEvent: PMEvent): LongInt; cdecl;
+  pdcWEnclose:            function(const aWindow: PWindow;
+                                   aY, aX: LongInt): TBool; cdecl;
+  pdcWMouseTrafo:         function(const aWindow: PWindow; aY, aX: PLongInt;
+                                   aToScreen: TBool): TBool; cdecl;
 
 // PDCurses
 {
@@ -1666,8 +1668,23 @@ begin
     pdcRefresh        := pdcGetProcAddr('refresh');
 
     pdcStartColor     := pdcGetProcAddr('start_color');
-
+    pdcSubPad         := pdcGetProcAddr('subpad');
+    pdcSubWin         := pdcGetProcAddr('subwin');
+    pdcSyncOk         := pdcGetProcAddr('syncok');
+    pdcTermAttrs      := pdcGetProcAddr('termattrs');
+    pdcTerm_Attrs     := pdcGetProcAddr('term_attrs');
+    pdcTermName       := pdcGetProcAddr('termname');
     pdcTimeout        := pdcGetProcAddr('timeout');
+    pdcTouchLine      := pdcGetProcAddr('touchline');
+    pdcTouchWin       := pdcGetProcAddr('touchwin');
+    pdcTypeAhead      := pdcGetProcAddr('typeahead');
+    pdcUnTouchWin     := pdcGetProcAddr('untouchwin');
+    pdcUseEnv         := pdcGetProcAddr('use_env');
+    pdcVidAttr        := pdcGetProcAddr('vidattr');
+    pdcVid_Attr       := pdcGetProcAddr('vid_attr');
+    pdcVidPutS        := pdcGetProcAddr('vidputs');
+    pdcVid_PutS       := pdcGetProcAddr('vid_puts');
+    pdcVLine          := pdcGetProcAddr('vline');
 
     pdcWGetCh         := pdcGetProcAddr('wgetch');
 
@@ -1686,7 +1703,21 @@ begin
     pdcUnCtrl   := pdcGetProcAddr('unctrl');
 
     // ncurses
-    pdcNCGetMouse := pdcGetProcAddr('nc_getmouse');
+    pdcAssumeDefaultColors := pdcGetProcAddr('assume_default_colors');
+    pdcCursesVersion       := pdcGetProcAddr('curses_version');
+    pdcHasKey              := pdcGetProcAddr('has_key');
+    pdcUseDefaultColors    := pdcGetProcAddr('use_default_colors');
+    pdcWResize             := pdcGetProcAddr('wresize');
+
+    pdcMouseInterval       := pdcGetProcAddr('mouseinterval');
+    pdcMouseMask           := pdcGetProcAddr('mousemask');
+    pdcMouseTrafo          := pdcGetProcAddr('mouse_trafo');
+    pdcNCGetMouse          := pdcGetProcAddr('nc_getmouse');
+    pdcUnGetMouse          := pdcGetProcAddr('ungetmouse');
+    pdcWEnclose            := pdcGetProcAddr('wenclose');
+    pdcWMouseTrafo         := pdcGetProcAddr('wmouse_trafo');
+
+    // PDCurses
   end else
     raise EDLLLoadError.Create('Unable to load the library.');
 end;
