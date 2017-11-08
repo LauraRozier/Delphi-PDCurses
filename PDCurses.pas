@@ -1170,33 +1170,34 @@ PDCEX WINDOW *resize_window(WINDOW *, int, int);
 PDCEX int     waddrawch(WINDOW *, chtype);
 PDCEX int     winsrawch(WINDOW *, chtype);
 PDCEX char    wordchar(void);
-
-#ifdef PDC_WIDE
-PDCEX wchar_t *slk_wlabel(int);
-#endif
-
-PDCEX void    PDC_debug(const char *, ...);
 }
-  pdcUnGetCh:          function(aChar: LongInt): LongInt; cdecl;
+
+{$IFDEF PDC_WIDE}
 {
-PDCEX int     PDC_set_blink(bool);
-PDCEX int     PDC_set_line_color(short);
-PDCEX void    PDC_set_title(const char *);
-
-PDCEX int     PDC_clearclipboard(void);
-PDCEX int     PDC_freeclipboard(char *);
-PDCEX int     PDC_getclipboard(char **, long *);
-PDCEX int     PDC_setclipboard(const char *, long);
-
-PDCEX unsigned long PDC_get_input_fd(void);
-PDCEX unsigned long PDC_get_key_modifiers(void);
-PDCEX int     PDC_return_key_modifiers(bool);
-PDCEX int     PDC_save_key_modifiers(bool);
-PDCEX void    PDC_set_resize_limits( const int new_min_lines,
-                               const int new_max_lines,
-                               const int new_min_cols,
-                               const int new_max_cols);
+PDCEX wchar_t *slk_wlabel(int);
 }
+{$ENDIF PDC_WIDE}
+
+  pdcDebug:              procedure(const aFormat: PAnsiChar;
+                                   const aArgs: array of const); cdecl;
+  pdcUnGetCh:            function(aChar: LongInt): LongInt; cdecl;
+  pdcSetBlink:           function(aFlag: TBool): LongInt; cdecl;
+  pdcSetLineColor:       function(aColor: SmallInt): LongInt; cdecl;
+  pdcSetTitle:           procedure(const aText: PAnsiChar); cdecl;
+
+  pdcClearClipboard:     function: LongInt; cdecl;
+  pdcFreeClipboard:      function(aContents: PAnsiChar): LongInt; cdecl;
+  pdcGetClipboard:       function(aContents: PPAnsiChar;
+                                  aLength: PLongInt): LongInt; cdecl;
+  pdcSetClipboard:       function(const aContents: PAnsiChar;
+                                  aLength: LongInt): LongInt; cdecl;
+
+  pdcGetInputFd:         function: LongWord; cdecl;
+  pdcGetKeyModifiers:    function: LongWord; cdecl;
+  pdcReturnKeyModifiers: function(aFlag: TBool): LongInt; cdecl;
+  pdcSaveKeyModifiers:   function(aFlag: TBool): LongInt; cdecl;
+  pdcSetResizeLimits:    procedure(const aMinLineCount, aMaxLineCount,
+                                   aMinColCount, aMaxColCount: LongInt); cdecl;
 
 const
   FUNCTION_KEY_SHUT_DOWN    = 0;
@@ -1858,7 +1859,22 @@ begin
     pdcWMouseTrafo         := pdcGetProcAddr('wmouse_trafo');
 
     // PDCurses
-    pdcUnGetCh          := pdcGetProcAddr('PDC_ungetch');
+    pdcDebug              := pdcGetProcAddr('PDC_debug');
+    pdcUnGetCh            := pdcGetProcAddr('PDC_ungetch');
+    pdcSetBlink           := pdcGetProcAddr('PDC_set_blink');
+    pdcSetLineColor       := pdcGetProcAddr('PDC_set_line_color');
+    pdcSetTitle           := pdcGetProcAddr('PDC_set_title');
+
+    pdcClearClipboard     := pdcGetProcAddr('PDC_clearclipboard');
+    pdcFreeClipboard      := pdcGetProcAddr('PDC_freeclipboard');
+    pdcGetClipboard       := pdcGetProcAddr('PDC_getclipboard');
+    pdcSetClipboard       := pdcGetProcAddr('PDC_setclipboard');
+
+    pdcGetInputFd         := pdcGetProcAddr('PDC_get_input_fd');
+    pdcGetKeyModifiers    := pdcGetProcAddr('PDC_get_key_modifiers');
+    pdcReturnKeyModifiers := pdcGetProcAddr('PDC_return_key_modifiers');
+    pdcSaveKeyModifiers   := pdcGetProcAddr('PDC_save_key_modifiers');
+    pdcSetResizeLimits    := pdcGetProcAddr('PDC_set_resize_limits');
   end else
     raise EDLLLoadError.Create('Unable to load the library.');
 end;
