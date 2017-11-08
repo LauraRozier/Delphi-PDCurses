@@ -720,29 +720,43 @@ var
                               acount: LongInt): LongInt; cdecl;
   pdcMvAddStr:       function(aY, aX: LongInt;
                               const aText: PAnsiChar): LongInt; cdecl;
-{
-PDCEX int     mvchgat(int, int, int, attr_t, short, const void *);
-PDCEX int     mvcur(int, int, int, int);
-PDCEX int     mvdelch(int, int);
-PDCEX int     mvderwin(WINDOW *, int, int);
-PDCEX int     mvgetch(int, int);
-PDCEX int     mvgetnstr(int, int, char *, int);
-PDCEX int     mvgetstr(int, int, char *);
-PDCEX int     mvhline(int, int, chtype, int);
-PDCEX chtype  mvinch(int, int);
-PDCEX int     mvinchnstr(int, int, chtype *, int);
-PDCEX int     mvinchstr(int, int, chtype *);
-PDCEX int     mvinnstr(int, int, char *, int);
-PDCEX int     mvinsch(int, int, chtype);
-PDCEX int     mvinsnstr(int, int, const char *, int);
-PDCEX int     mvinsstr(int, int, const char *);
-PDCEX int     mvinstr(int, int, char *);
-PDCEX int     mvprintw(int, int, const char *, ...);
-PDCEX int     mvscanw(int, int, const char *, ...);
-PDCEX int     mvvline(int, int, chtype, int);
-PDCEX int     mvwaddchnstr(WINDOW *, int, int, const chtype *, int);
-PDCEX int     mvwaddchstr(WINDOW *, int, int, const chtype *);
-}
+  pdcMvChgAt:        function(aY, aX, aCount: LongInt; aAttr: TAttr;
+                              aColor: SmallInt;
+                              const aOpts: Pointer): LongInt; cdecl;
+  pdcMvCur:          function(aOldRow, aOldCol, aNewRow,
+                              aNewCol: LongInt): LongInt; cdecl;
+  pdcMvDelCh:        function(aY, aX: LongInt): LongInt; cdecl;
+  pdcMvDerWin:       function(aWindow: PWindow;
+                              aParY, aParX: LongInt): LongInt; cdecl;
+  pdcMvGetCh:        function(aY, aX: LongInt): LongInt; cdecl;
+  pdcMvGetNStr:      function(aY, aX: LongInt; aText: PAnsiChar;
+                              aCount: LongInt): LongInt; cdecl;
+  pdcMvGetStr:       function(aY, aX: LongInt; aText: PAnsiChar): LongInt; cdecl;
+  pdcMvHLine:        function(aY, aX: LongInt; aChar: TChType;
+                              aCount: LongInt): LongInt; cdecl;
+  pdcMvInCh:         function(aY, aX: LongInt): TChType; cdecl;
+  pdcMvInChNStr:     function(aY, aX: LongInt; aChar: PChType;
+                              aCount: LongInt): LongInt; cdecl;
+  pdcMvInChStr:      function(aY, aX: LongInt; aChar: PChType): LongInt; cdecl;
+  pdcMvInNStr:       function(aY, aX: LongInt; aText: PAnsiChar;
+                              aCount: LongInt): LongInt; cdecl;
+  pdcMvInsCh:        function(aY, aX: LongInt; aChar: TChType): LongInt; cdecl;
+  pdcMvInsNStr:      function(aY, aX: LongInt; const aText: PAnsiChar;
+                              aCount: LongInt): LongInt; cdecl;
+  pdcMvInsStr:       function(aY, aX: LongInt;
+                              const aText: PAnsiChar): LongInt; cdecl;
+  pdcMvInStr:        function(aY, aX: LongInt; aText: PAnsiChar): LongInt; cdecl;
+  pdcMvPrintW:       function(aY, aX: LongInt; const aText: PAnsiChar;
+                              const aArgs: array of const): LongInt; cdecl;
+  pdcMvScanW:        function(aY, aX: LongInt; const aText: PAnsiChar;
+                              const aArgs: array of const): LongInt; cdecl;
+  pdcMvVLine:        function(aY, aX: LongInt; aChar: TChType;
+                              aCount: LongInt): LongInt; cdecl;
+  pdcMvWAddChNStr:   function(aWindow: PWindow; aY, aX: LongInt;
+                              const aChar: PChType;
+                              aCount: LongInt): LongInt; cdecl;
+  pdcMvWAddChStr:    function(aWindow: PWindow; aY, aX: LongInt;
+                              const aChar: PChType): LongInt; cdecl;
   pdcMvWAddCh:       function(aWindow: PWindow; aY, aX: LongInt;
                               const aChar: TChType): LongInt; cdecl;
   pdcMvWAddNStr:     function(aWindow: PWindow; aY, aX: LongInt;
@@ -750,16 +764,22 @@ PDCEX int     mvwaddchstr(WINDOW *, int, int, const chtype *);
                               aCount: LongInt): LongInt; cdecl;
   pdcMvWAddStr:      function(aWindow: PWindow; aY, aX: LongInt;
                               const aText: PAnsiChar): LongInt; cdecl;
-{
-PDCEX int     mvwchgat(WINDOW *, int, int, int, attr_t, short, const void *);
-PDCEX int     mvwdelch(WINDOW *, int, int);
-PDCEX int     mvwgetch(WINDOW *, int, int);
-PDCEX int     mvwgetnstr(WINDOW *, int, int, char *, int);
-PDCEX int     mvwgetstr(WINDOW *, int, int, char *);
-PDCEX int     mvwhline(WINDOW *, int, int, chtype, int);
-PDCEX int     mvwinchnstr(WINDOW *, int, int, chtype *, int);
-PDCEX int     mvwinchstr(WINDOW *, int, int, chtype *);
-}
+  pdcMvWChgAt:       function(aWindow: PWindow; aY, aX, aCount: LongInt;
+                              aAttr: TAttr; aColor: SmallInt;
+                              const aOpts: Pointer): LongInt; cdecl;
+  pdcMvWDelCh:       function(aWindow: PWindow; aY, aX: LongInt): LongInt; cdecl;
+  pdcMvWGetCh:       function(aWindow: PWindow; aY, aX: LongInt): LongInt; cdecl;
+  pdcMvWGetNStr:     function(aWindow: PWindow; aY, aX: LongInt;
+                              aText: PAnsiChar; aCount: LongInt): LongInt; cdecl;
+  pdcMvWGetStr:      function(aWindow: PWindow; aY, aX: LongInt;
+                              aText: PAnsiChar): LongInt; cdecl;
+  pdcMvWHLine:       function(aWindow: PWindow; aY, aX: LongInt; aChar: TChType;
+                              aCount: LongInt): LongInt; cdecl;
+  pdcMvWInsNStr:     function(aWindow: PWindow; aY, aX: LongInt;
+                              const aText: PAnsiChar;
+                              aCount: LongInt): LongInt; cdecl;
+  pdcMvWInsStr:      function(aWindow: PWindow; aY, aX: LongInt;
+                              const aText: PAnsiChar): LongInt; cdecl;
   pdcMvWInCh:        function(aWindow: PWindow; aY, aX: LongInt): TChType; cdecl;
 {
 PDCEX int     mvwinnstr(WINDOW *, int, int, char *, int);
@@ -894,6 +914,7 @@ function pdcVW_ScanW(aWindow: PWindow; const aFormat: PAnsiChar;
 function pdcVWScanW(aWindow: PWindow; const aFormat: PAnsiChar;
                     const aArgs: array of const): LongInt;
 {$ENDIF ASSEMBLER}
+
 var
 {
 PDCEX int     waddchnstr(WINDOW *, const chtype *, int);
@@ -1666,11 +1687,38 @@ begin
     pdcMvAddChStr     := pdcGetProcAddr('mvaddchstr');
     pdcMvAddNStr      := pdcGetProcAddr('mvaddnstr');
     pdcMvAddStr       := pdcGetProcAddr('mvaddstr');
-
+    pdcMvChgAt        := pdcGetProcAddr('mvchgat');
+    pdcMvCur          := pdcGetProcAddr('mvcur');
+    pdcMvDelCh        := pdcGetProcAddr('mvdelch');
+    pdcMvDerWin       := pdcGetProcAddr('mvderwin');
+    pdcMvGetCh        := pdcGetProcAddr('mvgetch');
+    pdcMvGetNStr      := pdcGetProcAddr('mvgetnstr');
+    pdcMvGetStr       := pdcGetProcAddr('mvgetstr');
+    pdcMvHLine        := pdcGetProcAddr('mvhline');
+    pdcMvInCh         := pdcGetProcAddr('mvinch');
+    pdcMvInChNStr     := pdcGetProcAddr('mvinchnstr');
+    pdcMvInChStr      := pdcGetProcAddr('mvinchstr');
+    pdcMvInNStr       := pdcGetProcAddr('mvinnstr');
+    pdcMvInsCh        := pdcGetProcAddr('mvinsch');
+    pdcMvInsNStr      := pdcGetProcAddr('mvinsnstr');
+    pdcMvInsStr       := pdcGetProcAddr('mvinsstr');
+    pdcMvInStr        := pdcGetProcAddr('mvinstr');
+    pdcMvPrintW       := pdcGetProcAddr('mvprintw');
+    pdcMvScanW        := pdcGetProcAddr('mvscanw');
+    pdcMvVLine        := pdcGetProcAddr('mvvline');
+    pdcMvWAddChNStr   := pdcGetProcAddr('mvwaddchnstr');
+    pdcMvWAddChStr    := pdcGetProcAddr('mvwaddchstr');
     pdcMvWAddCh       := pdcGetProcAddr('mvwaddch');
     pdcMvWAddNStr     := pdcGetProcAddr('mvwaddnstr');
     pdcMvWAddStr      := pdcGetProcAddr('mvwaddstr');
-
+    pdcMvWChgAt       := pdcGetProcAddr('mvwchgat');
+    pdcMvWDelCh       := pdcGetProcAddr('mvwdelch');
+    pdcMvWGetCh       := pdcGetProcAddr('mvwgetch');
+    pdcMvWGetNStr     := pdcGetProcAddr('mvwgetnstr');
+    pdcMvWGetStr      := pdcGetProcAddr('mvwgetstr');
+    pdcMvWHLine       := pdcGetProcAddr('mvwhline');
+    pdcMvWInsNStr     := pdcGetProcAddr('mvwinchnstr');
+    pdcMvWInsStr      := pdcGetProcAddr('mvwinchstr');
     pdcMvWInCh        := pdcGetProcAddr('mvwinch');
 
     pdcNapMS          := pdcGetProcAddr('napms');
