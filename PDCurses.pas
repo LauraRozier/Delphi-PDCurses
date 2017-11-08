@@ -746,9 +746,9 @@ var
   pdcMvInsStr:       function(aY, aX: LongInt;
                               const aText: PAnsiChar): LongInt; cdecl;
   pdcMvInStr:        function(aY, aX: LongInt; aText: PAnsiChar): LongInt; cdecl;
-  pdcMvPrintW:       function(aY, aX: LongInt; const aText: PAnsiChar;
+  pdcMvPrintW:       function(aY, aX: LongInt; const aFormat: PAnsiChar;
                               const aArgs: array of const): LongInt; cdecl;
-  pdcMvScanW:        function(aY, aX: LongInt; const aText: PAnsiChar;
+  pdcMvScanW:        function(aY, aX: LongInt; const aFormat: PAnsiChar;
                               const aArgs: array of const): LongInt; cdecl;
   pdcMvVLine:        function(aY, aX: LongInt; aChar: TChType;
                               aCount: LongInt): LongInt; cdecl;
@@ -794,10 +794,10 @@ var
                               aText: PAnsiChar): LongInt; cdecl;
   pdcMvWIn:          function(aWindow: PWindow; aY, aX: LongInt): LongInt; cdecl;
   pdcMvWPrintW:      function(aWindow: PWindow; aY, aX: LongInt;
-                              const aText: PAnsiChar;
+                              const aFormat: PAnsiChar;
                               const aArgs: array of const): LongInt; cdecl;
   pdcMvWScanW:       function(aWindow: PWindow; aY, aX: LongInt;
-                              const aText: PAnsiChar;
+                              const aFormat: PAnsiChar;
                               const aArgs: array of const): LongInt; cdecl;
   pdcMvWVLine:       function(aWindow: PWindow; aY, aX: LongInt; aChar: TChType;
                               aCount: LongInt): LongInt; cdecl;
@@ -925,24 +925,29 @@ function pdcVWScanW(aWindow: PWindow; const aFormat: PAnsiChar;
 {$ENDIF ASSEMBLER}
 
 var
-{
-PDCEX int     waddchnstr(WINDOW *, const chtype *, int);
-PDCEX int     waddchstr(WINDOW *, const chtype *);
-PDCEX int     waddch(WINDOW *, const chtype);
-PDCEX int     waddnstr(WINDOW *, const char *, int);
-PDCEX int     waddstr(WINDOW *, const char *);
-}
-  pdcWAttrOff: function(aWindow: PWindow; aAttr: TChType): LongInt; cdecl;
-  pdcWAttrOn:  function(aWindow: PWindow; aAttr: TChType): LongInt; cdecl;
-  pdcWAttrSet: function(aWindow: PWindow; aAttr: TChType): LongInt; cdecl;
-{
-PDCEX int     wattr_get(WINDOW *, attr_t *, short *, void *);
-PDCEX int     wattr_off(WINDOW *, attr_t, void *);
-PDCEX int     wattr_on(WINDOW *, attr_t, void *);
-PDCEX int     wattr_set(WINDOW *, attr_t, short, void *);
-PDCEX void    wbkgdset(WINDOW *, chtype);
-}
-  pdcWBkgd:    function(aWindow: PWindow; aColor: TChType): LongInt; cdecl;
+  pdcWAddChNStr:     function(aWindow: PWindow; const aChar: PChType;
+                              aCount: LongInt): LongInt; cdecl;
+  pdcWAddChStr:      function(aWindow: PWindow;
+                              const aChar: PChType): LongInt; cdecl;
+  pdcWAddCh:         function(aWindow: PWindow;
+                              const aChar: TChType): LongInt; cdecl;
+  pdcWAddNStr:       function(aWindow: PWindow; const aText: PAnsiChar;
+                              aCount: LongInt): LongInt; cdecl;
+  pdcWAddStr:        function(aWindow: PWindow;
+                              const aText: PAnsiChar): LongInt; cdecl;
+  pdcWAttrOff:       function(aWindow: PWindow; aAttr: TChType): LongInt; cdecl;
+  pdcWAttrOn:        function(aWindow: PWindow; aAttr: TChType): LongInt; cdecl;
+  pdcWAttrSet:       function(aWindow: PWindow; aAttr: TChType): LongInt; cdecl;
+  pdcWAttr_Get:      function(aWindow: PWindow; aAttr: PAttr; aColor: PSmallInt;
+                              aOpts: Pointer): LongInt; cdecl;
+  pdcWAttr_Off:      function(aWindow: PWindow; aAttr: TAttr;
+                              aOpts: Pointer): LongInt; cdecl;
+  pdcWAttr_On:       function(aWindow: PWindow; aAttr: TAttr;
+                              aOpts: Pointer): LongInt; cdecl;
+  pdcWAttr_Set:      function(aWindow: PWindow; aAttr: TAttr; aColor: SmallInt;
+                              aOpts: Pointer): LongInt; cdecl;
+  pdcWBkgdSet:       procedure(aWindow: PWindow; aColor: TChType); cdecl;
+  pdcWBkgd:          function(aWindow: PWindow; aColor: TChType): LongInt; cdecl;
 {
 PDCEX int     wborder(WINDOW *, chtype, chtype, chtype, chtype,
                        chtype, chtype, chtype, chtype);
@@ -956,8 +961,8 @@ PDCEX int     wdelch(WINDOW *);
 PDCEX int     wdeleteln(WINDOW *);
 PDCEX int     wechochar(WINDOW *, const chtype);
 }
-  pdcWErase:   function(aWindow: PWindow): LongInt; cdecl;
-  pdcWGetCh:   function(aWindow: PWindow): LongInt; cdecl;
+  pdcWErase:         function(aWindow: PWindow): LongInt; cdecl;
+  pdcWGetCh:         function(aWindow: PWindow): LongInt; cdecl;
 {
 PDCEX int     wgetnstr(WINDOW *, char *, int);
 PDCEX int     wgetstr(WINDOW *, char *);
@@ -973,13 +978,13 @@ PDCEX int     winsnstr(WINDOW *, const char *, int);
 PDCEX int     winsstr(WINDOW *, const char *);
 PDCEX int     winstr(WINDOW *, char *);
 }
-  pdcWMove:    function(aWindow: PWindow; aY, aX: LongInt): LongInt; cdecl;
-{
-PDCEX int     wnoutrefresh(WINDOW *);
-PDCEX int     wprintw(WINDOW *, const char *, ...);
-PDCEX int     wredrawln(WINDOW *, int, int);
-}
-  pdcWRefresh: function(aWindow: PWindow): LongInt; cdecl;
+  pdcWMove:          function(aWindow: PWindow): LongInt; cdecl;
+  pdcWNOutRefresh:   function(aWindow: PWindow; aY, aX: LongInt): LongInt; cdecl;
+  pdcWPrintW:        function(aWindow: PWindow; aFormat: PAnsiChar;
+                              const aArgs: array of const): LongInt; cdecl;
+  pdcWRedrawLn:      function(aWindow: PWindow;
+                              begLine, aCount: LongInt): LongInt; cdecl;
+  pdcWRefresh:       function(aWindow: PWindow): LongInt; cdecl;
 {
 PDCEX int     wscanw(WINDOW *, const char *, ...);
 PDCEX int     wscrl(WINDOW *, int);
@@ -1782,17 +1787,28 @@ begin
     pdcVid_PutS       := pdcGetProcAddr('vid_puts');
     pdcVLine          := pdcGetProcAddr('vline');
 
+    pdcWAddChNStr     := pdcGetProcAddr('waddchnstr');
+    pdcWAddChStr      := pdcGetProcAddr('waddchstr');
+    pdcWAddCh         := pdcGetProcAddr('waddch');
+    pdcWAddNStr       := pdcGetProcAddr('waddnstr');
+    pdcWAddStr        := pdcGetProcAddr('waddstr');
     pdcWAttrOff       := pdcGetProcAddr('wattroff');
     pdcWAttrOn        := pdcGetProcAddr('wattron');
     pdcWAttrSet       := pdcGetProcAddr('wattrset');
-
+    pdcWAttr_Get      := pdcGetProcAddr('wattr_get');
+    pdcWAttr_Off      := pdcGetProcAddr('wattr_off');
+    pdcWAttr_On       := pdcGetProcAddr('wattr_on');
+    pdcWAttr_Set      := pdcGetProcAddr('wattr_set');
+    pdcWBkgdSet       := pdcGetProcAddr('wbkgdset');
     pdcWBkgd          := pdcGetProcAddr('wbkgd');
 
     pdcWErase         := pdcGetProcAddr('werase');
     pdcWGetCh         := pdcGetProcAddr('wgetch');
 
     pdcWMove          := pdcGetProcAddr('wmove');
-
+    pdcWNOutRefresh   := pdcGetProcAddr('wnoutrefresh');
+    pdcWPrintW        := pdcGetProcAddr('wprintw');
+    pdcWRedrawLn      := pdcGetProcAddr('wredrawln');
     pdcWRefresh       := pdcGetProcAddr('wrefresh');
 
     // Quasi-standard
