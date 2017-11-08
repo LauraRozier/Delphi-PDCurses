@@ -781,17 +781,26 @@ var
   pdcMvWInsStr:      function(aWindow: PWindow; aY, aX: LongInt;
                               const aText: PAnsiChar): LongInt; cdecl;
   pdcMvWInCh:        function(aWindow: PWindow; aY, aX: LongInt): TChType; cdecl;
-{
-PDCEX int     mvwinnstr(WINDOW *, int, int, char *, int);
-PDCEX int     mvwinsch(WINDOW *, int, int, chtype);
-PDCEX int     mvwinsnstr(WINDOW *, int, int, const char *, int);
-PDCEX int     mvwinsstr(WINDOW *, int, int, const char *);
-PDCEX int     mvwinstr(WINDOW *, int, int, char *);
-PDCEX int     mvwin(WINDOW *, int, int);
-PDCEX int     mvwprintw(WINDOW *, int, int, const char *, ...);
-PDCEX int     mvwscanw(WINDOW *, int, int, const char *, ...);
-PDCEX int     mvwvline(WINDOW *, int, int, chtype, int);
-}
+  pdcMvWInNStr:      function(aWindow: PWindow; aY, aX: LongInt;
+                              aText: PAnsiChar; aCount: LongInt): LongInt; cdecl;
+  pdcMvWInsCh:       function(aWindow: PWindow; aY, aX: LongInt;
+                              aChar: TChType): LongInt; cdecl;
+  pdcMvWInsNStr:     function(aWindow: PWindow; aY, aX: LongInt;
+                              const aText: PAnsiChar;
+                              aCount: LongInt): LongInt; cdecl;
+  pdcMvWInsStr:      function(aWindow: PWindow; aY, aX: LongInt;
+                              const aText: PAnsiChar): LongInt; cdecl;
+  pdcMvWInStr:       function(aWindow: PWindow; aY, aX: LongInt;
+                              aText: PAnsiChar): LongInt; cdecl;
+  pdcMvWIn:          function(aWindow: PWindow; aY, aX: LongInt): LongInt; cdecl;
+  pdcMvWPrintW:      function(aWindow: PWindow; aY, aX: LongInt;
+                              const aText: PAnsiChar;
+                              const aArgs: array of const): LongInt; cdecl;
+  pdcMvWScanW:       function(aWindow: PWindow; aY, aX: LongInt;
+                              const aText: PAnsiChar;
+                              const aArgs: array of const): LongInt; cdecl;
+  pdcMvWVLine:       function(aWindow: PWindow; aY, aX: LongInt; aChar: TChType;
+                              aCount: LongInt): LongInt; cdecl;
   pdcNapMS:          function(aTime: LongInt): LongInt; cdecl;
   pdcNewPad:         function(aLineCount, aColCount: LongInt): PWindow; cdecl;
   pdcNewTerm:        function(const aType: PAnsiChar;
@@ -1720,7 +1729,15 @@ begin
     pdcMvWInsNStr     := pdcGetProcAddr('mvwinchnstr');
     pdcMvWInsStr      := pdcGetProcAddr('mvwinchstr');
     pdcMvWInCh        := pdcGetProcAddr('mvwinch');
-
+    pdcMvWInNStr      := pdcGetProcAddr('mvwinnstr');
+    pdcMvWInsCh       := pdcGetProcAddr('mvwinsch');
+    pdcMvWInsNStr     := pdcGetProcAddr('mvwinsnstr');
+    pdcMvWInsStr      := pdcGetProcAddr('mvwinsstr');
+    pdcMvWInStr       := pdcGetProcAddr('mvwinstr');
+    pdcMvWIn          := pdcGetProcAddr('mvwin');
+    pdcMvWPrintW      := pdcGetProcAddr('mvwprintw');
+    pdcMvWScanW       := pdcGetProcAddr('mvwscanw');
+    pdcMvWVLine       := pdcGetProcAddr('mvwvline');
     pdcNapMS          := pdcGetProcAddr('napms');
     pdcNewPad         := pdcGetProcAddr('newpad');
     pdcNewTerm        := pdcGetProcAddr('newterm');
