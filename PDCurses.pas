@@ -834,52 +834,44 @@ var
   pdcRaw:            function: LongInt; cdecl;
   pdcRedrawWin:      function(aWindow: PWindow): LongInt; cdecl;
   pdcRefresh:        function: LongInt; cdecl;
-{
-PDCEX int     reset_prog_mode(void);
-PDCEX int     reset_shell_mode(void);
-PDCEX int     resetty(void);
-PDCEX int     ripoffline(int, int (*)(WINDOW *, int));
-}
-{
-PDCEX int     savetty(void);
-PDCEX int     scanw(const char *, ...);
-PDCEX int     scr_dump(const char *);
-PDCEX int     scr_init(const char *);
-PDCEX int     scr_restore(const char *);
-PDCEX int     scr_set(const char *);
-}
-{
-PDCEX int     scrl(int);
-PDCEX int     scroll(WINDOW *);
-PDCEX int     scrollok(WINDOW *, bool);
-PDCEX SCREEN *set_term(SCREEN *);
-PDCEX int     setscrreg(int, int);
-}
-{
-PDCEX int     slk_attroff(const chtype);
-PDCEX int     slk_attr_off(const attr_t, void *);
-PDCEX int     slk_attron(const chtype);
-PDCEX int     slk_attr_on(const attr_t, void *);
-PDCEX int     slk_attrset(const chtype);
-PDCEX int     slk_attr_set(const attr_t, short, void *);
-}
-{
-PDCEX int     slk_clear(void);
-PDCEX int     slk_color(short);
-PDCEX int     slk_init(int);
-PDCEX char   *slk_label(int);
-}
-{
-PDCEX int     slk_noutrefresh(void);
-PDCEX int     slk_refresh(void);
-PDCEX int     slk_restore(void);
-PDCEX int     slk_set(int, const char *, int);
-PDCEX int     slk_touch(void);
-}
-{
-PDCEX int     standend(void);
-PDCEX int     standout(void);
-}
+  pdcResetProgMode:  function: LongInt; cdecl;
+  pdcResetShellMode: function: LongInt; cdecl;
+  pdcResetTy:        function: LongInt; cdecl;
+  pdcRopOffline:     function(aLine: LongInt;
+                              aInitFunc: TWinInit): LongInt; cdecl;
+  pdcSaveTty:        function: LongInt; cdecl;
+  pdcScanW:          function(const aFormat: PAnsiChar;
+                              const aArgs: array of const): LongInt; cdecl;
+  pdcScrDump:        function(const aFilename: PAnsiChar): LongInt; cdecl;
+  pdcScrInit:        function(const aFilename: PAnsiChar): LongInt; cdecl;
+  pdcScrRestore:     function(const aFilename: PAnsiChar): LongInt; cdecl;
+  pdcScrSet:         function(const aFilename: PAnsiChar): LongInt; cdecl;
+  pdcScrl:           function(aCount: LongInt): LongInt; cdecl;
+  pdcScroll:         function(aWindow: PWindow): LongInt; cdecl;
+  pdcScrollOk:       function(aWindow: PWindow; aFlag: TBool): LongInt; cdecl;
+  pdcSetTerm:        function(aNewScreen: PScreen): PScreen; cdecl;
+  pdcSetScrReg:      function(aTop, aBottom: LongInt): LongInt; cdecl;
+  pdcSlkAttrOff:     function(const aAttrs: TChType): LongInt; cdecl;
+  pdcSlkAttr_Off:    function(const aAttrs: TAttr;
+                              aOpts: Pointer): LongInt; cdecl;
+  pdcSlkAttrOn:      function(const aAttrs: TChType): LongInt; cdecl;
+  pdcSlkAttr_On:     function(const aAttrs: TAttr;
+                              aOpts: Pointer): LongInt; cdecl;
+  pdcSlkAttrSet:     function(const aAttrs: TChType): LongInt; cdecl;
+  pdcSlkAttr_Set:    function(const aAttrs: TAttr; aColorPair: SmallInt;
+                              aOpts: Pointer): LongInt; cdecl;
+  pdcSlkClear:       function: LongInt; cdecl;
+  pdcSlkColor:       function(aColorPair: ShortInt): LongInt; cdecl;
+  pdcSlkInit:        function(aFormat: LongInt): LongInt; cdecl;
+  pdcSlkLabel:       function(aLabelId: LongInt): PAnsiChar; cdecl;
+  pdcSlkNOutRefresh: function: LongInt; cdecl;
+  pdcSlkRefresh:     function: LongInt; cdecl;
+  pdcSlkRestore:     function: LongInt; cdecl;
+  pdcSlkSet:         function(aLabelId: LongInt; aText: PAnsiChar;
+                              aJustify: LongInt): LongInt; cdecl;
+  pdcSlkTouch:       function: LongInt; cdecl;
+  pdcStandEnd:       function: LongInt; cdecl;
+  pdcStandOut:       function: LongInt; cdecl;
   pdcStartColor:     function: LongInt; cdecl;
   pdcSubPad:         function(aWindow: PWindow; aLineCount, aColCount,
                               aBegY, aBegX: LongInt): PWindow; cdecl;
@@ -1817,7 +1809,38 @@ begin
     @pdcRaw            := pdcGetProcAddr('raw');
     @pdcRedrawWin      := pdcGetProcAddr('redrawwin');
     @pdcRefresh        := pdcGetProcAddr('refresh');
-
+    @pdcResetProgMode  := pdcGetProcAddr('reset_prog_mode');
+    @pdcResetShellMode := pdcGetProcAddr('reset_shell_mode');
+    @pdcResetTy        := pdcGetProcAddr('resetty');
+    @pdcRopOffline     := pdcGetProcAddr('ripoffline');
+    @pdcSaveTty        := pdcGetProcAddr('savetty');
+    @pdcScanW          := pdcGetProcAddr('scanw');
+    @pdcScrDump        := pdcGetProcAddr('scr_dump');
+    @pdcScrInit        := pdcGetProcAddr('scr_init');
+    @pdcScrRestore     := pdcGetProcAddr('scr_restore');
+    @pdcScrSet         := pdcGetProcAddr('scr_set');
+    @pdcScrl           := pdcGetProcAddr('scrl');
+    @pdcScroll         := pdcGetProcAddr('scroll');
+    @pdcScrollOk       := pdcGetProcAddr('scrollok');
+    @pdcSetTerm        := pdcGetProcAddr('set_term');
+    @pdcSetScrReg      := pdcGetProcAddr('setscrreg');
+    @pdcSlkAttrOff     := pdcGetProcAddr('slk_attroff');
+    @pdcSlkAttr_Off    := pdcGetProcAddr('slk_attr_off');
+    @pdcSlkAttrOn      := pdcGetProcAddr('slk_attron');
+    @pdcSlkAttr_On     := pdcGetProcAddr('slk_attr_on');
+    @pdcSlkAttrSet     := pdcGetProcAddr('slk_attrset');
+    @pdcSlkAttr_Set    := pdcGetProcAddr('slk_attr_set');
+    @pdcSlkClear       := pdcGetProcAddr('slk_clear');
+    @pdcSlkColor       := pdcGetProcAddr('slk_color');
+    @pdcSlkInit        := pdcGetProcAddr('slk_init');
+    @pdcSlkLabel       := pdcGetProcAddr('slk_label');
+    @pdcSlkNOutRefresh := pdcGetProcAddr('slk_noutrefresh');
+    @pdcSlkRefresh     := pdcGetProcAddr('slk_refresh');
+    @pdcSlkRestore     := pdcGetProcAddr('slk_restore');
+    @pdcSlkSet         := pdcGetProcAddr('slk_set');
+    @pdcSlkTouch       := pdcGetProcAddr('slk_touch');
+    @pdcStandEnd       := pdcGetProcAddr('standend');
+    @pdcStandOut       := pdcGetProcAddr('standout');
     @pdcStartColor     := pdcGetProcAddr('start_color');
     @pdcSubPad         := pdcGetProcAddr('subpad');
     @pdcSubWin         := pdcGetProcAddr('subwin');
