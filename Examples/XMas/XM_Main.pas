@@ -212,10 +212,10 @@ begin
   pdcOverlay(treescrn, treescrn3);
 
   // balls
-  pdcMvWAddCh(treescrn3, 4, 18, TChType(' '));
+  pdcMvWAddCh(treescrn3, 4, 16, TChType(' '));
   pdcMvWAddCh(treescrn3, 7, 6, TChType(' '));
   pdcMvWAddCh(treescrn3, 8, 19, TChType(' '));
-  pdcMvWAddCh(treescrn3, 11, 12, TChType(' '));
+  pdcMvWAddCh(treescrn3, 11, 22, TChType(' '));
 
   // star
   pdcMvWAddCh(treescrn3, 0, 12, TChType('*'));
@@ -306,10 +306,10 @@ begin
   pdcOverlay(treescrn, treescrn6);
 
   // balls
-  pdcMvWAddCh(treescrn6, 6, 7, TChType(' '));
+  pdcMvWAddCh(treescrn6, 5, 7, TChType(' '));
   pdcMvWAddCh(treescrn6, 7, 18, TChType(' '));
   pdcMvWAddCh(treescrn6, 10, 4, TChType(' '));
-  pdcMvWAddCh(treescrn6, 11, 23, TChType(' '));
+  pdcMvWAddCh(treescrn6, 11, 22, TChType(' '));
 
   // star
   pdcMvWAddCh(treescrn6, 0, 12, TChType('*') OR A_STANDOUT);
@@ -337,7 +337,7 @@ begin
 
   // balls
   pdcMvWAddCh(treescrn7, 3, 15, TChType(' '));
-  pdcMvWAddCh(treescrn7, 6, 7, TChType(' '));
+  pdcMvWAddCh(treescrn7, 5, 7, TChType(' '));
   pdcMvWAddCh(treescrn7, 7, 18, TChType(' '));
   pdcMvWAddCh(treescrn7, 10, 4, TChType(' '));
   pdcMvWAddCh(treescrn7, 11, 22, TChType(' '));
@@ -798,11 +798,11 @@ begin
   pdcTouchWin(treescrn3);
 
   case cycle of
-    0: begin pdcOverlay(treescrn3, treescrn8); end;
-    1: begin pdcOverlay(treescrn4, treescrn8); end;
-    2: begin pdcOverlay(treescrn5, treescrn8); end;
-    3: begin pdcOverlay(treescrn6, treescrn8); end;
-    4: begin pdcOverlay(treescrn7, treescrn8); end;
+    0: begin pdcOverwrite(treescrn3, treescrn8); end;
+    1: begin pdcOverwrite(treescrn4, treescrn8); end;
+    2: begin pdcOverwrite(treescrn5, treescrn8); end;
+    3: begin pdcOverwrite(treescrn6, treescrn8); end;
+    4: begin pdcOverwrite(treescrn7, treescrn8); end;
   end;
 
   pdcWRefresh(treescrn8);
