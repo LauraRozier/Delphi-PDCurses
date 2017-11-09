@@ -839,32 +839,44 @@ PDCEX int     reset_prog_mode(void);
 PDCEX int     reset_shell_mode(void);
 PDCEX int     resetty(void);
 PDCEX int     ripoffline(int, int (*)(WINDOW *, int));
+}
+{
 PDCEX int     savetty(void);
 PDCEX int     scanw(const char *, ...);
 PDCEX int     scr_dump(const char *);
 PDCEX int     scr_init(const char *);
 PDCEX int     scr_restore(const char *);
 PDCEX int     scr_set(const char *);
+}
+{
 PDCEX int     scrl(int);
 PDCEX int     scroll(WINDOW *);
 PDCEX int     scrollok(WINDOW *, bool);
 PDCEX SCREEN *set_term(SCREEN *);
 PDCEX int     setscrreg(int, int);
+}
+{
 PDCEX int     slk_attroff(const chtype);
 PDCEX int     slk_attr_off(const attr_t, void *);
 PDCEX int     slk_attron(const chtype);
 PDCEX int     slk_attr_on(const attr_t, void *);
 PDCEX int     slk_attrset(const chtype);
 PDCEX int     slk_attr_set(const attr_t, short, void *);
+}
+{
 PDCEX int     slk_clear(void);
 PDCEX int     slk_color(short);
 PDCEX int     slk_init(int);
 PDCEX char   *slk_label(int);
+}
+{
 PDCEX int     slk_noutrefresh(void);
 PDCEX int     slk_refresh(void);
 PDCEX int     slk_restore(void);
 PDCEX int     slk_set(int, const char *, int);
 PDCEX int     slk_touch(void);
+}
+{
 PDCEX int     standend(void);
 PDCEX int     standout(void);
 }
@@ -955,6 +967,8 @@ PDCEX int     wchgat(WINDOW *, int, attr_t, short, const void *);
 PDCEX int     wclear(WINDOW *);
 PDCEX int     wclrtobot(WINDOW *);
 PDCEX int     wclrtoeol(WINDOW *);
+}
+{
 PDCEX int     wcolor_set(WINDOW *, short, void *);
 PDCEX void    wcursyncup(WINDOW *);
 PDCEX int     wdelch(WINDOW *);
@@ -970,6 +984,8 @@ PDCEX int     whline(WINDOW *, chtype, int);
 PDCEX int     winchnstr(WINDOW *, chtype *, int);
 PDCEX int     winchstr(WINDOW *, chtype *);
 PDCEX chtype  winch(WINDOW *);
+}
+{
 PDCEX int     winnstr(WINDOW *, char *, int);
 PDCEX int     winsch(WINDOW *, chtype);
 PDCEX int     winsdelln(WINDOW *, int);
@@ -1006,17 +1022,23 @@ PDCEX int     addwstr(const wchar_t *);
 PDCEX int     add_wch(const cchar_t *);
 PDCEX int     add_wchnstr(const cchar_t *, int);
 PDCEX int     add_wchstr(const cchar_t *);
+}
+{
 PDCEX int     border_set(const cchar_t *, const cchar_t *, const cchar_t *,
                    const cchar_t *, const cchar_t *, const cchar_t *,
                    const cchar_t *, const cchar_t *);
 PDCEX int     box_set(WINDOW *, const cchar_t *, const cchar_t *);
 PDCEX int     echo_wchar(const cchar_t *);
 PDCEX int     erasewchar(wchar_t *);
+}
+{
 PDCEX int     getbkgrnd(cchar_t *);
 PDCEX int     getcchar(const cchar_t *, wchar_t *, attr_t *, short *, void *);
 PDCEX int     getn_wstr(wint_t *, int);
 PDCEX int     get_wch(wint_t *);
 PDCEX int     get_wstr(wint_t *);
+}
+{
 PDCEX int     hline_set(const cchar_t *, int);
 PDCEX int     innwstr(wchar_t *, int);
 PDCEX int     ins_nwstr(const wchar_t *, int);
@@ -1026,17 +1048,25 @@ PDCEX int     inwstr(wchar_t *);
 PDCEX int     in_wch(cchar_t *);
 PDCEX int     in_wchnstr(cchar_t *, int);
 PDCEX int     in_wchstr(cchar_t *);
+}
+{
 PDCEX char   *key_name(wchar_t);
 PDCEX int     killwchar(wchar_t *);
+}
+{
 PDCEX int     mvaddnwstr(int, int, const wchar_t *, int);
 PDCEX int     mvaddwstr(int, int, const wchar_t *);
 PDCEX int     mvadd_wch(int, int, const cchar_t *);
 PDCEX int     mvadd_wchnstr(int, int, const cchar_t *, int);
 PDCEX int     mvadd_wchstr(int, int, const cchar_t *);
+}
+{
 PDCEX int     mvgetn_wstr(int, int, wint_t *, int);
 PDCEX int     mvget_wch(int, int, wint_t *);
 PDCEX int     mvget_wstr(int, int, wint_t *);
 PDCEX int     mvhline_set(int, int, const cchar_t *, int);
+}
+{
 PDCEX int     mvinnwstr(int, int, wchar_t *, int);
 PDCEX int     mvins_nwstr(int, int, const wchar_t *, int);
 PDCEX int     mvins_wch(int, int, const cchar_t *);
@@ -1045,16 +1075,22 @@ PDCEX int     mvinwstr(int, int, wchar_t *);
 PDCEX int     mvin_wch(int, int, cchar_t *);
 PDCEX int     mvin_wchnstr(int, int, cchar_t *, int);
 PDCEX int     mvin_wchstr(int, int, cchar_t *);
+}
+{
 PDCEX int     mvvline_set(int, int, const cchar_t *, int);
 PDCEX int     mvwaddnwstr(WINDOW *, int, int, const wchar_t *, int);
 PDCEX int     mvwaddwstr(WINDOW *, int, int, const wchar_t *);
 PDCEX int     mvwadd_wch(WINDOW *, int, int, const cchar_t *);
 PDCEX int     mvwadd_wchnstr(WINDOW *, int, int, const cchar_t *, int);
 PDCEX int     mvwadd_wchstr(WINDOW *, int, int, const cchar_t *);
+}
+{
 PDCEX int     mvwgetn_wstr(WINDOW *, int, int, wint_t *, int);
 PDCEX int     mvwget_wch(WINDOW *, int, int, wint_t *);
 PDCEX int     mvwget_wstr(WINDOW *, int, int, wint_t *);
 PDCEX int     mvwhline_set(WINDOW *, int, int, const cchar_t *, int);
+}
+{
 PDCEX int     mvwinnwstr(WINDOW *, int, int, wchar_t *, int);
 PDCEX int     mvwins_nwstr(WINDOW *, int, int, const wchar_t *, int);
 PDCEX int     mvwins_wch(WINDOW *, int, int, const cchar_t *);
@@ -1064,27 +1100,37 @@ PDCEX int     mvwin_wchnstr(WINDOW *, int, int, cchar_t *, int);
 PDCEX int     mvwin_wchstr(WINDOW *, int, int, cchar_t *);
 PDCEX int     mvwinwstr(WINDOW *, int, int, wchar_t *);
 PDCEX int     mvwvline_set(WINDOW *, int, int, const cchar_t *, int);
+}
+{
 PDCEX int     pecho_wchar(WINDOW *, const cchar_t*);
 PDCEX int     setcchar(cchar_t*, const wchar_t*, const attr_t, short, const void*);
 PDCEX int     slk_wset(int, const wchar_t *, int);
 PDCEX int     unget_wch(const wchar_t);
 PDCEX int     vline_set(const cchar_t *, int);
+}
+{
 PDCEX int     waddnwstr(WINDOW *, const wchar_t *, int);
 PDCEX int     waddwstr(WINDOW *, const wchar_t *);
 PDCEX int     wadd_wch(WINDOW *, const cchar_t *);
 PDCEX int     wadd_wchnstr(WINDOW *, const cchar_t *, int);
 PDCEX int     wadd_wchstr(WINDOW *, const cchar_t *);
+}
+{
 PDCEX int     wbkgrnd(WINDOW *, const cchar_t *);
 PDCEX void    wbkgrndset(WINDOW *, const cchar_t *);
 PDCEX int     wborder_set(WINDOW *, const cchar_t *, const cchar_t *,
                      const cchar_t *, const cchar_t *, const cchar_t *,
                      const cchar_t *, const cchar_t *, const cchar_t *);
 PDCEX int     wecho_wchar(WINDOW *, const cchar_t *);
+}
+{
 PDCEX int     wgetbkgrnd(WINDOW *, cchar_t *);
 PDCEX int     wgetn_wstr(WINDOW *, wint_t *, int);
 PDCEX int     wget_wch(WINDOW *, wint_t *);
 PDCEX int     wget_wstr(WINDOW *, wint_t *);
 PDCEX int     whline_set(WINDOW *, const cchar_t *, int);
+}
+{
 PDCEX int     winnwstr(WINDOW *, wchar_t *, int);
 PDCEX int     wins_nwstr(WINDOW *, const wchar_t *, int);
 PDCEX int     wins_wch(WINDOW *, const cchar_t *);
@@ -1156,6 +1202,8 @@ var
 PDCEX int     addrawch(chtype);
 PDCEX int     insrawch(chtype);
 PDCEX bool    is_termresized(void);
+}
+{
 PDCEX int     mvaddrawch(int, int, chtype);
 PDCEX int     mvdeleteln(int, int);
 PDCEX int     mvinsertln(int, int);
@@ -1164,6 +1212,8 @@ PDCEX int     mvwaddrawch(WINDOW *, int, int, chtype);
 PDCEX int     mvwdeleteln(WINDOW *, int, int);
 PDCEX int     mvwinsertln(WINDOW *, int, int);
 PDCEX int     mvwinsrawch(WINDOW *, int, int, chtype);
+}
+{
 PDCEX int     raw_output(bool);
 PDCEX int     resize_term(int, int);
 PDCEX WINDOW *resize_window(WINDOW *, int, int);
