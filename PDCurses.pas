@@ -899,25 +899,7 @@ var
 {$IFDEF ASSEMBLER}
 {
   Functions used to overcome the inability of using C(++)'s va_list type
-
-  NOTE:
-  Don not use any method prefixed by 'dnu_', these require to be
-  called through TVarArgCaller, which is already done for you in
-  the methods prefixed by 'pdc_'.
 }
-function dnuVW_PrintW(aWindow: PWindow; const aFormat: PAnsiChar;
-                      va_list: Pointer): LongInt; cdecl; library;
-  external LIBPDCURSES name 'vw_printw';
-function dnuVWPrintW(aWindow: PWindow; const aFormat: PAnsiChar;
-                     va_list: Pointer): LongInt; cdecl; library;
-  external LIBPDCURSES name 'vwprintw';
-function dnuVW_ScanW(aWindow: PWindow; const aFormat: PAnsiChar;
-                     va_list: Pointer): LongInt; cdecl; library;
-  external LIBPDCURSES name 'vw_scanw';
-function dnuVWScanW(aWindow: PWindow; const aFormat: PAnsiChar;
-                    va_list: Pointer): LongInt; cdecl; library;
-  external LIBPDCURSES name 'vwscanw';
-
 function pdcVW_PrintW(aWindow: PWindow; const aFormat: PAnsiChar;
                       const aArgs: array of const): LongInt;
 function pdcVWPrintW(aWindow: PWindow; const aFormat: PAnsiChar;
@@ -1505,13 +1487,15 @@ end;
 {
   Functions used to overcome the inability of using C(++)'s va_list type
 }
-{$WARN SYMBOL_LIBRARY OFF}
 function pdcVW_PrintW(aWindow: PWindow; const aFormat: PAnsiChar;
                       const aArgs: array of const): LongInt;
 var
    retVal: PLongInt;
+   func: function(aWindow: PWindow; const aFormat: PAnsiChar;
+                  va_list: Pointer): LongInt; cdecl;
 begin
-  retVal := CallVA_ListFunction(@dnuVW_PrintW, aWindow, aFormat, aArgs);
+  @func  := pdcGetProcAddr('vw_printw');
+  retVal := CallVA_ListFunction(@func, aWindow, aFormat, aArgs);
   Result := retVal^;
 end;
 
@@ -1519,8 +1503,11 @@ function pdcVWPrintW(aWindow: PWindow; const aFormat: PAnsiChar;
                      const aArgs: array of const): LongInt;
 var
    retVal: PLongInt;
+   func: function(aWindow: PWindow; const aFormat: PAnsiChar;
+                  va_list: Pointer): LongInt; cdecl;
 begin
-  retVal := CallVA_ListFunction(@dnuVWPrintW, aWindow, aFormat, aArgs);
+  @func  := pdcGetProcAddr('vwprintw');
+  retVal := CallVA_ListFunction(@func, aWindow, aFormat, aArgs);
   Result := retVal^;
 end;
 
@@ -1528,8 +1515,11 @@ function pdcVW_ScanW(aWindow: PWindow; const aFormat: PAnsiChar;
                      const aArgs: array of const): LongInt;
 var
    retVal: PLongInt;
+   func: function(aWindow: PWindow; const aFormat: PAnsiChar;
+                  va_list: Pointer): LongInt; cdecl;
 begin
-  retVal := CallVA_ListFunction(@dnuVW_ScanW, aWindow, aFormat, aArgs);
+  @func  := pdcGetProcAddr('vw_scanw');
+  retVal := CallVA_ListFunction(@func, aWindow, aFormat, aArgs);
   Result := retVal^;
 end;
 
@@ -1537,11 +1527,13 @@ function pdcVWScanW(aWindow: PWindow; const aFormat: PAnsiChar;
                     const aArgs: array of const): LongInt;
 var
    retVal: PLongInt;
+   func: function(aWindow: PWindow; const aFormat: PAnsiChar;
+                  va_list: Pointer): LongInt; cdecl;
 begin
-  retVal := CallVA_ListFunction(@dnuVWScanW, aWindow, aFormat, aArgs);
+  @func  := pdcGetProcAddr('vwscanw');
+  retVal := CallVA_ListFunction(@func, aWindow, aFormat, aArgs);
   Result := retVal^;
 end;
-{$WARN SYMBOL_LIBRARY DEFAULT}
 {$ENDIF ASSEMBLER}
 
 {
