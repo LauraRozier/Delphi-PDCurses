@@ -12,6 +12,9 @@
         <Projects Include="NewDemo\NewDemo.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="XMas\XMas.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -47,14 +50,23 @@
     <Target Name="NewDemo:Make">
         <MSBuild Projects="NewDemo\NewDemo.dproj" Targets="Make"/>
     </Target>
+    <Target Name="XMas">
+        <MSBuild Projects="XMas\XMas.dproj"/>
+    </Target>
+    <Target Name="XMas:Clean">
+        <MSBuild Projects="XMas\XMas.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="XMas:Make">
+        <MSBuild Projects="XMas\XMas.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="Firework;Rain;NewDemo"/>
+        <CallTarget Targets="Firework;Rain;NewDemo;XMas"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="Firework:Clean;Rain:Clean;NewDemo:Clean"/>
+        <CallTarget Targets="Firework:Clean;Rain:Clean;NewDemo:Clean;XMas:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="Firework:Make;Rain:Make;NewDemo:Make"/>
+        <CallTarget Targets="Firework:Make;Rain:Make;NewDemo:Make;XMas:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>
