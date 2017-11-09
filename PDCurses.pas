@@ -934,40 +934,42 @@ var
                               aOpts: Pointer): LongInt; cdecl;
   pdcWBkgdSet:       procedure(aWindow: PWindow; aColor: TChType); cdecl;
   pdcWBkgd:          function(aWindow: PWindow; aColor: TChType): LongInt; cdecl;
-{
-PDCEX int     wborder(WINDOW *, chtype, chtype, chtype, chtype,
-                       chtype, chtype, chtype, chtype);
-PDCEX int     wchgat(WINDOW *, int, attr_t, short, const void *);
-PDCEX int     wclear(WINDOW *);
-PDCEX int     wclrtobot(WINDOW *);
-PDCEX int     wclrtoeol(WINDOW *);
-}
-{
-PDCEX int     wcolor_set(WINDOW *, short, void *);
-PDCEX void    wcursyncup(WINDOW *);
-PDCEX int     wdelch(WINDOW *);
-PDCEX int     wdeleteln(WINDOW *);
-PDCEX int     wechochar(WINDOW *, const chtype);
-}
+  pdcWBorder:        function(aWindow: PWindow; aLS, aRS, aTS, aBS, aTL, aTR,
+                              aBL, aBR: TCharType): LongInt; cdecl;
+  pdcWChgAt:         function(aWindow: PWindow; aCount: LongInt;
+                              aAttr: TAttr; aColor: SmallInt;
+                              const aOpts: Pointer): LongInt; cdecl;
+  pdcWClear:         function(aWindow: PWindow): LongInt; cdecl;
+  pdcWClrToBot:      function(aWindow: PWindow): LongInt; cdecl;
+  pdcWClrToEOL:      function(aWindow: PWindow): LongInt; cdecl;
+  pdcWColorSet:      function(aWindow: PWindow; aColorPair: SmallInt;
+                              aOpts: Pointer): LongInt; cdecl;
+  pdcWCurSyncUp:     procedure(aWindow: PWindow); cdecl;
+  pdcWDelCh:         function(aWindow: PWindow): LongInt; cdecl;
+  pdcWDeleteLn:      function(aWindow: PWindow): LongInt; cdecl;
+  pdcWEchoChar:      function(aWindow: PWindow;
+                              const aChar: TChType): LongInt; cdecl;
   pdcWErase:         function(aWindow: PWindow): LongInt; cdecl;
   pdcWGetCh:         function(aWindow: PWindow): LongInt; cdecl;
-{
-PDCEX int     wgetnstr(WINDOW *, char *, int);
-PDCEX int     wgetstr(WINDOW *, char *);
-PDCEX int     whline(WINDOW *, chtype, int);
-PDCEX int     winchnstr(WINDOW *, chtype *, int);
-PDCEX int     winchstr(WINDOW *, chtype *);
-PDCEX chtype  winch(WINDOW *);
-}
-{
-PDCEX int     winnstr(WINDOW *, char *, int);
-PDCEX int     winsch(WINDOW *, chtype);
-PDCEX int     winsdelln(WINDOW *, int);
-PDCEX int     winsertln(WINDOW *);
-PDCEX int     winsnstr(WINDOW *, const char *, int);
-PDCEX int     winsstr(WINDOW *, const char *);
-PDCEX int     winstr(WINDOW *, char *);
-}
+  pdcWGetNStr:       function(aWindow: PWindow; aText: PAnsiChar;
+                              aCount: LongInt): LongInt; cdecl;
+  pdcWGetStr:        function(aWindow: PWindow; aText: PAnsiChar): LongInt; cdecl;
+  pdcWHLine:         function(aWindow: PWindow; aChar: TChType;
+                              aCount: LongInt): LongInt; cdecl;
+  pdcWInChNStr:      function(aWindow: PWindow; aChar: PChType;
+                              aCount: LongInt): LongInt; cdecl;
+  pdcWInChStr:       function(aWindow: PWindow; aChar: PChType): LongInt; cdecl;
+  pdcWInCh:          function(aWindow: PWindow): TChType; cdecl;
+  pdcWInNStr:        function(aWindow: PWindow; aText: PAnsiChar;
+                              aCount: LongInt): LongInt; cdecl;
+  pdcWInsCh:         function(aWindow: PWindow; aChar: TChType): LongInt; cdecl;
+  pdcWInsDelLn:      function(aWindow: PWindow; aCount: LongInt): LongInt; cdecl;
+  pdcWInsertLn:      function(aWindow: PWindow): LongInt; cdecl;
+  pdcWInsNStr:       function(aWindow: PWindow; const aText: PAnsiChar;
+                              aCount: LongInt): LongInt; cdecl;
+  pdcWInsStr:        function(aWindow: PWindow;
+                              const aText: PAnsiChar): LongInt; cdecl;
+  pdcWInStr:         function(aWindow: PWindow; aText: PAnsiChar): LongInt; cdecl;
   pdcWMove:          function(aWindow: PWindow; aY, aX: LongInt): LongInt; cdecl;
   pdcWNOutRefresh:   function(aWindow: PWindow; aY, aX: LongInt): LongInt; cdecl;
   pdcWPrintW:        function(aWindow: PWindow; aFormat: PAnsiChar;
@@ -975,18 +977,20 @@ PDCEX int     winstr(WINDOW *, char *);
   pdcWRedrawLn:      function(aWindow: PWindow;
                               begLine, aCount: LongInt): LongInt; cdecl;
   pdcWRefresh:       function(aWindow: PWindow): LongInt; cdecl;
-{
-PDCEX int     wscanw(WINDOW *, const char *, ...);
-PDCEX int     wscrl(WINDOW *, int);
-PDCEX int     wsetscrreg(WINDOW *, int, int);
-PDCEX int     wstandend(WINDOW *);
-PDCEX int     wstandout(WINDOW *);
-PDCEX void    wsyncdown(WINDOW *);
-PDCEX void    wsyncup(WINDOW *);
-PDCEX void    wtimeout(WINDOW *, int);
-PDCEX int     wtouchln(WINDOW *, int, int, int);
-PDCEX int     wvline(WINDOW *, chtype, int);
-}
+  pdcWScanW:         function(aWindow: PWindow; const aFormat: PAnsiChar;
+                              const aArgs: array of const): LongInt; cdecl;
+  pdcWScrl:          function(aWindow: PWindow; aCount: LongInt): LongInt; cdecl;
+  pdcWSetScrReg:     function(aWindow: PWindow;
+                              aTop, aBottom: LongInt): LongInt; cdecl;
+  pdcWStandEnd:      function(aWindow: PWindow): LongInt; cdecl;
+  pdcWStandOut:      function(aWindow: PWindow): LongInt; cdecl;
+  pdcWSyncDown:      procedure(aWindow: PWindow); cdecl;
+  pdcWSyncUp:        procedure(aWindow: PWindow); cdecl;
+  pdcWTimeout:       procedure(aWindow: PWindow; aTime: LongInt); cdecl;
+  pdcWTouchLn:       function(aWindow: PWindow;
+                               aY, aX, aChanged: LongInt): LongInt; cdecl;
+  pdcWVLine:         function(aWindow: PWindow; aChar: TChType;
+                              aCount: LongInt): LongInt; cdecl;
 
 // Wide-character functions
 {$IFDEF PDC_WIDE}
@@ -1851,7 +1855,7 @@ begin
     @pdcVidPutS        := pdcGetProcAddr('vidputs');
     @pdcVid_PutS       := pdcGetProcAddr('vid_puts');
     @pdcVLine          := pdcGetProcAddr('vline');
-
+    // The va_list methods are handled elsewhere
     @pdcWAddChNStr     := pdcGetProcAddr('waddchnstr');
     @pdcWAddChStr      := pdcGetProcAddr('waddchstr');
     @pdcWAddCh         := pdcGetProcAddr('waddch');
@@ -1866,15 +1870,50 @@ begin
     @pdcWAttr_Set      := pdcGetProcAddr('wattr_set');
     @pdcWBkgdSet       := pdcGetProcAddr('wbkgdset');
     @pdcWBkgd          := pdcGetProcAddr('wbkgd');
-
+    @pdcWBorder        := pdcGetProcAddr('wborder');
+    @pdcWChgAt         := pdcGetProcAddr('wchgat');
+    @pdcWClear         := pdcGetProcAddr('wclear');
+    @pdcWClrToBot      := pdcGetProcAddr('wclrtobot');
+    @pdcWClrToEOL      := pdcGetProcAddr('wclrtoeol');
+    @pdcWColorSet      := pdcGetProcAddr('wcolor_set');
+    @pdcWCurSyncUp     := pdcGetProcAddr('wcursyncup');
+    @pdcWDelCh         := pdcGetProcAddr('wdelch');
+    @pdcWDeleteLn      := pdcGetProcAddr('wdeleteln');
+    @pdcWEchoChar      := pdcGetProcAddr('wechochar');
     @pdcWErase         := pdcGetProcAddr('werase');
     @pdcWGetCh         := pdcGetProcAddr('wgetch');
-
+    @pdcWGetNStr       := pdcGetProcAddr('wgetnstr');
+    @pdcWGetStr        := pdcGetProcAddr('wgetstr');
+    @pdcWHLine         := pdcGetProcAddr('whline');
+    @pdcWInChNStr      := pdcGetProcAddr('winchnstr');
+    @pdcWInChStr       := pdcGetProcAddr('winchstr');
+    @pdcWInCh          := pdcGetProcAddr('winch');
+    @pdcWInNStr        := pdcGetProcAddr('winnstr');
+    @pdcWInsCh         := pdcGetProcAddr('winsch');
+    @pdcWInsDelLn      := pdcGetProcAddr('winsdelln');
+    @pdcWInsertLn      := pdcGetProcAddr('winsertln');
+    @pdcWInsNStr       := pdcGetProcAddr('winsnstr');
+    @pdcWInsStr        := pdcGetProcAddr('winsstr');
+    @pdcWInStr         := pdcGetProcAddr('winstr');
     @pdcWMove          := pdcGetProcAddr('wmove');
     @pdcWNOutRefresh   := pdcGetProcAddr('wnoutrefresh');
     @pdcWPrintW        := pdcGetProcAddr('wprintw');
     @pdcWRedrawLn      := pdcGetProcAddr('wredrawln');
     @pdcWRefresh       := pdcGetProcAddr('wrefresh');
+    @pdcWScanW         := pdcGetProcAddr('wscanw');
+    @pdcWScrl          := pdcGetProcAddr('wscrl');
+    @pdcWSetScrReg     := pdcGetProcAddr('wsetscrreg');
+    @pdcWStandEnd      := pdcGetProcAddr('wstandend');
+    @pdcWStandOut      := pdcGetProcAddr('wstandout');
+    @pdcWSyncDown      := pdcGetProcAddr('wsyncdown');
+    @pdcWSyncUp        := pdcGetProcAddr('wsyncup');
+    @pdcWTimeout       := pdcGetProcAddr('wtimeout');
+    @pdcWTouchLn       := pdcGetProcAddr('wtouchln');
+    @pdcWVLine         := pdcGetProcAddr('wvline');
+
+    // Wide-character functions
+{$IFDEF PDC_WIDE}
+{$ENDIF PDC_WIDE}
 
     // Quasi-standard
     @pdcGetAttrs        := pdcGetProcAddr('getattrs');
@@ -1952,10 +1991,11 @@ begin
   if PDCLibHandle <> nil then
 {$IFDEF MSWINDOWS}
     FreeLibrary(HMODULE(PDCLibHandle));
-{$ENDIF MSWINDOWS}
-{$IFDEF POSIX}
+{$ELSE MSWINDOWS}
+  {$IFDEF POSIX}
     dlclose(PDCLibHandle);
-{$ENDIF POSIX}
+  {$ENDIF POSIX}
+{$ENDIF MSWINDOWS}
 end;
 
 function pdcPortToStr(aPort: TPort): string;
