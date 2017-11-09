@@ -1022,6 +1022,8 @@ PDCEX int     innwstr(wchar_t *, int);
 PDCEX int     ins_nwstr(const wchar_t *, int);
 PDCEX int     ins_wch(const cchar_t *);
 PDCEX int     ins_wstr(const wchar_t *);
+}
+{
 PDCEX int     inwstr(wchar_t *);
 PDCEX int     in_wch(cchar_t *);
 PDCEX int     in_wchnstr(cchar_t *, int);
@@ -1049,6 +1051,8 @@ PDCEX int     mvinnwstr(int, int, wchar_t *, int);
 PDCEX int     mvins_nwstr(int, int, const wchar_t *, int);
 PDCEX int     mvins_wch(int, int, const cchar_t *);
 PDCEX int     mvins_wstr(int, int, const wchar_t *);
+}
+{
 PDCEX int     mvinwstr(int, int, wchar_t *);
 PDCEX int     mvin_wch(int, int, cchar_t *);
 PDCEX int     mvin_wchnstr(int, int, cchar_t *, int);
@@ -1074,6 +1078,8 @@ PDCEX int     mvwins_nwstr(WINDOW *, int, int, const wchar_t *, int);
 PDCEX int     mvwins_wch(WINDOW *, int, int, const cchar_t *);
 PDCEX int     mvwins_wstr(WINDOW *, int, int, const wchar_t *);
 PDCEX int     mvwin_wch(WINDOW *, int, int, cchar_t *);
+}
+{
 PDCEX int     mvwin_wchnstr(WINDOW *, int, int, cchar_t *, int);
 PDCEX int     mvwin_wchstr(WINDOW *, int, int, cchar_t *);
 PDCEX int     mvwinwstr(WINDOW *, int, int, wchar_t *);
@@ -1114,6 +1120,8 @@ PDCEX int     wins_nwstr(WINDOW *, const wchar_t *, int);
 PDCEX int     wins_wch(WINDOW *, const cchar_t *);
 PDCEX int     wins_wstr(WINDOW *, const wchar_t *);
 PDCEX int     winwstr(WINDOW *, wchar_t *);
+}
+{
 PDCEX int     win_wch(WINDOW *, cchar_t *);
 PDCEX int     win_wchnstr(WINDOW *, cchar_t *, int);
 PDCEX int     win_wchstr(WINDOW *, cchar_t *);
@@ -1176,6 +1184,16 @@ var
                                    aToScreen: TBool): TBool; cdecl;
 
 // PDCurses
+const
+  FUNCTION_KEY_SHUT_DOWN    = 0;
+  FUNCTION_KEY_PASTE        = 1;
+  FUNCTION_KEY_ENLARGE_FONT = 2;
+  FUNCTION_KEY_SHRINK_FONT  = 3;
+  FUNCTION_KEY_CHOOSE_FONT  = 4;
+  FUNCTION_KEY_ABORT        = 5;
+  PDC_MAX_FUNCTION_KEYS     = 6;
+
+var
   pdcAddRawCh:           function(aChar: TChType): LongInt; cdecl;
   pdcInsRawCh:           function(aChar: TChType): LongInt; cdecl;
   pdcIsTermResized:      function: TBool; cdecl;
@@ -1211,34 +1229,22 @@ var
   pdcSetBlink:           function(aFlag: TBool): LongInt; cdecl;
   pdcSetLineColor:       function(aColor: SmallInt): LongInt; cdecl;
   pdcSetTitle:           procedure(const aText: PAnsiChar); cdecl;
-
   pdcClearClipboard:     function: LongInt; cdecl;
   pdcFreeClipboard:      function(aContents: PAnsiChar): LongInt; cdecl;
   pdcGetClipboard:       function(aContents: PPAnsiChar;
                                   aLength: PLongInt): LongInt; cdecl;
   pdcSetClipboard:       function(const aContents: PAnsiChar;
                                   aLength: LongInt): LongInt; cdecl;
-
   pdcGetInputFd:         function: LongWord; cdecl;
   pdcGetKeyModifiers:    function: LongWord; cdecl;
   pdcReturnKeyModifiers: function(aFlag: TBool): LongInt; cdecl;
   pdcSaveKeyModifiers:   function(aFlag: TBool): LongInt; cdecl;
   pdcSetResizeLimits:    procedure(const aMinLineCount, aMaxLineCount,
                                    aMinColCount, aMaxColCount: LongInt); cdecl;
-
-const
-  FUNCTION_KEY_SHUT_DOWN    = 0;
-  FUNCTION_KEY_PASTE        = 1;
-  FUNCTION_KEY_ENLARGE_FONT = 2;
-  FUNCTION_KEY_SHRINK_FONT  = 3;
-  FUNCTION_KEY_CHOOSE_FONT  = 4;
-  FUNCTION_KEY_ABORT        = 5;
-  PDC_MAX_FUNCTION_KEYS     = 6;
-
-var
-  pdcSetFunctionKey: function(const aFunc: LongWord;
-                              const aNewKey: LongInt): LongInt; cdecl;
-  pdcXInitScr:       function(aArgA: LongInt; aArgV: PPAnsiChar): PWindow; cdecl;
+  pdcSetFunctionKey:     function(const aFunc: LongWord;
+                                  const aNewKey: LongInt): LongInt; cdecl;
+  pdcXInitScr:           function(aArgA: LongInt;
+                                  aArgV: PPAnsiChar): PWindow; cdecl;
 
 {
   Functions defined as macros
@@ -1986,19 +1992,15 @@ begin
     @pdcSetBlink           := pdcGetProcAddr('PDC_set_blink');
     @pdcSetLineColor       := pdcGetProcAddr('PDC_set_line_color');
     @pdcSetTitle           := pdcGetProcAddr('PDC_set_title');
-
     @pdcClearClipboard     := pdcGetProcAddr('PDC_clearclipboard');
     @pdcFreeClipboard      := pdcGetProcAddr('PDC_freeclipboard');
     @pdcGetClipboard       := pdcGetProcAddr('PDC_getclipboard');
     @pdcSetClipboard       := pdcGetProcAddr('PDC_setclipboard');
-
     @pdcGetInputFd         := pdcGetProcAddr('PDC_get_input_fd');
     @pdcGetKeyModifiers    := pdcGetProcAddr('PDC_get_key_modifiers');
     @pdcReturnKeyModifiers := pdcGetProcAddr('PDC_return_key_modifiers');
     @pdcSaveKeyModifiers   := pdcGetProcAddr('PDC_save_key_modifiers');
     @pdcSetResizeLimits    := pdcGetProcAddr('PDC_set_resize_limits');
-
-
     @pdcSetFunctionKey     := pdcGetProcAddr('PDC_set_function_key');
     @pdcXInitScr           := pdcGetProcAddr('Xinitscr');
   end else
