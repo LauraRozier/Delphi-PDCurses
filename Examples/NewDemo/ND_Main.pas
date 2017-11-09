@@ -97,10 +97,10 @@ begin
   pdcNoEcho;
 
   version    := pdcSValVersion;
-  versionStr := 'PDCurses ' + IntToStr(version.ver_major) +
+  versionStr := AnsiString('PDCurses ' + IntToStr(version.ver_major) +
                 '.' + IntToStr(version.ver_minor) +
                 '.' + IntToStr(version.ver_change) +
-                ' - ' + pdcPortToStr(version.port);
+                ' - ' + pdcPortToStr(version.port));
 
   {
     refresh stdscr so that reading from it will not cause it to
