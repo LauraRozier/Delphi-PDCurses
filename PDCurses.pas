@@ -935,7 +935,7 @@ var
   pdcWBkgdSet:       procedure(aWindow: PWindow; aColor: TChType); cdecl;
   pdcWBkgd:          function(aWindow: PWindow; aColor: TChType): LongInt; cdecl;
   pdcWBorder:        function(aWindow: PWindow; aLS, aRS, aTS, aBS, aTL, aTR,
-                              aBL, aBR: TCharType): LongInt; cdecl;
+                              aBL, aBR: TChType): LongInt; cdecl;
   pdcWChgAt:         function(aWindow: PWindow; aCount: LongInt;
                               aAttr: TAttr; aColor: SmallInt;
                               const aOpts: Pointer): LongInt; cdecl;
@@ -1176,36 +1176,35 @@ var
                                    aToScreen: TBool): TBool; cdecl;
 
 // PDCurses
-{
-PDCEX int     addrawch(chtype);
-PDCEX int     insrawch(chtype);
-PDCEX bool    is_termresized(void);
-}
-{
-PDCEX int     mvaddrawch(int, int, chtype);
-PDCEX int     mvdeleteln(int, int);
-PDCEX int     mvinsertln(int, int);
-PDCEX int     mvinsrawch(int, int, chtype);
-PDCEX int     mvwaddrawch(WINDOW *, int, int, chtype);
-PDCEX int     mvwdeleteln(WINDOW *, int, int);
-PDCEX int     mvwinsertln(WINDOW *, int, int);
-PDCEX int     mvwinsrawch(WINDOW *, int, int, chtype);
-}
-{
-PDCEX int     raw_output(bool);
-PDCEX int     resize_term(int, int);
-PDCEX WINDOW *resize_window(WINDOW *, int, int);
-PDCEX int     waddrawch(WINDOW *, chtype);
-PDCEX int     winsrawch(WINDOW *, chtype);
-PDCEX char    wordchar(void);
-}
-
+  pdcAddRawCh:           function(aChar: TChType): LongInt; cdecl;
+  pdcInsRawCh:           function(aChar: TChType): LongInt; cdecl;
+  pdcIsTermResized:      function: TBool; cdecl;
+  pdcMvAddRawCh:         function(aY, aX: LongInt;
+                                  aChar: TChType): LongInt; cdecl;
+  pdcMvDeleteLn:         function(aY, aX: LongInt): LongInt; cdecl;
+  pdcMvInsertLn:         function(aY, aX: LongInt): LongInt; cdecl;
+  pdcMvInsRawCh:         function(aY, aX: LongInt;
+                                  aChar: TChType): LongInt; cdecl;
+  pdcMvWAddRawCh:        function(aWindow: PWindow; aY, aX: LongInt;
+                                  aChar: TChType): LongInt; cdecl;
+  pdcMvWDeleteLn:        function(aWindow: PWindow;
+                                  aY, aX: LongInt): LongInt; cdecl;
+  pdcMvWInsertLn:        function(aWindow: PWindow;
+                                  aY, aX: LongInt): LongInt; cdecl;
+  pdcMvWInsRawCh:        function(aWindow: PWindow; aY, aX: LongInt;
+                                  aChar: TChType): LongInt; cdecl;
+  pdcRawOutput:          function(aFlag: TBool): LongInt; cdecl;
+  pdcResizeTerm:         function(aLineCount, aColCount: LongInt): LongInt; cdecl;
+  pdcResizeWindow:       function(aWindow: PWindow; aLineCount,
+                                  aColCount: LongInt): LongInt; cdecl;
+  pdcWAddRawCh:          function(aWindow: PWindow;
+                                  aChar: TChType): LongInt; cdecl;
+  pdcWInsRawCh:          function(aWindow: PWindow;
+                                  aChar: TChType): LongInt; cdecl;
+  pdcWordChar:           function: AnsiChar; cdecl;
 {$IFDEF PDC_WIDE}
-{
-PDCEX wchar_t *slk_wlabel(int);
-}
+  pdcSlkWLabel:          function(aLabelId: LongInt): PWideChar; cdecl;
 {$ENDIF PDC_WIDE}
-
   pdcDebug:              procedure(const aFormat: PAnsiChar;
                                    const aArgs: array of const); cdecl;
   pdcUnGetCh:            function(aChar: LongInt): LongInt; cdecl;
@@ -1962,6 +1961,26 @@ begin
     @pdcWMouseTrafo         := pdcGetProcAddr('wmouse_trafo');
 
     // PDCurses
+    @pdcAddRawCh           := pdcGetProcAddr('addrawch');
+    @pdcInsRawCh           := pdcGetProcAddr('insrawch');
+    @pdcIsTermResized      := pdcGetProcAddr('is_termresized');
+    @pdcMvAddRawCh         := pdcGetProcAddr('mvaddrawch');
+    @pdcMvDeleteLn         := pdcGetProcAddr('mvdeleteln');
+    @pdcMvInsertLn         := pdcGetProcAddr('mvinsertln');
+    @pdcMvInsRawCh         := pdcGetProcAddr('mvinsrawch');
+    @pdcMvWAddRawCh        := pdcGetProcAddr('mvwaddrawch');
+    @pdcMvWDeleteLn        := pdcGetProcAddr('mvwdeleteln');
+    @pdcMvWInsertLn        := pdcGetProcAddr('mvwinsertln');
+    @pdcMvWInsRawCh        := pdcGetProcAddr('mvwinsrawch');
+    @pdcRawOutput          := pdcGetProcAddr('raw_output');
+    @pdcResizeTerm         := pdcGetProcAddr('resize_term');
+    @pdcResizeWindow       := pdcGetProcAddr('resize_window');
+    @pdcWAddRawCh          := pdcGetProcAddr('waddrawch');
+    @pdcWInsRawCh          := pdcGetProcAddr('winsrawch');
+    @pdcWordChar           := pdcGetProcAddr('wordchar');
+{$IFDEF PDC_WIDE}
+    @pdcSlkWLabel          := pdcGetProcAddr('slk_wlabel');
+{$ENDIF PDC_WIDE}
     @pdcDebug              := pdcGetProcAddr('PDC_debug');
     @pdcUnGetCh            := pdcGetProcAddr('PDC_ungetch');
     @pdcSetBlink           := pdcGetProcAddr('PDC_set_blink');
