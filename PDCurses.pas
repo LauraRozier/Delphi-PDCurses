@@ -994,28 +994,26 @@ var
 
 // Wide-character functions
 {$IFDEF PDC_WIDE}
-{
-PDCEX int     addnwstr(const wchar_t *, int);
-PDCEX int     addwstr(const wchar_t *);
-PDCEX int     add_wch(const cchar_t *);
-PDCEX int     add_wchnstr(const cchar_t *, int);
-PDCEX int     add_wchstr(const cchar_t *);
-}
-{
-PDCEX int     border_set(const cchar_t *, const cchar_t *, const cchar_t *,
-                   const cchar_t *, const cchar_t *, const cchar_t *,
-                   const cchar_t *, const cchar_t *);
-PDCEX int     box_set(WINDOW *, const cchar_t *, const cchar_t *);
-PDCEX int     echo_wchar(const cchar_t *);
-PDCEX int     erasewchar(wchar_t *);
-}
-{
-PDCEX int     getbkgrnd(cchar_t *);
-PDCEX int     getcchar(const cchar_t *, wchar_t *, attr_t *, short *, void *);
-PDCEX int     getn_wstr(wint_t *, int);
-PDCEX int     get_wch(wint_t *);
-PDCEX int     get_wstr(wint_t *);
-}
+  pdcAddNWStr:       function(const aText: PWideChar;
+                              aCount: LongInt): LongInt; cdecl;
+  pdcAddWStr:        function(const aText: PWideChar): LongInt; cdecl;
+  pdcAddWCh:         function(const aChar: PCChar): LongInt; cdecl;
+  pdcAddWChNStr:     function(const aText: PCChar;
+                              aCount: LongInt): LongInt; cdecl;
+  pdcAddWChStr:      function(const aText: PCChar): LongInt; cdecl;
+  pdcBorderSet:      function(const aLS, aRS, aTS, aBS,
+                              aTL, atr, aBL, aBR: PCChar): LongInt; cdecl;
+  pdcBoxSet:         function(aWindow: PWindow;
+                              const aVChar, aHChar: PCChar): LongInt; cdecl;
+  pdcEchoWChar:      function(const aChar: PCChar): LongInt; cdecl;
+  pdcEraseWChar:     function(aChar: PWideChar): LongInt; cdecl;
+  pdcGetBkgrnd:      function(aChar: PCChar): LongInt; cdecl;
+  pdcGetCChar:       function(const aWCVal: PCChar; aChar: PWideChar;
+                              aAttrs: PAttr; aColorPair: PSmallInt;
+                              aOpts: Pointer): LongInt; cdecl;
+  pdcGetNWStr:       function(aText: PLongint; aCount: LongInt): LongInt; cdecl;
+  pdcGetWCh:         function(aChar: PLongInt): LongInt; cdecl;
+  pdcGetWStr:        function(aText: PLongInt): LongInt; cdecl;
 {
 PDCEX int     hline_set(const cchar_t *, int);
 PDCEX int     innwstr(wchar_t *, int);
@@ -1099,14 +1097,13 @@ PDCEX int     wadd_wch(WINDOW *, const cchar_t *);
 PDCEX int     wadd_wchnstr(WINDOW *, const cchar_t *, int);
 PDCEX int     wadd_wchstr(WINDOW *, const cchar_t *);
 }
-{
-PDCEX int     wbkgrnd(WINDOW *, const cchar_t *);
-PDCEX void    wbkgrndset(WINDOW *, const cchar_t *);
-PDCEX int     wborder_set(WINDOW *, const cchar_t *, const cchar_t *,
-                     const cchar_t *, const cchar_t *, const cchar_t *,
-                     const cchar_t *, const cchar_t *, const cchar_t *);
-PDCEX int     wecho_wchar(WINDOW *, const cchar_t *);
-}
+  pdcWBkgrnd:        function(aWindow: PWindow;
+                              const aChar: PCChar): LongInt; cdecl;
+  pdcWBkgrndSet:     procedure(aWindow: PWindow; const aChar: PCChar); cdecl;
+  pdcWBorderSet:     function(aWindow: PWindow; const aLS, aRS, aTS, aBS,
+                              aTL, atr, aBL, aBR: PCChar): LongInt; cdecl;
+  pdcWEchoWChar:     function(aWindow: PWindow;
+                              const aChar: PCChar): LongInt; cdecl;
 {
 PDCEX int     wgetbkgrnd(WINDOW *, cchar_t *);
 PDCEX int     wgetn_wstr(WINDOW *, wint_t *, int);
@@ -1918,6 +1915,26 @@ begin
 
     // Wide-character functions
 {$IFDEF PDC_WIDE}
+    @pdcAddNWStr       := pdcGetProcAddr('addnwstr');
+    @pdcAddWStr        := pdcGetProcAddr('addwstr');
+    @pdcAddWCh         := pdcGetProcAddr('add_wch');
+    @pdcAddWChNStr     := pdcGetProcAddr('add_wchnstr');
+    @pdcAddWChStr      := pdcGetProcAddr('add_wchstr');
+    @pdcBorderSet      := pdcGetProcAddr('border_set');
+    @pdcBoxSet         := pdcGetProcAddr('box_set');
+    @pdcEchoWChar      := pdcGetProcAddr('echo_wchar');
+    @pdcEraseWChar     := pdcGetProcAddr('erasewchar');
+    @pdcGetBkgrnd      := pdcGetProcAddr('getbkgrnd');
+    @pdcGetCChar       := pdcGetProcAddr('getcchar');
+    @pdcGetNWStr       := pdcGetProcAddr('getn_wstr');
+    @pdcGetWCh         := pdcGetProcAddr('get_wch');
+    @pdcGetWStr        := pdcGetProcAddr('get_wstr');
+
+    @pdcWBkgrnd        := pdcGetProcAddr('wbkgrnd');
+    @pdcWBkgrndSet     := pdcGetProcAddr('wbkgrndset');
+    @pdcWBorderSet     := pdcGetProcAddr('wborder_set');
+    @pdcWEchoWChar     := pdcGetProcAddr('wecho_wchar');
+
 {$ENDIF PDC_WIDE}
 
     // Quasi-standard
