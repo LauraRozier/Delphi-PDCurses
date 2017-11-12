@@ -1126,27 +1126,30 @@ var
                               aTL, atr, aBL, aBR: PCChar): LongInt; cdecl;
   pdcWEchoWChar:     function(aWindow: PWindow;
                               const aChar: PCChar): LongInt; cdecl;
-{
-PDCEX int     wgetbkgrnd(WINDOW *, cchar_t *);
-PDCEX int     wgetn_wstr(WINDOW *, wint_t *, int);
-PDCEX int     wget_wch(WINDOW *, wint_t *);
-PDCEX int     wget_wstr(WINDOW *, wint_t *);
-PDCEX int     whline_set(WINDOW *, const cchar_t *, int);
-}
-{
-PDCEX int     winnwstr(WINDOW *, wchar_t *, int);
-PDCEX int     wins_nwstr(WINDOW *, const wchar_t *, int);
-PDCEX int     wins_wch(WINDOW *, const cchar_t *);
-PDCEX int     wins_wstr(WINDOW *, const wchar_t *);
-PDCEX int     winwstr(WINDOW *, wchar_t *);
-}
-{
-PDCEX int     win_wch(WINDOW *, cchar_t *);
-PDCEX int     win_wchnstr(WINDOW *, cchar_t *, int);
-PDCEX int     win_wchstr(WINDOW *, cchar_t *);
-PDCEX wchar_t *wunctrl(cchar_t *);
-PDCEX int     wvline_set(WINDOW *, const cchar_t *, int);
-}
+  pdcWGetBkgrnd:     function(aWindow: PWindow; aChar: PCChar): LongInt; cdecl;
+  pdcWGetNWStr:      function(aWindow: PWindow; aText: PLongint;
+                              aCount: LongInt): LongInt; cdecl;
+  pdcWGetWCh:        function(aWindow: PWindow; aChar: PLongInt): LongInt; cdecl;
+  pdcWGetWStr:       function(aWindow: PWindow; aText: PLongInt): LongInt; cdecl;
+  pdcWHLineSet:      function(aWindow: PWindow; const aChar: PCChar;
+                              aCount: LongInt): LongInt; cdecl;
+  pdcWInNWStr:       function(aWindow: PWindow; aText: PWideChar;
+                              aCount: LongInt): LongInt; cdecl;
+  pdcWInsNWStr:      function(aWindow: PWindow; const aText: PWideChar;
+                              aCount: LongInt): LongInt; cdecl;
+  pdcWInsWCh:        function(aWindow: PWindow;
+                              const aChar: PCChar): LongInt; cdecl;
+  pdcWInsWStr:       function(aWindow: PWindow;
+                              const aText: PWideChar): LongInt; cdecl;
+  pdcWInWStr:        function(aWindow: PWindow;
+                              aText: PWideChar): LongInt; cdecl;
+  pdcWInWCh:         function(aWindow: PWindow; aChar: PCChar): LongInt; cdecl;
+  pdcWInWChNStr:     function(aWindow: PWindow; aChar: PCChar;
+                              aCount: LongInt): LongInt; cdecl;
+  pdcWInWChStr:      function(aWindow: PWindow; aChar: PCChar): LongInt; cdecl;
+  pdcWUnCtrl:        function(aChar: PCChar): PWideChar; cdecl;
+  pdcWVLineSet:      function(aWindow: PWindow; const aChar: PCChar;
+                              aCount: LongInt): LongInt; cdecl;
 {$ENDIF PDC_WIDE}
 
 // Quasi-standard
@@ -2012,7 +2015,21 @@ begin
     @pdcWBkgrndSet     := pdcGetProcAddr('wbkgrndset');
     @pdcWBorderSet     := pdcGetProcAddr('wborder_set');
     @pdcWEchoWChar     := pdcGetProcAddr('wecho_wchar');
-
+    @pdcWGetBkgrnd     := pdcGetProcAddr('wgetbkgrnd');
+    @pdcWGetNWStr      := pdcGetProcAddr('wgetn_wstr');
+    @pdcWGetWCh        := pdcGetProcAddr('wget_wch');
+    @pdcWGetWStr       := pdcGetProcAddr('wget_wstr');
+    @pdcWHLineSet      := pdcGetProcAddr('whline_set');
+    @pdcWInNWStr       := pdcGetProcAddr('winnwstr');
+    @pdcWInsNWStr      := pdcGetProcAddr('wins_nwstr');
+    @pdcWInsWCh        := pdcGetProcAddr('wins_wch');
+    @pdcWInsWStr       := pdcGetProcAddr('wins_wstr');
+    @pdcWInWStr        := pdcGetProcAddr('winwstr');
+    @pdcWInWCh         := pdcGetProcAddr('win_wch');
+    @pdcWInWChNStr     := pdcGetProcAddr('win_wchnstr');
+    @pdcWInWChStr      := pdcGetProcAddr('win_wchstr');
+    @pdcWUnCtrl        := pdcGetProcAddr('wunctrl');
+    @pdcWVLineSet      := pdcGetProcAddr('wvline_set');
 {$ENDIF PDC_WIDE}
 
     // Quasi-standard
