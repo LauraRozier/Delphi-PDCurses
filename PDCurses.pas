@@ -1021,486 +1021,351 @@ const
   KEY_BACKSPACE    = KEY_OFFSET + $07; // not on pc
   KEY_F0           = KEY_OFFSET + $08; // function keys; 64 reserved
 
-{
-#define KEY_DL           (KEY_OFFSET + 0x48) /* delete line */
-#define KEY_IL           (KEY_OFFSET + 0x49) /* insert line */
-#define KEY_DC           (KEY_OFFSET + 0x4a) /* delete character */
-#define KEY_IC           (KEY_OFFSET + 0x4b) /* insert char or enter ins mode */
-#define KEY_EIC          (KEY_OFFSET + 0x4c) /* exit insert char mode */
-}
-{
-#define KEY_CLEAR        (KEY_OFFSET + 0x4d) /* clear screen */
-#define KEY_EOS          (KEY_OFFSET + 0x4e) /* clear to end of screen */
-#define KEY_EOL          (KEY_OFFSET + 0x4f) /* clear to end of line */
-#define KEY_SF           (KEY_OFFSET + 0x50) /* scroll 1 line forward */
-#define KEY_SR           (KEY_OFFSET + 0x51) /* scroll 1 line back (reverse) */
-}
-{
-#define KEY_NPAGE        (KEY_OFFSET + 0x52) /* next page */
-#define KEY_PPAGE        (KEY_OFFSET + 0x53) /* previous page */
-#define KEY_STAB         (KEY_OFFSET + 0x54) /* set tab */
-#define KEY_CTAB         (KEY_OFFSET + 0x55) /* clear tab */
-#define KEY_CATAB        (KEY_OFFSET + 0x56) /* clear all tabs */
-}
-{
-#define KEY_ENTER        (KEY_OFFSET + 0x57) /* enter or send (unreliable) */
-#define KEY_SRESET       (KEY_OFFSET + 0x58) /* soft/reset (partial/unreliable) */
-#define KEY_RESET        (KEY_OFFSET + 0x59) /* reset/hard reset (unreliable) */
-#define KEY_PRINT        (KEY_OFFSET + 0x5a) /* print/copy */
-#define KEY_LL           (KEY_OFFSET + 0x5b) /* home down/bottom (lower left) */
-}
-{
-#define KEY_ABORT        (KEY_OFFSET + 0x5c) /* abort/terminate key (any) */
-#define KEY_SHELP        (KEY_OFFSET + 0x5d) /* short help */
-#define KEY_LHELP        (KEY_OFFSET + 0x5e) /* long help */
-#define KEY_BTAB         (KEY_OFFSET + 0x5f) /* Back tab key */
-#define KEY_BEG          (KEY_OFFSET + 0x60) /* beg(inning) key */
-}
-{
-#define KEY_CANCEL       (KEY_OFFSET + 0x61) /* cancel key */
-#define KEY_CLOSE        (KEY_OFFSET + 0x62) /* close key */
-#define KEY_COMMAND      (KEY_OFFSET + 0x63) /* cmd (command) key */
-#define KEY_COPY         (KEY_OFFSET + 0x64) /* copy key */
-#define KEY_CREATE       (KEY_OFFSET + 0x65) /* create key */
-}
-{
-#define KEY_END          (KEY_OFFSET + 0x66) /* end key */
-#define KEY_EXIT         (KEY_OFFSET + 0x67) /* exit key */
-#define KEY_FIND         (KEY_OFFSET + 0x68) /* find key */
-#define KEY_HELP         (KEY_OFFSET + 0x69) /* help key */
-#define KEY_MARK         (KEY_OFFSET + 0x6a) /* mark key */
-}
-{
-#define KEY_MESSAGE      (KEY_OFFSET + 0x6b) /* message key */
-#define KEY_MOVE         (KEY_OFFSET + 0x6c) /* move key */
-#define KEY_NEXT         (KEY_OFFSET + 0x6d) /* next object key */
-#define KEY_OPEN         (KEY_OFFSET + 0x6e) /* open key */
-#define KEY_OPTIONS      (KEY_OFFSET + 0x6f) /* options key */
-}
-{
-#define KEY_PREVIOUS     (KEY_OFFSET + 0x70) /* previous object key */
-#define KEY_REDO         (KEY_OFFSET + 0x71) /* redo key */
-#define KEY_REFERENCE    (KEY_OFFSET + 0x72) /* ref(erence) key */
-#define KEY_REFRESH      (KEY_OFFSET + 0x73) /* refresh key */
-#define KEY_REPLACE      (KEY_OFFSET + 0x74) /* replace key */
-}
-{
-#define KEY_RESTART      (KEY_OFFSET + 0x75) /* restart key */
-#define KEY_RESUME       (KEY_OFFSET + 0x76) /* resume key */
-#define KEY_SAVE         (KEY_OFFSET + 0x77) /* save key */
-#define KEY_SBEG         (KEY_OFFSET + 0x78) /* shifted beginning key */
-#define KEY_SCANCEL      (KEY_OFFSET + 0x79) /* shifted cancel key */
-}
-{
-#define KEY_SCOMMAND     (KEY_OFFSET + 0x7a) /* shifted command key */
-#define KEY_SCOPY        (KEY_OFFSET + 0x7b) /* shifted copy key */
-#define KEY_SCREATE      (KEY_OFFSET + 0x7c) /* shifted create key */
-#define KEY_SDC          (KEY_OFFSET + 0x7d) /* shifted delete char key */
-#define KEY_SDL          (KEY_OFFSET + 0x7e) /* shifted delete line key */
-}
-{
-#define KEY_SELECT       (KEY_OFFSET + 0x7f) /* select key */
-#define KEY_SEND         (KEY_OFFSET + 0x80) /* shifted end key */
-#define KEY_SEOL         (KEY_OFFSET + 0x81) /* shifted clear line key */
-#define KEY_SEXIT        (KEY_OFFSET + 0x82) /* shifted exit key */
-#define KEY_SFIND        (KEY_OFFSET + 0x83) /* shifted find key */
-}
-{
-#define KEY_SHOME        (KEY_OFFSET + 0x84) /* shifted home key */
-#define KEY_SIC          (KEY_OFFSET + 0x85) /* shifted input key */
-}
+  KEY_DL           = KEY_OFFSET + $48; // delete line
+  KEY_IL           = KEY_OFFSET + $49; // insert line
+  KEY_DC           = KEY_OFFSET + $4a; // delete character
+  KEY_IC           = KEY_OFFSET + $4b; // insert char or enter ins mode
+  KEY_EIC          = KEY_OFFSET + $4c; // exit insert char mode
+  KEY_CLEAR        = KEY_OFFSET + $4d; // clear screen
+  KEY_EOS          = KEY_OFFSET + $4e; // clear to end of screen
+  KEY_EOL          = KEY_OFFSET + $4f; // clear to end of line
+  KEY_SF           = KEY_OFFSET + $50; // scroll 1 line forward
+  KEY_SR           = KEY_OFFSET + $51; // scroll 1 line back = reverse;
+  KEY_NPAGE        = KEY_OFFSET + $52; // next page
+  KEY_PPAGE        = KEY_OFFSET + $53; // previous page
+  KEY_STAB         = KEY_OFFSET + $54; // set tab
+  KEY_CTAB         = KEY_OFFSET + $55; // clear tab
+  KEY_CATAB        = KEY_OFFSET + $56; // clear all tabs
+  KEY_ENTER        = KEY_OFFSET + $57; // enter or send = unreliable;
+  KEY_SRESET       = KEY_OFFSET + $58; // soft/reset = partial/unreliable;
+  KEY_RESET        = KEY_OFFSET + $59; // reset/hard reset = unreliable;
+  KEY_PRINT        = KEY_OFFSET + $5a; // print/copy
+  KEY_LL           = KEY_OFFSET + $5b; // home down/bottom = lower left;
+  KEY_ABORT        = KEY_OFFSET + $5c; // abort/terminate key = any;
+  KEY_SHELP        = KEY_OFFSET + $5d; // short help
+  KEY_LHELP        = KEY_OFFSET + $5e; // long help
+  KEY_BTAB         = KEY_OFFSET + $5f; // Back tab key
+  KEY_BEG          = KEY_OFFSET + $60; // beg(inning;) key
+  KEY_CANCEL       = KEY_OFFSET + $61; // cancel key
+  KEY_CLOSE        = KEY_OFFSET + $62; // close key
+  KEY_COMMAND      = KEY_OFFSET + $63; // cmd = command; key
+  KEY_COPY         = KEY_OFFSET + $64; // copy key
+  KEY_CREATE       = KEY_OFFSET + $65; // create key
+  KEY_END          = KEY_OFFSET + $66; // end key
+  KEY_EXIT         = KEY_OFFSET + $67; // exit key
+  KEY_FIND         = KEY_OFFSET + $68; // find key
+  KEY_HELP         = KEY_OFFSET + $69; // help key
+  KEY_MARK         = KEY_OFFSET + $6a; // mark key
+  KEY_MESSAGE      = KEY_OFFSET + $6b; // message key
+  KEY_MOVE         = KEY_OFFSET + $6c; // move key
+  KEY_NEXT         = KEY_OFFSET + $6d; // next object key
+  KEY_OPEN         = KEY_OFFSET + $6e; // open key
+  KEY_OPTIONS      = KEY_OFFSET + $6f; // options key
+  KEY_PREVIOUS     = KEY_OFFSET + $70; // previous object key
+  KEY_REDO         = KEY_OFFSET + $71; // redo key
+  KEY_REFERENCE    = KEY_OFFSET + $72; // ref= erence; key
+  KEY_REFRESH      = KEY_OFFSET + $73; // refresh key
+  KEY_REPLACE      = KEY_OFFSET + $74; // replace key
+  KEY_RESTART      = KEY_OFFSET + $75; // restart key
+  KEY_RESUME       = KEY_OFFSET + $76; // resume key
+  KEY_SAVE         = KEY_OFFSET + $77; // save key
+  KEY_SBEG         = KEY_OFFSET + $78; // shifted beginning key
+  KEY_SCANCEL      = KEY_OFFSET + $79; // shifted cancel key
+  KEY_SCOMMAND     = KEY_OFFSET + $7a; // shifted command key
+  KEY_SCOPY        = KEY_OFFSET + $7b; // shifted copy key
+  KEY_SCREATE      = KEY_OFFSET + $7c; // shifted create key
+  KEY_SDC          = KEY_OFFSET + $7d; // shifted delete char key
+  KEY_SDL          = KEY_OFFSET + $7e; // shifted delete line key
+  KEY_SELECT       = KEY_OFFSET + $7f; // select key
+  KEY_SEND         = KEY_OFFSET + $80; // shifted end key
+  KEY_SEOL         = KEY_OFFSET + $81; // shifted clear line key
+  KEY_SEXIT        = KEY_OFFSET + $82; // shifted exit key
+  KEY_SFIND        = KEY_OFFSET + $83; // shifted find key
+  KEY_SHOME        = KEY_OFFSET + $84; // shifted home key
+  KEY_SIC          = KEY_OFFSET + $85; // shifted input key
 
-{
-#define KEY_SLEFT        (KEY_OFFSET + 0x87) /* shifted left arrow key */
-#define KEY_SMESSAGE     (KEY_OFFSET + 0x88) /* shifted message key */
-#define KEY_SMOVE        (KEY_OFFSET + 0x89) /* shifted move key */
-#define KEY_SNEXT        (KEY_OFFSET + 0x8a) /* shifted next key */
-#define KEY_SOPTIONS     (KEY_OFFSET + 0x8b) /* shifted options key */
-}
-{
-#define KEY_SPREVIOUS    (KEY_OFFSET + 0x8c) /* shifted prev key */
-#define KEY_SPRINT       (KEY_OFFSET + 0x8d) /* shifted print key */
-#define KEY_SREDO        (KEY_OFFSET + 0x8e) /* shifted redo key */
-#define KEY_SREPLACE     (KEY_OFFSET + 0x8f) /* shifted replace key */
-#define KEY_SRIGHT       (KEY_OFFSET + 0x90) /* shifted right arrow */
-}
-{
-#define KEY_SRSUME       (KEY_OFFSET + 0x91) /* shifted resume key */
-#define KEY_SSAVE        (KEY_OFFSET + 0x92) /* shifted save key */
-#define KEY_SSUSPEND     (KEY_OFFSET + 0x93) /* shifted suspend key */
-#define KEY_SUNDO        (KEY_OFFSET + 0x94) /* shifted undo key */
-#define KEY_SUSPEND      (KEY_OFFSET + 0x95) /* suspend key */
-#define KEY_UNDO         (KEY_OFFSET + 0x96) /* undo key */
-}
+  KEY_SLEFT        = KEY_OFFSET + $87; // shifted left arrow key
+  KEY_SMESSAGE     = KEY_OFFSET + $88; // shifted message key
+  KEY_SMOVE        = KEY_OFFSET + $89; // shifted move key
+  KEY_SNEXT        = KEY_OFFSET + $8a; // shifted next key
+  KEY_SOPTIONS     = KEY_OFFSET + $8b; // shifted options key
+  KEY_SPREVIOUS    = KEY_OFFSET + $8c; // shifted prev key
+  KEY_SPRINT       = KEY_OFFSET + $8d; // shifted print key
+  KEY_SREDO        = KEY_OFFSET + $8e; // shifted redo key
+  KEY_SREPLACE     = KEY_OFFSET + $8f; // shifted replace key
+  KEY_SRIGHT       = KEY_OFFSET + $90; // shifted right arrow
+  KEY_SRSUME       = KEY_OFFSET + $91; // shifted resume key
+  KEY_SSAVE        = KEY_OFFSET + $92; // shifted save key
+  KEY_SSUSPEND     = KEY_OFFSET + $93; // shifted suspend key
+  KEY_SUNDO        = KEY_OFFSET + $94; // shifted undo key
+  KEY_SUSPEND      = KEY_OFFSET + $95; // suspend key
+  KEY_UNDO         = KEY_OFFSET + $96; // undo key
 
 // PDCurses-specific key definitions -- PC only
-{
-#define ALT_0                 (KEY_OFFSET + 0x97)
-#define ALT_1                 (KEY_OFFSET + 0x98)
-#define ALT_2                 (KEY_OFFSET + 0x99)
-#define ALT_3                 (KEY_OFFSET + 0x9a)
-#define ALT_4                 (KEY_OFFSET + 0x9b)
-}
-{
-#define ALT_5                 (KEY_OFFSET + 0x9c)
-#define ALT_6                 (KEY_OFFSET + 0x9d)
-#define ALT_7                 (KEY_OFFSET + 0x9e)
-#define ALT_8                 (KEY_OFFSET + 0x9f)
-#define ALT_9                 (KEY_OFFSET + 0xa0)
-}
-{
-#define ALT_A                 (KEY_OFFSET + 0xa1)
-#define ALT_B                 (KEY_OFFSET + 0xa2)
-#define ALT_C                 (KEY_OFFSET + 0xa3)
-#define ALT_D                 (KEY_OFFSET + 0xa4)
-#define ALT_E                 (KEY_OFFSET + 0xa5)
-}
-{
-#define ALT_F                 (KEY_OFFSET + 0xa6)
-#define ALT_G                 (KEY_OFFSET + 0xa7)
-#define ALT_H                 (KEY_OFFSET + 0xa8)
-#define ALT_I                 (KEY_OFFSET + 0xa9)
-#define ALT_J                 (KEY_OFFSET + 0xaa)
-}
-{
-#define ALT_K                 (KEY_OFFSET + 0xab)
-#define ALT_L                 (KEY_OFFSET + 0xac)
-#define ALT_M                 (KEY_OFFSET + 0xad)
-#define ALT_N                 (KEY_OFFSET + 0xae)
-#define ALT_O                 (KEY_OFFSET + 0xaf)
-}
-{
-#define ALT_P                 (KEY_OFFSET + 0xb0)
-#define ALT_Q                 (KEY_OFFSET + 0xb1)
-#define ALT_R                 (KEY_OFFSET + 0xb2)
-#define ALT_S                 (KEY_OFFSET + 0xb3)
-#define ALT_T                 (KEY_OFFSET + 0xb4)
-}
-{
-#define ALT_U                 (KEY_OFFSET + 0xb5)
-#define ALT_V                 (KEY_OFFSET + 0xb6)
-#define ALT_W                 (KEY_OFFSET + 0xb7)
-#define ALT_X                 (KEY_OFFSET + 0xb8)
-#define ALT_Y                 (KEY_OFFSET + 0xb9)
-#define ALT_Z                 (KEY_OFFSET + 0xba)
-}
+  ALT_0                 = KEY_OFFSET + $97;
+  ALT_1                 = KEY_OFFSET + $98;
+  ALT_2                 = KEY_OFFSET + $99;
+  ALT_3                 = KEY_OFFSET + $9a;
+  ALT_4                 = KEY_OFFSET + $9b;
+  ALT_5                 = KEY_OFFSET + $9c;
+  ALT_6                 = KEY_OFFSET + $9d;
+  ALT_7                 = KEY_OFFSET + $9e;
+  ALT_8                 = KEY_OFFSET + $9f;
+  ALT_9                 = KEY_OFFSET + $a0;
+  ALT_A                 = KEY_OFFSET + $a1;
+  ALT_B                 = KEY_OFFSET + $a2;
+  ALT_C                 = KEY_OFFSET + $a3;
+  ALT_D                 = KEY_OFFSET + $a4;
+  ALT_E                 = KEY_OFFSET + $a5;
+  ALT_F                 = KEY_OFFSET + $a6;
+  ALT_G                 = KEY_OFFSET + $a7;
+  ALT_H                 = KEY_OFFSET + $a8;
+  ALT_I                 = KEY_OFFSET + $a9;
+  ALT_J                 = KEY_OFFSET + $aa;
+  ALT_K                 = KEY_OFFSET + $ab;
+  ALT_L                 = KEY_OFFSET + $ac;
+  ALT_M                 = KEY_OFFSET + $ad;
+  ALT_N                 = KEY_OFFSET + $ae;
+  ALT_O                 = KEY_OFFSET + $af;
+  ALT_P                 = KEY_OFFSET + $b0;
+  ALT_Q                 = KEY_OFFSET + $b1;
+  ALT_R                 = KEY_OFFSET + $b2;
+  ALT_S                 = KEY_OFFSET + $b3;
+  ALT_T                 = KEY_OFFSET + $b4;
+  ALT_U                 = KEY_OFFSET + $b5;
+  ALT_V                 = KEY_OFFSET + $b6;
+  ALT_W                 = KEY_OFFSET + $b7;
+  ALT_X                 = KEY_OFFSET + $b8;
+  ALT_Y                 = KEY_OFFSET + $b9;
+  ALT_Z                 = KEY_OFFSET + $ba;
 
-{
-#define CTL_LEFT              (KEY_OFFSET + 0xbb) /* Control-Left-Arrow */
-#define CTL_RIGHT             (KEY_OFFSET + 0xbc)
-#define CTL_PGUP              (KEY_OFFSET + 0xbd)
-#define CTL_PGDN              (KEY_OFFSET + 0xbe)
-#define CTL_HOME              (KEY_OFFSET + 0xbf)
-#define CTL_END               (KEY_OFFSET + 0xc0)
-}
+  CTL_LEFT              = KEY_OFFSET + $bb; // Control-Left-Arrow
+  CTL_RIGHT             = KEY_OFFSET + $bc;
+  CTL_PGUP              = KEY_OFFSET + $bd;
+  CTL_PGDN              = KEY_OFFSET + $be;
+  CTL_HOME              = KEY_OFFSET + $bf;
+  CTL_END               = KEY_OFFSET + $c0;
 
-{
-#define KEY_A1                (KEY_OFFSET + 0xc1) /* upper left on Virtual keypad */
-#define KEY_A2                (KEY_OFFSET + 0xc2) /* upper middle on Virt. keypad */
-#define KEY_A3                (KEY_OFFSET + 0xc3) /* upper right on Vir. keypad */
-#define KEY_B1                (KEY_OFFSET + 0xc4) /* middle left on Virt. keypad */
-#define KEY_B2                (KEY_OFFSET + 0xc5) /* center on Virt. keypad */
-}
-{
-#define KEY_B3                (KEY_OFFSET + 0xc6) /* middle right on Vir. keypad */
-#define KEY_C1                (KEY_OFFSET + 0xc7) /* lower left on Virt. keypad */
-#define KEY_C2                (KEY_OFFSET + 0xc8) /* lower middle on Virt. keypad */
-#define KEY_C3                (KEY_OFFSET + 0xc9) /* lower right on Vir. keypad */
-}
+  KEY_A1                = KEY_OFFSET + $c1; // upper left on Virtual keypad
+  KEY_A2                = KEY_OFFSET + $c2; // upper middle on Virt. keypad
+  KEY_A3                = KEY_OFFSET + $c3; // upper right on Vir. keypad
+  KEY_B1                = KEY_OFFSET + $c4; // middle left on Virt. keypad
+  KEY_B2                = KEY_OFFSET + $c5; // center on Virt. keypad
+  KEY_B3                = KEY_OFFSET + $c6; // middle right on Vir. keypad
+  KEY_C1                = KEY_OFFSET + $c7; // lower left on Virt. keypad
+  KEY_C2                = KEY_OFFSET + $c8; // lower middle on Virt. keypad
+  KEY_C3                = KEY_OFFSET + $c9; // lower right on Vir. keypad
 
-{
-#define PADSLASH              (KEY_OFFSET + 0xca) /* slash on keypad */
-#define PADENTER              (KEY_OFFSET + 0xcb) /* enter on keypad */
-#define CTL_PADENTER          (KEY_OFFSET + 0xcc) /* ctl-enter on keypad */
-#define ALT_PADENTER          (KEY_OFFSET + 0xcd) /* alt-enter on keypad */
-#define PADSTOP               (KEY_OFFSET + 0xce) /* stop on keypad */
-}
-{
-#define PADSTAR               (KEY_OFFSET + 0xcf) /* star on keypad */
-#define PADMINUS              (KEY_OFFSET + 0xd0) /* minus on keypad */
-#define PADPLUS               (KEY_OFFSET + 0xd1) /* plus on keypad */
-#define CTL_PADSTOP           (KEY_OFFSET + 0xd2) /* ctl-stop on keypad */
-#define CTL_PADCENTER         (KEY_OFFSET + 0xd3) /* ctl-enter on keypad */
-}
-{
-#define CTL_PADPLUS           (KEY_OFFSET + 0xd4) /* ctl-plus on keypad */
-#define CTL_PADMINUS          (KEY_OFFSET + 0xd5) /* ctl-minus on keypad */
-#define CTL_PADSLASH          (KEY_OFFSET + 0xd6) /* ctl-slash on keypad */
-#define CTL_PADSTAR           (KEY_OFFSET + 0xd7) /* ctl-star on keypad */
-#define ALT_PADPLUS           (KEY_OFFSET + 0xd8) /* alt-plus on keypad */
-}
-{
-#define ALT_PADMINUS          (KEY_OFFSET + 0xd9) /* alt-minus on keypad */
-#define ALT_PADSLASH          (KEY_OFFSET + 0xda) /* alt-slash on keypad */
-#define ALT_PADSTAR           (KEY_OFFSET + 0xdb) /* alt-star on keypad */
-#define ALT_PADSTOP           (KEY_OFFSET + 0xdc) /* alt-stop on keypad */
-#define CTL_INS               (KEY_OFFSET + 0xdd) /* ctl-insert */
-}
-{
-#define ALT_DEL               (KEY_OFFSET + 0xde) /* alt-delete */
-#define ALT_INS               (KEY_OFFSET + 0xdf) /* alt-insert */
-#define CTL_UP                (KEY_OFFSET + 0xe0) /* ctl-up arrow */
-#define CTL_DOWN              (KEY_OFFSET + 0xe1) /* ctl-down arrow */
-#define CTL_TAB               (KEY_OFFSET + 0xe2) /* ctl-tab */
-}
-{
-#define ALT_TAB               (KEY_OFFSET + 0xe3)
-#define ALT_MINUS             (KEY_OFFSET + 0xe4)
-#define ALT_EQUAL             (KEY_OFFSET + 0xe5)
-#define ALT_HOME              (KEY_OFFSET + 0xe6)
-#define ALT_PGUP              (KEY_OFFSET + 0xe7)
-}
-{
-#define ALT_PGDN              (KEY_OFFSET + 0xe8)
-#define ALT_END               (KEY_OFFSET + 0xe9)
-#define ALT_UP                (KEY_OFFSET + 0xea) /* alt-up arrow */
-#define ALT_DOWN              (KEY_OFFSET + 0xeb) /* alt-down arrow */
-#define ALT_RIGHT             (KEY_OFFSET + 0xec) /* alt-right arrow */
-}
-{
-#define ALT_LEFT              (KEY_OFFSET + 0xed) /* alt-left arrow */
-#define ALT_ENTER             (KEY_OFFSET + 0xee) /* alt-enter */
-#define ALT_ESC               (KEY_OFFSET + 0xef) /* alt-escape */
-#define ALT_BQUOTE            (KEY_OFFSET + 0xf0) /* alt-back quote */
-#define ALT_LBRACKET          (KEY_OFFSET + 0xf1) /* alt-left bracket */
-}
-{
-#define ALT_RBRACKET          (KEY_OFFSET + 0xf2) /* alt-right bracket */
-#define ALT_SEMICOLON         (KEY_OFFSET + 0xf3) /* alt-semi-colon */
-#define ALT_FQUOTE            (KEY_OFFSET + 0xf4) /* alt-forward quote */
-#define ALT_COMMA             (KEY_OFFSET + 0xf5) /* alt-comma */
-#define ALT_STOP              (KEY_OFFSET + 0xf6) /* alt-stop */
-}
-{
-#define ALT_FSLASH            (KEY_OFFSET + 0xf7) /* alt-forward slash */
-#define ALT_BKSP              (KEY_OFFSET + 0xf8) /* alt-backspace */
-#define CTL_BKSP              (KEY_OFFSET + 0xf9) /* ctl-backspace */
-#define PAD0                  (KEY_OFFSET + 0xfa) /* keypad 0 */
-}
+  PADSLASH              = KEY_OFFSET + $ca; // slash on keypad
+  PADENTER              = KEY_OFFSET + $cb; // enter on keypad
+  CTL_PADENTER          = KEY_OFFSET + $cc; // ctl-enter on keypad
+  ALT_PADENTER          = KEY_OFFSET + $cd; // alt-enter on keypad
+  PADSTOP               = KEY_OFFSET + $ce; // stop on keypad
+  PADSTAR               = KEY_OFFSET + $cf; // star on keypad
+  PADMINUS              = KEY_OFFSET + $d0; // minus on keypad
+  PADPLUS               = KEY_OFFSET + $d1; // plus on keypad
+  CTL_PADSTOP           = KEY_OFFSET + $d2; // ctl-stop on keypad
+  CTL_PADCENTER         = KEY_OFFSET + $d3; // ctl-enter on keypad
+  CTL_PADPLUS           = KEY_OFFSET + $d4; // ctl-plus on keypad
+  CTL_PADMINUS          = KEY_OFFSET + $d5; // ctl-minus on keypad
+  CTL_PADSLASH          = KEY_OFFSET + $d6; // ctl-slash on keypad
+  CTL_PADSTAR           = KEY_OFFSET + $d7; // ctl-star on keypad
+  ALT_PADPLUS           = KEY_OFFSET + $d8; // alt-plus on keypad
+  ALT_PADMINUS          = KEY_OFFSET + $d9; // alt-minus on keypad
+  ALT_PADSLASH          = KEY_OFFSET + $da; // alt-slash on keypad
+  ALT_PADSTAR           = KEY_OFFSET + $db; // alt-star on keypad
+  ALT_PADSTOP           = KEY_OFFSET + $dc; // alt-stop on keypad
+  CTL_INS               = KEY_OFFSET + $dd; // ctl-insert
+  ALT_DEL               = KEY_OFFSET + $de; // alt-delete
+  ALT_INS               = KEY_OFFSET + $df; // alt-insert
+  CTL_UP                = KEY_OFFSET + $e0; // ctl-up arrow
+  CTL_DOWN              = KEY_OFFSET + $e1; // ctl-down arrow
+  CTL_TAB               = KEY_OFFSET + $e2; // ctl-tab
+  ALT_TAB               = KEY_OFFSET + $e3;
+  ALT_MINUS             = KEY_OFFSET + $e4;
+  ALT_EQUAL             = KEY_OFFSET + $e5;
+  ALT_HOME              = KEY_OFFSET + $e6;
+  ALT_PGUP              = KEY_OFFSET + $e7;
+  ALT_PGDN              = KEY_OFFSET + $e8;
+  ALT_END               = KEY_OFFSET + $e9;
+  ALT_UP                = KEY_OFFSET + $ea; // alt-up arrow
+  ALT_DOWN              = KEY_OFFSET + $eb; // alt-down arrow
+  ALT_RIGHT             = KEY_OFFSET + $ec; // alt-right arrow
+  ALT_LEFT              = KEY_OFFSET + $ed; // alt-left arrow
+  ALT_ENTER             = KEY_OFFSET + $ee; // alt-enter
+  ALT_ESC               = KEY_OFFSET + $ef; // alt-escape
+  ALT_BQUOTE            = KEY_OFFSET + $f0; // alt-back quote
+  ALT_LBRACKET          = KEY_OFFSET + $f1; // alt-left bracket
+  ALT_RBRACKET          = KEY_OFFSET + $f2; // alt-right bracket
+  ALT_SEMICOLON         = KEY_OFFSET + $f3; // alt-semi-colon
+  ALT_FQUOTE            = KEY_OFFSET + $f4; // alt-forward quote
+  ALT_COMMA             = KEY_OFFSET + $f5; // alt-comma
+  ALT_STOP              = KEY_OFFSET + $f6; // alt-stop
+  ALT_FSLASH            = KEY_OFFSET + $f7; // alt-forward slash
+  ALT_BKSP              = KEY_OFFSET + $f8; // alt-backspace
+  CTL_BKSP              = KEY_OFFSET + $f9; // ctl-backspace
+  PAD0                  = KEY_OFFSET + $fa; // keypad 0
 
-{
-#define CTL_PAD0              (KEY_OFFSET + 0xfb) /* ctl-keypad 0 */
-#define CTL_PAD1              (KEY_OFFSET + 0xfc)
-#define CTL_PAD2              (KEY_OFFSET + 0xfd)
-#define CTL_PAD3              (KEY_OFFSET + 0xfe)
-#define CTL_PAD4              (KEY_OFFSET + 0xff)
-}
-{
-#define CTL_PAD5              (KEY_OFFSET + 0x100)
-#define CTL_PAD6              (KEY_OFFSET + 0x101)
-#define CTL_PAD7              (KEY_OFFSET + 0x102)
-#define CTL_PAD8              (KEY_OFFSET + 0x103)
-#define CTL_PAD9              (KEY_OFFSET + 0x104)
-}
+  CTL_PAD0              = KEY_OFFSET + $fb; // ctl-keypad 0
+  CTL_PAD1              = KEY_OFFSET + $fc;
+  CTL_PAD2              = KEY_OFFSET + $fd;
+  CTL_PAD3              = KEY_OFFSET + $fe;
+  CTL_PAD4              = KEY_OFFSET + $ff;
+  CTL_PAD5              = KEY_OFFSET + $100;
+  CTL_PAD6              = KEY_OFFSET + $101;
+  CTL_PAD7              = KEY_OFFSET + $102;
+  CTL_PAD8              = KEY_OFFSET + $103;
+  CTL_PAD9              = KEY_OFFSET + $104;
 
-{
-#define ALT_PAD0              (KEY_OFFSET + 0x105) /* alt-keypad 0 */
-#define ALT_PAD1              (KEY_OFFSET + 0x106)
-#define ALT_PAD2              (KEY_OFFSET + 0x107)
-#define ALT_PAD3              (KEY_OFFSET + 0x108)
-#define ALT_PAD4              (KEY_OFFSET + 0x109)
-}
-{
-#define ALT_PAD5              (KEY_OFFSET + 0x10a)
-#define ALT_PAD6              (KEY_OFFSET + 0x10b)
-#define ALT_PAD7              (KEY_OFFSET + 0x10c)
-#define ALT_PAD8              (KEY_OFFSET + 0x10d)
-#define ALT_PAD9              (KEY_OFFSET + 0x10e)
-}
+  ALT_PAD0              = KEY_OFFSET + $105; // alt-keypad 0
+  ALT_PAD1              = KEY_OFFSET + $106;
+  ALT_PAD2              = KEY_OFFSET + $107;
+  ALT_PAD3              = KEY_OFFSET + $108;
+  ALT_PAD4              = KEY_OFFSET + $109;
+  ALT_PAD5              = KEY_OFFSET + $10a;
+  ALT_PAD6              = KEY_OFFSET + $10b;
+  ALT_PAD7              = KEY_OFFSET + $10c;
+  ALT_PAD8              = KEY_OFFSET + $10d;
+  ALT_PAD9              = KEY_OFFSET + $10e;
 
-{
-#define CTL_DEL               (KEY_OFFSET + 0x10f) /* clt-delete */
-#define ALT_BSLASH            (KEY_OFFSET + 0x110) /* alt-back slash */
-#define CTL_ENTER             (KEY_OFFSET + 0x111) /* ctl-enter */
-}
+  CTL_DEL               = KEY_OFFSET + $10f; // clt-delete
+  ALT_BSLASH            = KEY_OFFSET + $110; // alt-back slash
+  CTL_ENTER             = KEY_OFFSET + $111; // ctl-enter
 
-{
-#define SHF_PADENTER          (KEY_OFFSET + 0x112) /* shift-enter on keypad */
-#define SHF_PADSLASH          (KEY_OFFSET + 0x113) /* shift-slash on keypad */
-#define SHF_PADSTAR           (KEY_OFFSET + 0x114) /* shift-star  on keypad */
-#define SHF_PADPLUS           (KEY_OFFSET + 0x115) /* shift-plus  on keypad */
-#define SHF_PADMINUS          (KEY_OFFSET + 0x116) /* shift-minus on keypad */
-}
-{
-#define SHF_UP                (KEY_OFFSET + 0x117) /* shift-up on keypad */
-#define SHF_DOWN              (KEY_OFFSET + 0x118) /* shift-down on keypad */
-#define SHF_IC                (KEY_OFFSET + 0x119) /* shift-insert on keypad */
-#define SHF_DC                (KEY_OFFSET + 0x11a) /* shift-delete on keypad */
-}
+  SHF_PADENTER          = KEY_OFFSET + $112; // shift-enter on keypad
+  SHF_PADSLASH          = KEY_OFFSET + $113; // shift-slash on keypad
+  SHF_PADSTAR           = KEY_OFFSET + $114; // shift-star  on keypad
+  SHF_PADPLUS           = KEY_OFFSET + $115; // shift-plus  on keypad
+  SHF_PADMINUS          = KEY_OFFSET + $116; // shift-minus on keypad
+  SHF_UP                = KEY_OFFSET + $117; // shift-up on keypad
+  SHF_DOWN              = KEY_OFFSET + $118; // shift-down on keypad
+  SHF_IC                = KEY_OFFSET + $119; // shift-insert on keypad
+  SHF_DC                = KEY_OFFSET + $11a; // shift-delete on keypad
 
-{
-#define KEY_MOUSE             (KEY_OFFSET + 0x11b) /* "mouse" key */
-#define KEY_SHIFT_L           (KEY_OFFSET + 0x11c) /* Left-shift */
-#define KEY_SHIFT_R           (KEY_OFFSET + 0x11d) /* Right-shift */
-#define KEY_CONTROL_L         (KEY_OFFSET + 0x11e) /* Left-control */
-#define KEY_CONTROL_R         (KEY_OFFSET + 0x11f) /* Right-control */
-}
+  KEY_MOUSE             = KEY_OFFSET + $11b; // "mouse" key
+  KEY_SHIFT_L           = KEY_OFFSET + $11c; // Left-shift
+  KEY_SHIFT_R           = KEY_OFFSET + $11d; // Right-shift
+  KEY_CONTROL_L         = KEY_OFFSET + $11e; // Left-control
+  KEY_CONTROL_R         = KEY_OFFSET + $11f; // Right-control
 
-{
-#define KEY_ALT_L             (KEY_OFFSET + 0x120) /* Left-alt */
-#define KEY_ALT_R             (KEY_OFFSET + 0x121) /* Right-alt */
-#define KEY_RESIZE            (KEY_OFFSET + 0x122) /* Window resize */
-#define KEY_SUP               (KEY_OFFSET + 0x123) /* Shifted up arrow */
-#define KEY_SDOWN             (KEY_OFFSET + 0x124) /* Shifted down arrow */
-}
+  KEY_ALT_L             = KEY_OFFSET + $120; // Left-alt
+  KEY_ALT_R             = KEY_OFFSET + $121; // Right-alt
+  KEY_RESIZE            = KEY_OFFSET + $122; // Window resize
+  KEY_SUP               = KEY_OFFSET + $123; // Shifted up arrow
+  KEY_SDOWN             = KEY_OFFSET + $124; // Shifted down arrow
 
 // The following were added 2011 Sep 14,  and are
 // not returned by most flavors of PDCurses:
-{
-#define CTL_SEMICOLON         (KEY_OFFSET + 0x125)
-#define CTL_EQUAL             (KEY_OFFSET + 0x126)
-#define CTL_COMMA             (KEY_OFFSET + 0x127)
-#define CTL_MINUS             (KEY_OFFSET + 0x128)
-}
+  CTL_SEMICOLON         = KEY_OFFSET + $125;
+  CTL_EQUAL             = KEY_OFFSET + $126;
+  CTL_COMMA             = KEY_OFFSET + $127;
+  CTL_MINUS             = KEY_OFFSET + $128;
 
-{
-#define CTL_STOP              (KEY_OFFSET + 0x129)
-#define CTL_FSLASH            (KEY_OFFSET + 0x12a)
-#define CTL_BQUOTE            (KEY_OFFSET + 0x12b)
-}
+  CTL_STOP              = KEY_OFFSET + $129;
+  CTL_FSLASH            = KEY_OFFSET + $12a;
+  CTL_BQUOTE            = KEY_OFFSET + $12b;
 
-{
-#define KEY_APPS              (KEY_OFFSET + 0x12c)
-#define KEY_SAPPS             (KEY_OFFSET + 0x12d)
-#define CTL_APPS              (KEY_OFFSET + 0x12e)
-#define ALT_APPS              (KEY_OFFSET + 0x12f)
-}
+  KEY_APPS              = KEY_OFFSET + $12c;
+  KEY_SAPPS             = KEY_OFFSET + $12d;
+  CTL_APPS              = KEY_OFFSET + $12e;
+  ALT_APPS              = KEY_OFFSET + $12f;
 
-{
-#define KEY_PAUSE             (KEY_OFFSET + 0x130)
-#define KEY_SPAUSE            (KEY_OFFSET + 0x131)
-#define CTL_PAUSE             (KEY_OFFSET + 0x132)
-}
+  KEY_PAUSE             = KEY_OFFSET + $130;
+  KEY_SPAUSE            = KEY_OFFSET + $131;
+  CTL_PAUSE             = KEY_OFFSET + $132;
 
-{
-#define KEY_PRINTSCREEN       (KEY_OFFSET + 0x133)
-#define ALT_PRINTSCREEN       (KEY_OFFSET + 0x134)
-#define KEY_SCROLLLOCK        (KEY_OFFSET + 0x135)
-#define ALT_SCROLLLOCK        (KEY_OFFSET + 0x136)
-}
+  KEY_PRINTSCREEN       = KEY_OFFSET + $133;
+  ALT_PRINTSCREEN       = KEY_OFFSET + $134;
+  KEY_SCROLLLOCK        = KEY_OFFSET + $135;
+  ALT_SCROLLLOCK        = KEY_OFFSET + $136;
 
-{
-#define CTL_0                 (KEY_OFFSET + 0x137)
-#define CTL_1                 (KEY_OFFSET + 0x138)
-#define CTL_2                 (KEY_OFFSET + 0x139)
-#define CTL_3                 (KEY_OFFSET + 0x13a)
-#define CTL_4                 (KEY_OFFSET + 0x13b)
-}
-{
-#define CTL_5                 (KEY_OFFSET + 0x13c)
-#define CTL_6                 (KEY_OFFSET + 0x13d)
-#define CTL_7                 (KEY_OFFSET + 0x13e)
-#define CTL_8                 (KEY_OFFSET + 0x13f)
-#define CTL_9                 (KEY_OFFSET + 0x140)
-}
+  CTL_0                 = KEY_OFFSET + $137;
+  CTL_1                 = KEY_OFFSET + $138;
+  CTL_2                 = KEY_OFFSET + $139;
+  CTL_3                 = KEY_OFFSET + $13a;
+  CTL_4                 = KEY_OFFSET + $13b;
+  CTL_5                 = KEY_OFFSET + $13c;
+  CTL_6                 = KEY_OFFSET + $13d;
+  CTL_7                 = KEY_OFFSET + $13e;
+  CTL_8                 = KEY_OFFSET + $13f;
+  CTL_9                 = KEY_OFFSET + $140;
 
-{
-#define KEY_BROWSER_BACK      (KEY_OFFSET + 0x141)
-#define KEY_SBROWSER_BACK     (KEY_OFFSET + 0x142)
-#define KEY_CBROWSER_BACK     (KEY_OFFSET + 0x143)
-#define KEY_ABROWSER_BACK     (KEY_OFFSET + 0x144)
-#define KEY_BROWSER_FWD       (KEY_OFFSET + 0x145)
-}
-{
-#define KEY_SBROWSER_FWD      (KEY_OFFSET + 0x146)
-#define KEY_CBROWSER_FWD      (KEY_OFFSET + 0x147)
-#define KEY_ABROWSER_FWD      (KEY_OFFSET + 0x148)
-#define KEY_BROWSER_REF       (KEY_OFFSET + 0x149)
-#define KEY_SBROWSER_REF      (KEY_OFFSET + 0x14A)
-}
-{
-#define KEY_CBROWSER_REF      (KEY_OFFSET + 0x14B)
-#define KEY_ABROWSER_REF      (KEY_OFFSET + 0x14C)
-#define KEY_BROWSER_STOP      (KEY_OFFSET + 0x14D)
-#define KEY_SBROWSER_STOP     (KEY_OFFSET + 0x14E)
-#define KEY_CBROWSER_STOP     (KEY_OFFSET + 0x14F)
-}
-{
-#define KEY_ABROWSER_STOP     (KEY_OFFSET + 0x150)
-#define KEY_SEARCH            (KEY_OFFSET + 0x151)
-#define KEY_SSEARCH           (KEY_OFFSET + 0x152)
-#define KEY_CSEARCH           (KEY_OFFSET + 0x153)
-#define KEY_ASEARCH           (KEY_OFFSET + 0x154)
-}
-{
-#define KEY_FAVORITES         (KEY_OFFSET + 0x155)
-#define KEY_SFAVORITES        (KEY_OFFSET + 0x156)
-#define KEY_CFAVORITES        (KEY_OFFSET + 0x157)
-#define KEY_AFAVORITES        (KEY_OFFSET + 0x158)
-#define KEY_BROWSER_HOME      (KEY_OFFSET + 0x159)
-}
-{
-#define KEY_SBROWSER_HOME     (KEY_OFFSET + 0x15A)
-#define KEY_CBROWSER_HOME     (KEY_OFFSET + 0x15B)
-#define KEY_ABROWSER_HOME     (KEY_OFFSET + 0x15C)
-#define KEY_VOLUME_MUTE       (KEY_OFFSET + 0x15D)
-#define KEY_SVOLUME_MUTE      (KEY_OFFSET + 0x15E)
-}
-{
-#define KEY_CVOLUME_MUTE      (KEY_OFFSET + 0x15F)
-#define KEY_AVOLUME_MUTE      (KEY_OFFSET + 0x160)
-#define KEY_VOLUME_DOWN       (KEY_OFFSET + 0x161)
-#define KEY_SVOLUME_DOWN      (KEY_OFFSET + 0x162)
-#define KEY_CVOLUME_DOWN      (KEY_OFFSET + 0x163)
-}
-{
-#define KEY_AVOLUME_DOWN      (KEY_OFFSET + 0x164)
-#define KEY_VOLUME_UP         (KEY_OFFSET + 0x165)
-#define KEY_SVOLUME_UP        (KEY_OFFSET + 0x166)
-#define KEY_CVOLUME_UP        (KEY_OFFSET + 0x167)
-#define KEY_AVOLUME_UP        (KEY_OFFSET + 0x168)
-}
-{
-#define KEY_NEXT_TRACK        (KEY_OFFSET + 0x169)
-#define KEY_SNEXT_TRACK       (KEY_OFFSET + 0x16A)
-#define KEY_CNEXT_TRACK       (KEY_OFFSET + 0x16B)
-#define KEY_ANEXT_TRACK       (KEY_OFFSET + 0x16C)
-#define KEY_PREV_TRACK        (KEY_OFFSET + 0x16D)
-}
-{
-#define KEY_SPREV_TRACK       (KEY_OFFSET + 0x16E)
-#define KEY_CPREV_TRACK       (KEY_OFFSET + 0x16F)
-#define KEY_APREV_TRACK       (KEY_OFFSET + 0x170)
-#define KEY_MEDIA_STOP        (KEY_OFFSET + 0x171)
-#define KEY_SMEDIA_STOP       (KEY_OFFSET + 0x172)
-}
-{
-#define KEY_CMEDIA_STOP       (KEY_OFFSET + 0x173)
-#define KEY_AMEDIA_STOP       (KEY_OFFSET + 0x174)
-#define KEY_PLAY_PAUSE        (KEY_OFFSET + 0x175)
-#define KEY_SPLAY_PAUSE       (KEY_OFFSET + 0x176)
-#define KEY_CPLAY_PAUSE       (KEY_OFFSET + 0x177)
-}
-{
-#define KEY_APLAY_PAUSE       (KEY_OFFSET + 0x178)
-#define KEY_LAUNCH_MAIL       (KEY_OFFSET + 0x179)
-#define KEY_SLAUNCH_MAIL      (KEY_OFFSET + 0x17A)
-#define KEY_CLAUNCH_MAIL      (KEY_OFFSET + 0x17B)
-#define KEY_ALAUNCH_MAIL      (KEY_OFFSET + 0x17C)
-}
-{
-#define KEY_MEDIA_SELECT      (KEY_OFFSET + 0x17D)
-#define KEY_SMEDIA_SELECT     (KEY_OFFSET + 0x17E)
-#define KEY_CMEDIA_SELECT     (KEY_OFFSET + 0x17F)
-#define KEY_AMEDIA_SELECT     (KEY_OFFSET + 0x180)
-#define KEY_LAUNCH_APP1       (KEY_OFFSET + 0x181)
-}
-{
-#define KEY_SLAUNCH_APP1      (KEY_OFFSET + 0x182)
-#define KEY_CLAUNCH_APP1      (KEY_OFFSET + 0x183)
-#define KEY_ALAUNCH_APP1      (KEY_OFFSET + 0x184)
-#define KEY_LAUNCH_APP2       (KEY_OFFSET + 0x185)
-}
-{
-#define KEY_SLAUNCH_APP2      (KEY_OFFSET + 0x186)
-#define KEY_CLAUNCH_APP2      (KEY_OFFSET + 0x187)
-#define KEY_ALAUNCH_APP2      (KEY_OFFSET + 0x188)
-}
+  KEY_BROWSER_BACK      = KEY_OFFSET + $141;
+  KEY_SBROWSER_BACK     = KEY_OFFSET + $142;
+  KEY_CBROWSER_BACK     = KEY_OFFSET + $143;
+  KEY_ABROWSER_BACK     = KEY_OFFSET + $144;
+  KEY_BROWSER_FWD       = KEY_OFFSET + $145;
+  KEY_SBROWSER_FWD      = KEY_OFFSET + $146;
+  KEY_CBROWSER_FWD      = KEY_OFFSET + $147;
+  KEY_ABROWSER_FWD      = KEY_OFFSET + $148;
+  KEY_BROWSER_REF       = KEY_OFFSET + $149;
+  KEY_SBROWSER_REF      = KEY_OFFSET + $14A;
+  KEY_CBROWSER_REF      = KEY_OFFSET + $14B;
+  KEY_ABROWSER_REF      = KEY_OFFSET + $14C;
+  KEY_BROWSER_STOP      = KEY_OFFSET + $14D;
+  KEY_SBROWSER_STOP     = KEY_OFFSET + $14E;
+  KEY_CBROWSER_STOP     = KEY_OFFSET + $14F;
+  KEY_ABROWSER_STOP     = KEY_OFFSET + $150;
+  KEY_SEARCH            = KEY_OFFSET + $151;
+  KEY_SSEARCH           = KEY_OFFSET + $152;
+  KEY_CSEARCH           = KEY_OFFSET + $153;
+  KEY_ASEARCH           = KEY_OFFSET + $154;
+  KEY_FAVORITES         = KEY_OFFSET + $155;
+  KEY_SFAVORITES        = KEY_OFFSET + $156;
+  KEY_CFAVORITES        = KEY_OFFSET + $157;
+  KEY_AFAVORITES        = KEY_OFFSET + $158;
+  KEY_BROWSER_HOME      = KEY_OFFSET + $159;
+  KEY_SBROWSER_HOME     = KEY_OFFSET + $15A;
+  KEY_CBROWSER_HOME     = KEY_OFFSET + $15B;
+  KEY_ABROWSER_HOME     = KEY_OFFSET + $15C;
+  KEY_VOLUME_MUTE       = KEY_OFFSET + $15D;
+  KEY_SVOLUME_MUTE      = KEY_OFFSET + $15E;
+  KEY_CVOLUME_MUTE      = KEY_OFFSET + $15F;
+  KEY_AVOLUME_MUTE      = KEY_OFFSET + $160;
+  KEY_VOLUME_DOWN       = KEY_OFFSET + $161;
+  KEY_SVOLUME_DOWN      = KEY_OFFSET + $162;
+  KEY_CVOLUME_DOWN      = KEY_OFFSET + $163;
+  KEY_AVOLUME_DOWN      = KEY_OFFSET + $164;
+  KEY_VOLUME_UP         = KEY_OFFSET + $165;
+  KEY_SVOLUME_UP        = KEY_OFFSET + $166;
+  KEY_CVOLUME_UP        = KEY_OFFSET + $167;
+  KEY_AVOLUME_UP        = KEY_OFFSET + $168;
+  KEY_NEXT_TRACK        = KEY_OFFSET + $169;
+  KEY_SNEXT_TRACK       = KEY_OFFSET + $16A;
+  KEY_CNEXT_TRACK       = KEY_OFFSET + $16B;
+  KEY_ANEXT_TRACK       = KEY_OFFSET + $16C;
+  KEY_PREV_TRACK        = KEY_OFFSET + $16D;
+  KEY_SPREV_TRACK       = KEY_OFFSET + $16E;
+  KEY_CPREV_TRACK       = KEY_OFFSET + $16F;
+  KEY_APREV_TRACK       = KEY_OFFSET + $170;
+  KEY_MEDIA_STOP        = KEY_OFFSET + $171;
+  KEY_SMEDIA_STOP       = KEY_OFFSET + $172;
+  KEY_CMEDIA_STOP       = KEY_OFFSET + $173;
+  KEY_AMEDIA_STOP       = KEY_OFFSET + $174;
+  KEY_PLAY_PAUSE        = KEY_OFFSET + $175;
+  KEY_SPLAY_PAUSE       = KEY_OFFSET + $176;
+  KEY_CPLAY_PAUSE       = KEY_OFFSET + $177;
+  KEY_APLAY_PAUSE       = KEY_OFFSET + $178;
+  KEY_LAUNCH_MAIL       = KEY_OFFSET + $179;
+  KEY_SLAUNCH_MAIL      = KEY_OFFSET + $17A;
+  KEY_CLAUNCH_MAIL      = KEY_OFFSET + $17B;
+  KEY_ALAUNCH_MAIL      = KEY_OFFSET + $17C;
+  KEY_MEDIA_SELECT      = KEY_OFFSET + $17D;
+  KEY_SMEDIA_SELECT     = KEY_OFFSET + $17E;
+  KEY_CMEDIA_SELECT     = KEY_OFFSET + $17F;
+  KEY_AMEDIA_SELECT     = KEY_OFFSET + $180;
+  KEY_LAUNCH_APP1       = KEY_OFFSET + $181;
+  KEY_SLAUNCH_APP1      = KEY_OFFSET + $182;
+  KEY_CLAUNCH_APP1      = KEY_OFFSET + $183;
+  KEY_ALAUNCH_APP1      = KEY_OFFSET + $184;
+  KEY_LAUNCH_APP2       = KEY_OFFSET + $185;
+  KEY_SLAUNCH_APP2      = KEY_OFFSET + $186;
+  KEY_CLAUNCH_APP2      = KEY_OFFSET + $187;
+  KEY_ALAUNCH_APP2      = KEY_OFFSET + $188;
 
-{
-#define KEY_MIN       KEY_BREAK         /* Minimum curses key value */
-#define KEY_MAX       KEY_ALAUNCH_APP2  /* Maximum curses key */
-}
+  KEY_MIN               = KEY_BREAK;        // Minimum curses key value
+  KEY_MAX               = KEY_ALAUNCH_APP2; // Maximum curses key
+
 function KEY_F(aNum: Byte): TChType; inline;
 
 {
