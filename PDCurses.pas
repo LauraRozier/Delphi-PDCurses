@@ -31,7 +31,7 @@ const
   {$IFDEF MACOS}
   // These could also be .a, depending on the compiler used for PDCurses
   LIBPDCURSES = 'pdcurses.lib';
-  LOBPBCPANEL = 'panel.lib';
+  LIBPDCPANEL = 'panel.lib';
   {$ELSE MACOS}
     {$IFDEF LINUX}
   LIBPDCURSES = 'libXCurses';
@@ -41,6 +41,9 @@ const
 
 var
   PDCLibHandle: Pointer;
+{$IFDEF MACOS}
+  PDCPanelLibHandle: Pointer;
+{$ENDIF MACOS}
 
 {
   Compatability types
@@ -2070,10 +2073,12 @@ var
   Non-lib functions
 }
 {$IFDEF MSWINDOWS}
-function pdcGetProcAddr(aProcName: PAnsiChar): Pointer;
+function pdcGetProcAddr(aProcName: PAnsiChar;
+                        aFromPanelLib: Boolean = False): Pointer;
 {$ENDIF MSWINDOWS}
 {$IFDEF POSIX}
-function pdcGetProcAddr(aProcName: PChar): Pointer;
+function pdcGetProcAddr(aProcName: PChar;
+                        aFromPanelLib: Boolean = False): Pointer;
 {$ENDIF POSIX}
 procedure pdcInitLib;
 procedure pdcFreeLib;
@@ -2394,25 +2399,28 @@ end;
 end;
 {$ENDIF}
 
-
 {
   Non-lib functions
 }
 {$IFDEF MSWINDOWS}
-function pdcGetProcAddr(aProcName: PAnsiChar): Pointer;
+function pdcGetProcAddr(aProcName: PAnsiChar; aFromPanelLib: Boolean): Pointer;
 begin
   Result := GetProcAddress(HMODULE(PDCLibHandle), aProcName);
 
 {$ENDIF MSWINDOWS}
 {$IFDEF POSIX}
-function pdcGetProcAddr(aProcName: PChar): Pointer;
+function pdcGetProcAddr(aProcName: PChar; aFromPanelLib: Boolean): Pointer;
 var
   Error: MarshaledAString;
   M:     TMarshaller;
 begin
   dlerror;
 
-  Result := dlsym(PDCLibHandle, M.AsAnsi(aProcName, CP_UTF8).ToPointer);
+  if aFromPanelLib then
+    Result := dlsym(PDCPanelLibHandle, M.AsAnsi(aProcName, CP_UTF8).ToPointer)
+  else
+    Result := dlsym(PDCLibHandle, M.AsAnsi(aProcName, CP_UTF8).ToPointer);
+
   Error  := dlerror;
 
   if Error <> nil then
@@ -2887,6 +2895,11 @@ end;
 
 procedure pdcFreeLib;
 begin
+{$IFDEF MACOS}
+  if PDCPanelLibHandle <> nil then
+    dlclose(PDCPanelLibHandle);
+{$ENDIF MACOS}
+
   if PDCLibHandle <> nil then
 {$IFDEF MSWINDOWS}
     FreeLibrary(HMODULE(PDCLibHandle));
