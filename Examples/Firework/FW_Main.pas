@@ -56,11 +56,11 @@ begin
   aAStr    := pdcSValTtyType;
   aVersion := pdcSValVersion;
   pdcMvAddStr(2, 3, PAnsiChar(aAStr));
-  aAStr := 'Version: ' + IntToStr(aVersion.ver_major) +
+  aAStr := AnsiString('Version: ' + IntToStr(aVersion.ver_major) +
            '.' + IntToStr(aVersion.ver_minor) +
-           '.' + IntToStr(aVersion.ver_change);
+           '.' + IntToStr(aVersion.ver_change));
   pdcMvAddStr(3, 3, PAnsiChar(aAStr));
-  aAStr := 'Port: ' + pdcPortToStr(aVersion.port);
+  aAStr := AnsiString('Port: ' + pdcPortToStr(aVersion.port));
   pdcMvAddStr(4, 3, PAnsiChar(aAStr));
   pdcMvAddStr(6, 3, 'Press any key to continue ...');
   pdcRefresh;
