@@ -381,7 +381,7 @@ type
   PDCurses External Variables
 }
 type
-  TAcsMap  = array[Char] of TChType;
+  TAcsMap  = array[Char] of TCChar;
   PAcsMap  = ^TAcsMap;
   PPAcsMap = ^PAcsMap;
   TPutC    = function(aArg: LongInt): LongInt; cdecl;
@@ -525,8 +525,8 @@ const
   PDC_COLOR_SHIFT = $18;
   {$ENDIF CHTYPE_EXTRA_LONG}
 
-  A_ITALIC  = A_INVIS;
-  A_PROTECT = A_UNDERLINE OR A_LEFTLINE OR A_RIGHTLINE;
+  A_ITALIC        = A_INVIS;
+  A_PROTECT       = A_UNDERLINE OR A_LEFTLINE OR A_RIGHTLINE;
 {$ELSE Defined(CHTYPE_LONG) OR Defined(CHTYPE_EXTRA_LONG)} // 16-bit chtypes
   A_BOLD          = TChType($0100); // X/Open
   A_REVERSE       = TChType($0200); // X/Open
@@ -552,10 +552,10 @@ const
   PDC_COLOR_SHIFT = $B;
 {$IFEND Defined(CHTYPE_LONG) OR Defined(CHTYPE_EXTRA_LONG)}
 
-  A_STANDOUT = A_REVERSE OR A_BOLD; // X/Open
-  CHR_MSK    = A_CHARTEXT;          // Obsolete
-  ATR_MSK    = A_ATTRIBUTES;        // Obsolete
-  ATR_NRM    = A_NORMAL;            // Obsolete
+  A_STANDOUT      = A_REVERSE OR A_BOLD; // X/Open
+  CHR_MSK         = A_CHARTEXT;          // Obsolete
+  ATR_MSK         = A_ATTRIBUTES;        // Obsolete
+  ATR_NRM         = A_NORMAL;            // Obsolete
 
 {
   For use with attr_t -- X/Open says, "these shall be distinct", so
@@ -590,398 +590,290 @@ const
   'aNChar' = 16-bit chtype; it gets the fallback set because no bit is
              available for A_ALTCHARSET
 }
-function pdcAcsPick(aWChar, aNChar: AnsiChar): TChType;
+function pdcAcsPick(aWChar, aNChar: AnsiChar): TChType; inline;
 
 // VT100-compatible symbols -- box chars
-{
-#define ACS_LRCORNER      ACS_PICK('V', '+')
-#define ACS_URCORNER      ACS_PICK('W', '+')
-#define ACS_ULCORNER      ACS_PICK('X', '+')
-#define ACS_LLCORNER      ACS_PICK('Y', '+')
-#define ACS_PLUS          ACS_PICK('Z', '+')
-}
-{
-#define ACS_LTEE          ACS_PICK('[', '+')
-#define ACS_RTEE          ACS_PICK('\\', '+')
-#define ACS_BTEE          ACS_PICK(']', '+')
-#define ACS_TTEE          ACS_PICK('^', '+')
-#define ACS_HLINE         ACS_PICK('_', '-')
-#define ACS_VLINE         ACS_PICK('`', '|')
-}
+function ACS_LRCORNER: TChType; inline; { lower right corner }
+function ACS_URCORNER: TChType; inline; { upper right corner }
+function ACS_ULCORNER: TChType; inline; { upper left corner }
+function ACS_LLCORNER: TChType; inline; { lower left corner }
+function ACS_PLUS: TChType; inline;     { large plus or crossover }
+function ACS_LTEE: TChType; inline;     { tee pointing right }
+function ACS_RTEE: TChType; inline;     { tee pointing left }
+function ACS_BTEE: TChType; inline;     { tee pointing up }
+function ACS_TTEE: TChType; inline;     { tee pointing down }
+function ACS_HLINE: TChType; inline;    { horizontal line }
+function ACS_VLINE: TChType; inline;    { vertical line }
 
 // PDCurses-only ACS chars.  Don't use if ncurses compatibility matters.
 // Some won't work in non-wide X11 builds (see 'acs_defs.h' for details).
-{
-#define ACS_CENT          ACS_PICK('{', 'c')
-#define ACS_YEN           ACS_PICK('|', 'y')
-#define ACS_PESETA        ACS_PICK('} {', 'p')
-#define ACS_HALF          ACS_PICK('&', '/')
-#define ACS_QUARTER       ACS_PICK('\'', '/')
-}
-{
-#define ACS_LEFT_ANG_QU   ACS_PICK(')',  '<')
-#define ACS_RIGHT_ANG_QU  ACS_PICK('*',  '>')
-#define ACS_D_HLINE       ACS_PICK('a', '-')
-#define ACS_D_VLINE       ACS_PICK('b', '|')
-#define ACS_CLUB          ACS_PICK( 11, 'C')
-}
-{
-#define ACS_HEART         ACS_PICK( 12, 'H')
-#define ACS_SPADE         ACS_PICK( 13, 'S')
-#define ACS_SMILE         ACS_PICK( 14, 'O')
-#define ACS_REV_SMILE     ACS_PICK( 15, 'O')
-}
-{
-#define ACS_MED_BULLET    ACS_PICK( 16, '.')
-#define ACS_WHITE_BULLET  ACS_PICK( 17, 'O')
-#define ACS_PILCROW       ACS_PICK( 18, 'O')
-#define ACS_SECTION       ACS_PICK( 19, 'O')
-}
+function ACS_CENT: TChType; inline;
+function ACS_YEN: TChType; inline;
+function ACS_PESETA: TChType; inline;
+function ACS_HALF: TChType; inline;
+function ACS_QUARTER: TChType; inline;
+function ACS_LEFT_ANG_QU: TChType; inline;
+function ACS_RIGHT_ANG_QU: TChType; inline;
+function ACS_D_HLINE: TChType; inline;
+function ACS_D_VLINE: TChType; inline;
+function ACS_CLUB: TChType; inline;
+function ACS_HEART: TChType; inline;
+function ACS_SPADE: TChType; inline;
+function ACS_SMILE: TChType; inline;
+function ACS_REV_SMILE: TChType; inline;
+function ACS_MED_BULLET: TChType; inline;
+function ACS_WHITE_BULLET: TChType; inline;
+function ACS_PILCROW: TChType; inline;
+function ACS_SECTION: TChType; inline;
 
-{
-#define ACS_SUP2          ACS_PICK(',', '2')
-#define ACS_ALPHA         ACS_PICK('.', 'a')
-#define ACS_BETA          ACS_PICK('/', 'b')
-#define ACS_GAMMA         ACS_PICK('0', 'y')
-#define ACS_UP_SIGMA      ACS_PICK('1', 'S')
-}
-{
-#define ACS_LO_SIGMA      ACS_PICK('2', 's')
-#define ACS_MU            ACS_PICK('4', 'u')
-#define ACS_TAU           ACS_PICK('5', 't')
-#define ACS_UP_PHI        ACS_PICK('6', 'F')
-#define ACS_THETA         ACS_PICK('7', 't')
-}
-{
-#define ACS_OMEGA         ACS_PICK('8', 'w')
-#define ACS_DELTA         ACS_PICK('9', 'd')
-#define ACS_INFINITY      ACS_PICK('-', 'i')
-#define ACS_LO_PHI        ACS_PICK( 22, 'f')
-#define ACS_EPSILON       ACS_PICK(':', 'e')
-}
-{
-#define ACS_INTERSECT     ACS_PICK('e', 'u')
-#define ACS_TRIPLE_BAR    ACS_PICK('f', '=')
-#define ACS_DIVISION      ACS_PICK('c', '/')
-#define ACS_APPROX_EQ     ACS_PICK('d', '~')
-#define ACS_SM_BULLET     ACS_PICK('g', '.')
-}
-{
-#define ACS_SQUARE_ROOT   ACS_PICK('i', '!')
-#define ACS_UBLOCK        ACS_PICK('p', '^')
-#define ACS_BBLOCK        ACS_PICK('q', '_')
-#define ACS_LBLOCK        ACS_PICK('r', '<')
-#define ACS_RBLOCK        ACS_PICK('s', '>')
-}
+function ACS_SUP2: TChType; inline;
+function ACS_ALPHA: TChType; inline;
+function ACS_BETA: TChType; inline;
+function ACS_GAMMA: TChType; inline;
+function ACS_UP_SIGMA: TChType; inline;
+function ACS_LO_SIGMA: TChType; inline;
+function ACS_MU: TChType; inline;
+function ACS_TAU: TChType; inline;
+function ACS_UP_PHI: TChType; inline;
+function ACS_THETA: TChType; inline;
+function ACS_OMEGA: TChType; inline;
+function ACS_DELTA: TChType; inline;
+function ACS_INFINITY: TChType; inline;
+function ACS_LO_PHI: TChType; inline;
+function ACS_EPSILON: TChType; inline;
+function ACS_INTERSECT: TChType; inline;
+function ACS_TRIPLE_BAR: TChType; inline;
+function ACS_DIVISION: TChType; inline;
+function ACS_APPROX_EQ: TChType; inline;
+function ACS_SM_BULLET: TChType; inline;
+function ACS_SQUARE_ROOT: TChType; inline;
+function ACS_UBLOCK: TChType; inline;
+function ACS_BBLOCK: TChType; inline;
+function ACS_LBLOCK: TChType; inline;
+function ACS_RBLOCK: TChType; inline;
 
-{
-#define ACS_A_ORDINAL     ACS_PICK(20,  'a')
-#define ACS_O_ORDINAL     ACS_PICK(21,  'o')
-#define ACS_INV_QUERY     ACS_PICK(24,  '?')
-#define ACS_REV_NOT       ACS_PICK(25,  '!')
-#define ACS_NOT           ACS_PICK(26,  '!')
-}
-{
-#define ACS_INV_BANG      ACS_PICK(23,  '!')
-#define ACS_UP_INTEGRAL   ACS_PICK(27,  '|')
-#define ACS_LO_INTEGRAL   ACS_PICK(28,  '|')
-#define ACS_SUP_N         ACS_PICK(29,  'n')
-#define ACS_CENTER_SQU    ACS_PICK(30,  'x')
-#define ACS_F_WITH_HOOK   ACS_PICK(31,  'f')
-}
+function ACS_A_ORDINAL: TChType; inline;
+function ACS_O_ORDINAL: TChType; inline;
+function ACS_INV_QUERY: TChType; inline;
+function ACS_REV_NOT: TChType; inline;
+function ACS_NOT: TChType; inline;
+function ACS_INV_BANG: TChType; inline;
+function ACS_UP_INTEGRAL: TChType; inline;
+function ACS_LO_INTEGRAL: TChType; inline;
+function ACS_SUP_N: TChType; inline;
+function ACS_CENTER_SQU: TChType; inline;
+function ACS_F_WITH_HOOK: TChType; inline;
 
-{
-#define ACS_SD_LRCORNER   ACS_PICK(';', '+')
-#define ACS_SD_URCORNER   ACS_PICK('<', '+')
-#define ACS_SD_ULCORNER   ACS_PICK('=', '+')
-#define ACS_SD_LLCORNER   ACS_PICK('>', '+')
-#define ACS_SD_PLUS       ACS_PICK('?', '+')
-}
-{
-#define ACS_SD_LTEE       ACS_PICK('@', '+')
-#define ACS_SD_RTEE       ACS_PICK('A', '+')
-#define ACS_SD_BTEE       ACS_PICK('B', '+')
-#define ACS_SD_TTEE       ACS_PICK('C', '+')
-}
+function ACS_SD_LRCORNER: TChType; inline;
+function ACS_SD_URCORNER: TChType; inline;
+function ACS_SD_ULCORNER: TChType; inline;
+function ACS_SD_LLCORNER: TChType; inline;
+function ACS_SD_PLUS: TChType; inline;
+function ACS_SD_LTEE: TChType; inline;
+function ACS_SD_RTEE: TChType; inline;
+function ACS_SD_BTEE: TChType; inline;
+function ACS_SD_TTEE: TChType; inline;
 
-{
-#define ACS_D_LRCORNER    ACS_PICK('D', '+')
-#define ACS_D_URCORNER    ACS_PICK('E', '+')
-#define ACS_D_ULCORNER    ACS_PICK('F', '+')
-#define ACS_D_LLCORNER    ACS_PICK('G', '+')
-#define ACS_D_PLUS        ACS_PICK('H', '+')
-}
-{
-#define ACS_D_LTEE        ACS_PICK('I', '+')
-#define ACS_D_RTEE        ACS_PICK('J', '+')
-#define ACS_D_BTEE        ACS_PICK('K', '+')
-#define ACS_D_TTEE        ACS_PICK('L', '+')
-}
+function ACS_D_LRCORNER: TChType; inline;
+function ACS_D_URCORNER: TChType; inline;
+function ACS_D_ULCORNER: TChType; inline;
+function ACS_D_LLCORNER: TChType; inline;
+function ACS_D_PLUS: TChType; inline;
+function ACS_D_LTEE: TChType; inline;
+function ACS_D_RTEE: TChType; inline;
+function ACS_D_BTEE: TChType; inline;
+function ACS_D_TTEE: TChType; inline;
 
-{
-#define ACS_DS_LRCORNER   ACS_PICK('M', '+')
-#define ACS_DS_URCORNER   ACS_PICK('N', '+')
-#define ACS_DS_ULCORNER   ACS_PICK('O', '+')
-#define ACS_DS_LLCORNER   ACS_PICK('P', '+')
-#define ACS_DS_PLUS       ACS_PICK('Q', '+')
-}
-{
-#define ACS_DS_LTEE       ACS_PICK('R', '+')
-#define ACS_DS_RTEE       ACS_PICK('S', '+')
-#define ACS_DS_BTEE       ACS_PICK('T', '+')
-#define ACS_DS_TTEE       ACS_PICK('U', '+')
-}
+function ACS_DS_LRCORNER: TChType; inline;
+function ACS_DS_URCORNER: TChType; inline;
+function ACS_DS_ULCORNER: TChType; inline;
+function ACS_DS_LLCORNER: TChType; inline;
+function ACS_DS_PLUS: TChType; inline;
+function ACS_DS_LTEE: TChType; inline;
+function ACS_DS_RTEE: TChType; inline;
+function ACS_DS_BTEE: TChType; inline;
+function ACS_DS_TTEE: TChType; inline;
 
 // VT100-compatible symbols -- other
-{
-#define ACS_S1            ACS_PICK('l', '-')
-#define ACS_S9            ACS_PICK('o', '_')
-#define ACS_DIAMOND       ACS_PICK('j', '+')
-#define ACS_CKBOARD       ACS_PICK('k', ':')
-}
-{
-#define ACS_DEGREE        ACS_PICK('w', '\'')
-#define ACS_PLMINUS       ACS_PICK('x', '#')
-#define ACS_BULLET        ACS_PICK('h', 'o')
-}
+function ACS_S1: TChType; inline;
+function ACS_S9: TChType; inline;
+function ACS_DIAMOND: TChType; inline;
+function ACS_CKBOARD: TChType; inline;
+function ACS_DEGREE: TChType; inline;
+function ACS_PLMINUS: TChType; inline;
+function ACS_BULLET: TChType; inline;
 
 // Teletype 5410v1 symbols -- these are defined in SysV curses, but
 // are not well-supported by most terminals. Stick to VT100 characters
 // for optimum portability.
-{
-#define ACS_LARROW        ACS_PICK('!', '<')
-#define ACS_RARROW        ACS_PICK(' ', '>')
-#define ACS_DARROW        ACS_PICK('#', 'v')
-#define ACS_UARROW        ACS_PICK('"', '^')
-}
-{
-#define ACS_BOARD         ACS_PICK('+', '#')
-#define ACS_LTBOARD       ACS_PICK('y', '#')
-#define ACS_LANTERN       ACS_PICK('z', '*')
-#define ACS_BLOCK         ACS_PICK('t', '#')
-}
+function ACS_LARROW: TChType; inline;
+function ACS_RARROW: TChType; inline;
+function ACS_DARROW: TChType; inline;
+function ACS_UARROW: TChType; inline;
+function ACS_BOARD: TChType; inline;
+function ACS_LTBOARD: TChType; inline;
+function ACS_LANTERN: TChType; inline;
+function ACS_BLOCK: TChType; inline;
 
 // That goes double for these -- undocumented SysV symbols. Don't use them.
-{
-#define ACS_S3            ACS_PICK('m', '-')
-#define ACS_S7            ACS_PICK('n', '-')
-#define ACS_LEQUAL        ACS_PICK('u', '<')
-#define ACS_GEQUAL        ACS_PICK('v', '>')
-}
-{
-#define ACS_PI            ACS_PICK('$', 'n')
-#define ACS_NEQUAL        ACS_PICK('%', '+')
-#define ACS_STERLING      ACS_PICK('~', 'L')
-}
+function ACS_S3: TChType; inline;
+function ACS_S7: TChType; inline;
+function ACS_LEQUAL: TChType; inline;
+function ACS_GEQUAL: TChType; inline;
+function ACS_PI: TChType; inline;
+function ACS_NEQUAL: TChType; inline;
+function ACS_STERLING: TChType; inline;
 
 // Box char aliases
-{
-#define ACS_BSSB      ACS_ULCORNER
-#define ACS_SSBB      ACS_LLCORNER
-#define ACS_BBSS      ACS_URCORNER
-#define ACS_SBBS      ACS_LRCORNER
-#define ACS_SBSS      ACS_RTEE
-}
-{
-#define ACS_SSSB      ACS_LTEE
-#define ACS_SSBS      ACS_BTEE
-#define ACS_BSSS      ACS_TTEE
-#define ACS_BSBS      ACS_HLINE
-#define ACS_SBSB      ACS_VLINE
-#define ACS_SSSS      ACS_PLUS
-}
+function ACS_BSSB: TChType; inline;
+function ACS_SSBB: TChType; inline;
+function ACS_BBSS: TChType; inline;
+function ACS_SBBS: TChType; inline;
+function ACS_SBSS: TChType; inline;
+function ACS_SSSB: TChType; inline;
+function ACS_SSBS: TChType; inline;
+function ACS_BSSS: TChType; inline;
+function ACS_BSBS: TChType; inline;
+function ACS_SBSB: TChType; inline;
+function ACS_SSSS: TChType; inline;
 
 // cchar_t aliases
 {$IFDEF PDC_WIDE}
-{
-# define WACS_LRCORNER      (&(acs_map['V']))
-# define WACS_URCORNER      (&(acs_map['W']))
-# define WACS_ULCORNER      (&(acs_map['X']))
-# define WACS_LLCORNER      (&(acs_map['Y']))
-# define WACS_PLUS          (&(acs_map['Z']))
-}
-{
-# define WACS_LTEE          (&(acs_map['[']))
-# define WACS_RTEE          (&(acs_map['\\']))
-# define WACS_BTEE          (&(acs_map[']']))
-# define WACS_TTEE          (&(acs_map['^']))
-# define WACS_HLINE         (&(acs_map['_']))
-# define WACS_VLINE         (&(acs_map['`']))
-}
+function WACS_LRCORNER: TCChar; inline;
+function WACS_URCORNER: TCChar; inline;
+function WACS_ULCORNER: TCChar; inline;
+function WACS_LLCORNER: TCChar; inline;
+function WACS_PLUS: TCChar; inline;
+function WACS_LTEE: TCChar; inline;
+function WACS_RTEE: TCChar; inline;
+function WACS_BTEE: TCChar; inline;
+function WACS_TTEE: TCChar; inline;
+function WACS_HLINE: TCChar; inline;
+function WACS_VLINE: TCChar; inline;
 
-{
-# define WACS_CENT          (&(acs_map['{']))
-# define WACS_YEN           (&(acs_map['|']))
-# define WACS_PESETA        (&(acs_map['} {']))
-# define WACS_HALF          (&(acs_map['&']))
-# define WACS_QUARTER       (&(acs_map['\'']))
-}
-{
-# define WACS_LEFT_ANG_QU   (&(acs_map[')']))
-# define WACS_RIGHT_ANG_QU  (&(acs_map['*']))
-# define WACS_D_HLINE       (&(acs_map['a']))
-# define WACS_D_VLINE       (&(acs_map['b']))
-# define WACS_CLUB          (&(acs_map[ 11]))
-}
-{
-# define WACS_HEART         (&(acs_map[ 12]))
-# define WACS_SPADE         (&(acs_map[ 13]))
-# define WACS_SMILE         (&(acs_map[ 14]))
-# define WACS_REV_SMILE     (&(acs_map[ 15]))
-}
-{
-# define WACS_MED_BULLET    (&(acs_map[ 16]))
-# define WACS_WHITE_BULLET  (&(acs_map[ 17]))
-# define WACS_PILCROW       (&(acs_map[ 18]))
-# define WACS_SECTION       (&(acs_map[ 19]))
-}
+function WACS_CENT: TCChar; inline;
+function WACS_YEN: TCChar; inline;
+function WACS_PESETA: TCChar; inline;
+function WACS_HALF: TCChar; inline;
+function WACS_QUARTER: TCChar; inline;
+function WACS_LEFT_ANG_QU: TCChar; inline;
+function WACS_RIGHT_ANG_QU: TCChar; inline;
+function WACS_D_HLINE: TCChar; inline;
+function WACS_D_VLINE: TCChar; inline;
+function WACS_CLUB: TCChar; inline;
+function WACS_HEART: TCChar; inline;
+function WACS_SPADE: TCChar; inline;
+function WACS_SMILE: TCChar; inline;
+function WACS_REV_SMILE: TCChar; inline;
+function WACS_MED_BULLET: TCChar; inline;
+function WACS_WHITE_BULLET: TCChar; inline;
+function WACS_PILCROW: TCChar; inline;
+function WACS_SECTION: TCChar; inline;
 
-{
-# define WACS_SUP2          (&(acs_map[',']))
-# define WACS_ALPHA         (&(acs_map['.']))
-# define WACS_BETA          (&(acs_map['/']))
-# define WACS_GAMMA         (&(acs_map['0']))
-# define WACS_UP_SIGMA      (&(acs_map['1']))
-}
-{
-# define WACS_LO_SIGMA      (&(acs_map['2']))
-# define WACS_MU            (&(acs_map['4']))
-# define WACS_TAU           (&(acs_map['5']))
-# define WACS_UP_PHI        (&(acs_map['6']))
-# define WACS_THETA         (&(acs_map['7']))
-}
-{
-# define WACS_OMEGA         (&(acs_map['8']))
-# define WACS_DELTA         (&(acs_map['9']))
-# define WACS_INFINITY      (&(acs_map['-']))
-# define WACS_LO_PHI        (&(acs_map[ 22]))
-# define WACS_EPSILON       (&(acs_map[':']))
-}
-{
-# define WACS_INTERSECT     (&(acs_map['e']))
-# define WACS_TRIPLE_BAR    (&(acs_map['f']))
-# define WACS_DIVISION      (&(acs_map['c']))
-# define WACS_APPROX_EQ     (&(acs_map['d']))
-# define WACS_SM_BULLET     (&(acs_map['g']))
-}
-{
-# define WACS_SQUARE_ROOT   (&(acs_map['i']))
-# define WACS_UBLOCK        (&(acs_map['p']))
-# define WACS_BBLOCK        (&(acs_map['q']))
-# define WACS_LBLOCK        (&(acs_map['r']))
-# define WACS_RBLOCK        (&(acs_map['s']))
-}
+function WACS_SUP2: TCChar; inline;
+function WACS_ALPHA: TCChar; inline;
+function WACS_BETA: TCChar; inline;
+function WACS_GAMMA: TCChar; inline;
+function WACS_UP_SIGMA: TCChar; inline;
+function WACS_LO_SIGMA: TCChar; inline;
+function WACS_MU: TCChar; inline;
+function WACS_TAU: TCChar; inline;
+function WACS_UP_PHI: TCChar; inline;
+function WACS_THETA: TCChar; inline;
+function WACS_OMEGA: TCChar; inline;
+function WACS_DELTA: TCChar; inline;
+function WACS_INFINITY: TCChar; inline;
+function WACS_LO_PHI: TCChar; inline;
+function WACS_EPSILON: TCChar; inline;
+function WACS_INTERSECT: TCChar; inline;
+function WACS_TRIPLE_BAR: TCChar; inline;
+function WACS_DIVISION: TCChar; inline;
+function WACS_APPROX_EQ: TCChar; inline;
+function WACS_SM_BULLET: TCChar; inline;
+function WACS_SQUARE_ROOT: TCChar; inline;
+function WACS_UBLOCK: TCChar; inline;
+function WACS_BBLOCK: TCChar; inline;
+function WACS_LBLOCK: TCChar; inline;
+function WACS_RBLOCK: TCChar; inline;
 
-{
-# define WACS_A_ORDINAL     (&(acs_map[20]))
-# define WACS_O_ORDINAL     (&(acs_map[21]))
-# define WACS_INV_QUERY     (&(acs_map[24]))
-# define WACS_REV_NOT       (&(acs_map[25]))
-# define WACS_NOT           (&(acs_map[26]))
-}
-{
-# define WACS_INV_BANG      (&(acs_map[23]))
-# define WACS_UP_INTEGRAL   (&(acs_map[27]))
-# define WACS_LO_INTEGRAL   (&(acs_map[28]))
-# define WACS_SUP_N         (&(acs_map[29]))
-# define WACS_CENTER_SQU    (&(acs_map[30]))
-# define WACS_F_WITH_HOOK   (&(acs_map[31]))
-}
+function WACS_A_ORDINAL: TCChar; inline;
+function WACS_O_ORDINAL: TCChar; inline;
+function WACS_INV_QUERY: TCChar; inline;
+function WACS_REV_NOT: TCChar; inline;
+function WACS_NOT: TCChar; inline;
+function WACS_INV_BANG: TCChar; inline;
+function WACS_UP_INTEGRAL: TCChar; inline;
+function WACS_LO_INTEGRAL: TCChar; inline;
+function WACS_SUP_N: TCChar; inline;
+function WACS_CENTER_SQU: TCChar; inline;
+function WACS_F_WITH_HOOK: TCChar; inline;
 
-{
-# define WACS_SD_LRCORNER   (&(acs_map[';']))
-# define WACS_SD_URCORNER   (&(acs_map['<']))
-# define WACS_SD_ULCORNER   (&(acs_map['=']))
-# define WACS_SD_LLCORNER   (&(acs_map['>']))
-# define WACS_SD_PLUS       (&(acs_map['?']))
-}
-{
-# define WACS_SD_LTEE       (&(acs_map['@']))
-# define WACS_SD_RTEE       (&(acs_map['A']))
-# define WACS_SD_BTEE       (&(acs_map['B']))
-# define WACS_SD_TTEE       (&(acs_map['C']))
-}
+function WACS_SD_LRCORNER: TCChar; inline;
+function WACS_SD_URCORNER: TCChar; inline;
+function WACS_SD_ULCORNER: TCChar; inline;
+function WACS_SD_LLCORNER: TCChar; inline;
+function WACS_SD_PLUS: TCChar; inline;
+function WACS_SD_LTEE: TCChar; inline;
+function WACS_SD_RTEE: TCChar; inline;
+function WACS_SD_BTEE: TCChar; inline;
+function WACS_SD_TTEE: TCChar; inline;
 
-{
-# define WACS_D_LRCORNER    (&(acs_map['D']))
-# define WACS_D_URCORNER    (&(acs_map['E']))
-# define WACS_D_ULCORNER    (&(acs_map['F']))
-# define WACS_D_LLCORNER    (&(acs_map['G']))
-# define WACS_D_PLUS        (&(acs_map['H']))
-}
-{
-# define WACS_D_LTEE        (&(acs_map['I']))
-# define WACS_D_RTEE        (&(acs_map['J']))
-# define WACS_D_BTEE        (&(acs_map['K']))
-# define WACS_D_TTEE        (&(acs_map['L']))
-}
+function WACS_D_LRCORNER: TCChar; inline;
+function WACS_D_URCORNER: TCChar; inline;
+function WACS_D_ULCORNER: TCChar; inline;
+function WACS_D_LLCORNER: TCChar; inline;
+function WACS_D_PLUS: TCChar; inline;
+function WACS_D_LTEE: TCChar; inline;
+function WACS_D_RTEE: TCChar; inline;
+function WACS_D_BTEE: TCChar; inline;
+function WACS_D_TTEE: TCChar; inline;
 
-{
-# define WACS_DS_LRCORNER   (&(acs_map['M']))
-# define WACS_DS_URCORNER   (&(acs_map['N']))
-# define WACS_DS_ULCORNER   (&(acs_map['O']))
-# define WACS_DS_LLCORNER   (&(acs_map['P']))
-# define WACS_DS_PLUS       (&(acs_map['Q']))
-}
-{
-# define WACS_DS_LTEE       (&(acs_map['R']))
-# define WACS_DS_RTEE       (&(acs_map['S']))
-# define WACS_DS_BTEE       (&(acs_map['T']))
-# define WACS_DS_TTEE       (&(acs_map['U']))
-}
+function WACS_DS_LRCORNER: TCChar; inline;
+function WACS_DS_URCORNER: TCChar; inline;
+function WACS_DS_ULCORNER: TCChar; inline;
+function WACS_DS_LLCORNER: TCChar; inline;
+function WACS_DS_PLUS: TCChar; inline;
+function WACS_DS_LTEE: TCChar; inline;
+function WACS_DS_RTEE: TCChar; inline;
+function WACS_DS_BTEE: TCChar; inline;
+function WACS_DS_TTEE: TCChar; inline;
 
-{
-# define WACS_S1            (&(acs_map['l']))
-# define WACS_S9            (&(acs_map['o']))
-# define WACS_DIAMOND       (&(acs_map['j']))
-# define WACS_CKBOARD       (&(acs_map['k']))
-}
-{
-# define WACS_DEGREE        (&(acs_map['w']))
-# define WACS_PLMINUS       (&(acs_map['x']))
-# define WACS_BULLET        (&(acs_map['h']))
-}
+function WACS_S1: TCChar; inline;
+function WACS_S9: TCChar; inline;
+function WACS_DIAMOND: TCChar; inline;
+function WACS_CKBOARD: TCChar; inline;
+function WACS_DEGREE: TCChar; inline;
+function WACS_PLMINUS: TCChar; inline;
+function WACS_BULLET: TCChar; inline;
 
-{
-# define WACS_LARROW        (&(acs_map['!']))
-# define WACS_RARROW        (&(acs_map[' ']))
-# define WACS_DARROW        (&(acs_map['#']))
-# define WACS_UARROW        (&(acs_map['"']))
-}
-{
-# define WACS_BOARD         (&(acs_map['+']))
-# define WACS_LTBOARD       (&(acs_map['y']))
-# define WACS_LANTERN       (&(acs_map['z']))
-# define WACS_BLOCK         (&(acs_map['t']))
-}
+function WACS_LARROW: TCChar; inline;
+function WACS_RARROW: TCChar; inline;
+function WACS_DARROW: TCChar; inline;
+function WACS_UARROW: TCChar; inline;
+function WACS_BOARD: TCChar; inline;
+function WACS_LTBOARD: TCChar; inline;
+function WACS_LANTERN: TCChar; inline;
+function WACS_BLOCK: TCChar; inline;
 
-{
-# define WACS_S3            (&(acs_map['m']))
-# define WACS_S7            (&(acs_map['n']))
-# define WACS_LEQUAL        (&(acs_map['u']))
-# define WACS_GEQUAL        (&(acs_map['v']))
-}
-{
-# define WACS_PI            (&(acs_map['$']))
-# define WACS_NEQUAL        (&(acs_map['%']))
-# define WACS_STERLING      (&(acs_map['~']))
-}
+function WACS_S3: TCChar; inline;
+function WACS_S7: TCChar; inline;
+function WACS_LEQUAL: TCChar; inline;
+function WACS_GEQUAL: TCChar; inline;
+function WACS_PI: TCChar; inline;
+function WACS_NEQUAL: TCChar; inline;
+function WACS_STERLING: TCChar; inline;
 
-{
-# define WACS_BSSB     WACS_ULCORNER
-# define WACS_SSBB     WACS_LLCORNER
-# define WACS_BBSS     WACS_URCORNER
-# define WACS_SBBS     WACS_LRCORNER
-# define WACS_SBSS     WACS_RTEE
-}
-{
-# define WACS_SSSB     WACS_LTEE
-# define WACS_SSBS     WACS_BTEE
-# define WACS_BSSS     WACS_TTEE
-# define WACS_BSBS     WACS_HLINE
-# define WACS_SBSB     WACS_VLINE
-# define WACS_SSSS     WACS_PLUS
-}
+function WACS_BSSB: TCChar; inline;
+function WACS_SSBB: TCChar; inline;
+function WACS_BBSS: TCChar; inline;
+function WACS_SBBS: TCChar; inline;
+function WACS_SBSS: TCChar; inline;
+function WACS_SSSB: TCChar; inline;
+function WACS_SSBS: TCChar; inline;
+function WACS_BSSS: TCChar; inline;
+function WACS_BSBS: TCChar; inline;
+function WACS_SBSB: TCChar; inline;
+function WACS_SSSS: TCChar; inline;
 {$ENDIF PDC_WIDE}
 
 {
@@ -2278,6 +2170,1268 @@ begin
   Result := TChType(aNChar);
 {$ENDIF}
 end;
+
+// VT100-compatible symbols -- box chars
+function ACS_LRCORNER: TChType;
+begin
+  ACS_LRCORNER := pdcAcsPick('V', '+');
+end;
+
+function ACS_URCORNER: TChType;
+begin
+  ACS_URCORNER := pdcAcsPick('W', '+');
+end;
+
+function ACS_ULCORNER: TChType;
+begin
+  ACS_ULCORNER := pdcAcsPick('X', '+');
+end;
+
+function ACS_LLCORNER: TChType;
+begin
+  ACS_LLCORNER := pdcAcsPick('Y', '+');
+end;
+
+function ACS_PLUS: TChType;
+begin
+  ACS_PLUS := pdcAcsPick('Z', '+');
+end;
+
+function ACS_LTEE: TChType;
+begin
+  ACS_LTEE := pdcAcsPick('[', '+');
+end;
+
+function ACS_RTEE: TChType;
+begin
+  ACS_RTEE := pdcAcsPick('\', '+');
+end;
+
+function ACS_BTEE: TChType;
+begin
+  ACS_BTEE := pdcAcsPick(']', '+');
+end;
+
+function ACS_TTEE: TChType;
+begin
+  ACS_TTEE := pdcAcsPick('^', '+');
+end;
+
+function ACS_HLINE: TChType;
+begin
+  ACS_HLINE := pdcAcsPick('_', '-');
+end;
+
+function ACS_VLINE: TChType;
+begin
+  ACS_VLINE := pdcAcsPick('`', '|');
+end;
+
+// PDCurses-only ACS chars.  Don't use if ncurses compatibility matters.
+// Some won't work in non-wide X11 builds (see 'acs_defs.h' for details).
+function ACS_CENT: TChType;
+begin
+  ACS_CENT := pdcAcsPick('{', 'c');
+end;
+
+function ACS_YEN: TChType;
+begin
+  ACS_YEN := pdcAcsPick('|', 'y');
+end;
+
+function ACS_PESETA: TChType;
+begin
+  ACS_PESETA := pdcAcsPick('}', 'p');
+end;
+
+function ACS_HALF: TChType;
+begin
+  ACS_HALF := pdcAcsPick('&', '/');
+end;
+
+function ACS_QUARTER: TChType;
+begin
+  ACS_QUARTER := pdcAcsPick(#039, '/'); // #039 = $027 = '
+end;
+
+function ACS_LEFT_ANG_QU: TChType;
+begin
+  ACS_LEFT_ANG_QU := pdcAcsPick(')',  '<');
+end;
+
+function ACS_RIGHT_ANG_QU: TChType;
+begin
+  ACS_RIGHT_ANG_QU := pdcAcsPick('*',  '>');
+end;
+
+function ACS_D_HLINE: TChType;
+begin
+  ACS_D_HLINE := pdcAcsPick('a', '-');
+end;
+
+function ACS_D_VLINE: TChType;
+begin
+  ACS_D_VLINE := pdcAcsPick('b', '|');
+end;
+
+function ACS_CLUB: TChType;
+begin
+  ACS_CLUB := pdcAcsPick(#11, 'C');
+end;
+
+function ACS_HEART: TChType;
+begin
+  ACS_HEART := pdcAcsPick(#12, 'H');
+end;
+
+function ACS_SPADE: TChType;
+begin
+  ACS_SPADE := pdcAcsPick(#13, 'S');
+end;
+
+function ACS_SMILE: TChType;
+begin
+  ACS_SMILE := pdcAcsPick(#14, 'O');
+end;
+
+function ACS_REV_SMILE: TChType;
+begin
+  ACS_REV_SMILE := pdcAcsPick(#15, 'O');
+end;
+
+function ACS_MED_BULLET: TChType;
+begin
+  ACS_MED_BULLET := pdcAcsPick(#16, '.');
+end;
+
+function ACS_WHITE_BULLET: TChType;
+begin
+  ACS_WHITE_BULLET := pdcAcsPick(#17, 'O');
+end;
+
+function ACS_PILCROW: TChType;
+begin
+  ACS_PILCROW := pdcAcsPick(#18, 'O');
+end;
+
+function ACS_SECTION: TChType;
+begin
+  ACS_SECTION := pdcAcsPick(#19, 'O');
+end;
+
+function ACS_SUP2: TChType;
+begin
+  ACS_SUP2 := pdcAcsPick(',', '2');
+end;
+
+function ACS_ALPHA: TChType;
+begin
+  ACS_ALPHA := pdcAcsPick('.', 'a');
+end;
+
+function ACS_BETA: TChType;
+begin
+  ACS_BETA := pdcAcsPick('/', 'b');
+end;
+
+function ACS_GAMMA: TChType;
+begin
+  ACS_GAMMA := pdcAcsPick('0', 'y');
+end;
+
+function ACS_UP_SIGMA: TChType;
+begin
+  ACS_UP_SIGMA := pdcAcsPick('1', 'S');
+end;
+
+function ACS_LO_SIGMA: TChType;
+begin
+  ACS_LO_SIGMA := pdcAcsPick('2', 's');
+end;
+
+function ACS_MU: TChType;
+begin
+  ACS_MU := pdcAcsPick('4', 'u');
+end;
+
+function ACS_TAU: TChType;
+begin
+  ACS_TAU := pdcAcsPick('5', 't');
+end;
+
+function ACS_UP_PHI: TChType;
+begin
+  ACS_UP_PHI := pdcAcsPick('6', 'F');
+end;
+
+function ACS_THETA: TChType;
+begin
+  ACS_THETA := pdcAcsPick('7', 't');
+end;
+
+function ACS_OMEGA: TChType;
+begin
+  ACS_OMEGA := pdcAcsPick('8', 'w');
+end;
+
+function ACS_DELTA: TChType;
+begin
+  ACS_DELTA := pdcAcsPick('9', 'd');
+end;
+
+function ACS_INFINITY: TChType;
+begin
+  ACS_INFINITY := pdcAcsPick('-', 'i');
+end;
+
+function ACS_LO_PHI: TChType;
+begin
+  ACS_LO_PHI := pdcAcsPick(#22, 'f');
+end;
+
+function ACS_EPSILON: TChType;
+begin
+  ACS_EPSILON := pdcAcsPick(':', 'e');
+end;
+
+function ACS_INTERSECT: TChType;
+begin
+  ACS_INTERSECT := pdcAcsPick('e', 'u');
+end;
+
+function ACS_TRIPLE_BAR: TChType;
+begin
+  ACS_TRIPLE_BAR := pdcAcsPick('f', '=');
+end;
+
+function ACS_DIVISION: TChType;
+begin
+  ACS_DIVISION := pdcAcsPick('c', '/');
+end;
+
+function ACS_APPROX_EQ: TChType;
+begin
+  ACS_APPROX_EQ := pdcAcsPick('d', '~');
+end;
+
+function ACS_SM_BULLET: TChType;
+begin
+  ACS_SM_BULLET := pdcAcsPick('g', '.');
+end;
+
+function ACS_SQUARE_ROOT: TChType;
+begin
+  ACS_SQUARE_ROOT := pdcAcsPick('i', '!');
+end;
+
+function ACS_UBLOCK: TChType;
+begin
+  ACS_UBLOCK := pdcAcsPick('p', '^');
+end;
+
+function ACS_BBLOCK: TChType;
+begin
+  ACS_BBLOCK := pdcAcsPick('q', '_');
+end;
+
+function ACS_LBLOCK: TChType;
+begin
+  ACS_LBLOCK := pdcAcsPick('r', '<');
+end;
+
+function ACS_RBLOCK: TChType;
+begin
+  ACS_RBLOCK := pdcAcsPick('s', '>');
+end;
+
+function ACS_A_ORDINAL: TChType;
+begin
+  ACS_A_ORDINAL := pdcAcsPick(#20, 'a');
+end;
+
+function ACS_O_ORDINAL: TChType;
+begin
+  ACS_O_ORDINAL := pdcAcsPick(#21, 'o');
+end;
+
+function ACS_INV_QUERY: TChType;
+begin
+  ACS_INV_QUERY := pdcAcsPick(#24, '?');
+end;
+
+function ACS_REV_NOT: TChType;
+begin
+  ACS_REV_NOT := pdcAcsPick(#25, '!');
+end;
+
+function ACS_NOT: TChType;
+begin
+  ACS_NOT := pdcAcsPick(#26, '!');
+end;
+
+function ACS_INV_BANG: TChType;
+begin
+  ACS_INV_BANG := pdcAcsPick(#23, '!');
+end;
+
+function ACS_UP_INTEGRAL: TChType;
+begin
+  ACS_UP_INTEGRAL := pdcAcsPick(#27, '|');
+end;
+
+function ACS_LO_INTEGRAL: TChType;
+begin
+  ACS_LO_INTEGRAL := pdcAcsPick(#28, '|');
+end;
+
+function ACS_SUP_N: TChType;
+begin
+  ACS_SUP_N := pdcAcsPick(#29, 'n');
+end;
+
+function ACS_CENTER_SQU: TChType;
+begin
+  ACS_CENTER_SQU := pdcAcsPick(#30,  'x');
+end;
+
+function ACS_F_WITH_HOOK: TChType;
+begin
+  ACS_F_WITH_HOOK := pdcAcsPick(#31,  'f');
+end;
+
+function ACS_SD_LRCORNER: TChType;
+begin
+  ACS_SD_LRCORNER := pdcAcsPick(';', '+');
+end;
+
+function ACS_SD_URCORNER: TChType;
+begin
+  ACS_SD_URCORNER := pdcAcsPick('<', '+');
+end;
+
+function ACS_SD_ULCORNER: TChType;
+begin
+  ACS_SD_ULCORNER := pdcAcsPick('=', '+');
+end;
+
+function ACS_SD_LLCORNER: TChType;
+begin
+  ACS_SD_LLCORNER := pdcAcsPick('>', '+');
+end;
+
+function ACS_SD_PLUS: TChType;
+begin
+  ACS_SD_PLUS := pdcAcsPick('?', '+');
+end;
+
+function ACS_SD_LTEE: TChType;
+begin
+  ACS_SD_LTEE := pdcAcsPick('@', '+');
+end;
+
+function ACS_SD_RTEE: TChType;
+begin
+  ACS_SD_RTEE := pdcAcsPick('A', '+');
+end;
+
+function ACS_SD_BTEE: TChType;
+begin
+  ACS_SD_BTEE := pdcAcsPick('B', '+');
+end;
+
+function ACS_SD_TTEE: TChType;
+begin
+  ACS_SD_TTEE := pdcAcsPick('C', '+');
+end;
+
+function ACS_D_LRCORNER: TChType;
+begin
+  ACS_D_LRCORNER := pdcAcsPick('D', '+');
+end;
+
+function ACS_D_URCORNER: TChType;
+begin
+  ACS_D_URCORNER := pdcAcsPick('E', '+');
+end;
+
+function ACS_D_ULCORNER: TChType;
+begin
+  ACS_D_ULCORNER := pdcAcsPick('F', '+');
+end;
+
+function ACS_D_LLCORNER: TChType;
+begin
+  ACS_D_LLCORNER := pdcAcsPick('G', '+');
+end;
+
+function ACS_D_PLUS: TChType;
+begin
+  ACS_D_PLUS := pdcAcsPick('H', '+');
+end;
+
+function ACS_D_LTEE: TChType;
+begin
+  ACS_D_LTEE := pdcAcsPick('I', '+');
+end;
+
+function ACS_D_RTEE: TChType;
+begin
+  ACS_D_RTEE := pdcAcsPick('J', '+');
+end;
+
+function ACS_D_BTEE: TChType;
+begin
+  ACS_D_BTEE := pdcAcsPick('K', '+');
+end;
+
+function ACS_D_TTEE: TChType;
+begin
+  ACS_D_TTEE := pdcAcsPick('L', '+');
+end;
+
+function ACS_DS_LRCORNER: TChType;
+begin
+  ACS_DS_LRCORNER := pdcAcsPick('M', '+');
+end;
+
+function ACS_DS_URCORNER: TChType;
+begin
+  ACS_DS_URCORNER := pdcAcsPick('N', '+');
+end;
+
+function ACS_DS_ULCORNER: TChType;
+begin
+  ACS_DS_ULCORNER := pdcAcsPick('O', '+');
+end;
+
+function ACS_DS_LLCORNER: TChType;
+begin
+  ACS_DS_LLCORNER := pdcAcsPick('P', '+');
+end;
+
+function ACS_DS_PLUS: TChType;
+begin
+  ACS_DS_PLUS := pdcAcsPick('Q', '+');
+end;
+
+function ACS_DS_LTEE: TChType;
+begin
+  ACS_DS_LTEE := pdcAcsPick('R', '+');
+end;
+
+function ACS_DS_RTEE: TChType;
+begin
+  ACS_DS_RTEE := pdcAcsPick('S', '+');
+end;
+
+function ACS_DS_BTEE: TChType;
+begin
+  ACS_DS_BTEE := pdcAcsPick('T', '+');
+end;
+
+function ACS_DS_TTEE: TChType;
+begin
+  ACS_DS_TTEE := pdcAcsPick('U', '+');
+end;
+
+// VT100-compatible symbols -- other
+function ACS_S1: TChType;
+begin
+  ACS_S1 := pdcAcsPick('l', '-');
+end;
+
+function ACS_S9: TChType;
+begin
+  ACS_S9 := pdcAcsPick('o', '_');
+end;
+
+function ACS_DIAMOND: TChType;
+begin
+  ACS_DIAMOND := pdcAcsPick('j', '+');
+end;
+
+function ACS_CKBOARD: TChType;
+begin
+  ACS_CKBOARD := pdcAcsPick('k', ':');
+end;
+
+function ACS_DEGREE: TChType;
+begin
+  ACS_DEGREE := pdcAcsPick('w', #039); // #039 = $027 = '
+end;
+
+function ACS_PLMINUS: TChType;
+begin
+  ACS_PLMINUS := pdcAcsPick('x', '#');
+end;
+
+function ACS_BULLET: TChType;
+begin
+  ACS_BULLET := pdcAcsPick('h', 'o');
+end;
+
+// Teletype 5410v1 symbols -- these are defined in SysV curses, but
+// are not well-supported by most terminals. Stick to VT100 characters
+// for optimum portability.
+function ACS_LARROW: TChType;
+begin
+  ACS_LARROW := pdcAcsPick('!', '<');
+end;
+
+function ACS_RARROW: TChType;
+begin
+  ACS_RARROW := pdcAcsPick(' ', '>');
+end;
+
+function ACS_DARROW: TChType;
+begin
+  ACS_DARROW := pdcAcsPick('#', 'v');
+end;
+
+function ACS_UARROW: TChType;
+begin
+  ACS_UARROW := pdcAcsPick('"', '^');
+end;
+
+function ACS_BOARD: TChType;
+begin
+  ACS_BOARD := pdcAcsPick('+', '#');
+end;
+
+function ACS_LTBOARD: TChType;
+begin
+  ACS_LTBOARD := pdcAcsPick('y', '#');
+end;
+
+function ACS_LANTERN: TChType;
+begin
+  ACS_LANTERN := pdcAcsPick('z', '*');
+end;
+
+function ACS_BLOCK: TChType;
+begin
+  ACS_BLOCK := pdcAcsPick('t', '#');
+end;
+
+// That goes double for these -- undocumented SysV symbols. Don't use them.
+function ACS_S3: TChType;
+begin
+  ACS_S3 := pdcAcsPick('m', '-');
+end;
+
+function ACS_S7: TChType;
+begin
+  ACS_S7 := pdcAcsPick('n', '-');
+end;
+
+function ACS_LEQUAL: TChType;
+begin
+  ACS_LEQUAL := pdcAcsPick('u', '<');
+end;
+
+function ACS_GEQUAL: TChType;
+begin
+  ACS_GEQUAL := pdcAcsPick('v', '>');
+end;
+
+function ACS_PI: TChType;
+begin
+  ACS_PI := pdcAcsPick('$', 'n');
+end;
+
+function ACS_NEQUAL: TChType;
+begin
+  ACS_NEQUAL := pdcAcsPick('%', '+');
+end;
+
+function ACS_STERLING: TChType;
+begin
+  ACS_STERLING := pdcAcsPick('~', 'L');
+end;
+
+// Box char aliases
+function ACS_BSSB: TChType;
+begin
+  ACS_BSSB := ACS_ULCORNER;
+end;
+
+function ACS_SSBB: TChType;
+begin
+  ACS_SSBB := ACS_LLCORNER;
+end;
+
+function ACS_BBSS: TChType;
+begin
+  ACS_BBSS := ACS_URCORNER;
+end;
+
+function ACS_SBBS: TChType;
+begin
+  ACS_SBBS := ACS_LRCORNER;
+end;
+
+function ACS_SBSS: TChType;
+begin
+  ACS_SBSS := ACS_RTEE;
+end;
+
+function ACS_SSSB: TChType;
+begin
+  ACS_SSSB := ACS_LTEE;
+end;
+
+function ACS_SSBS: TChType;
+begin
+  ACS_SSBS := ACS_BTEE;
+end;
+
+function ACS_BSSS: TChType;
+begin
+  ACS_BSSS := ACS_TTEE;
+end;
+
+function ACS_BSBS: TChType;
+begin
+  ACS_BSBS := ACS_HLINE;
+end;
+
+function ACS_SBSB: TChType;
+begin
+  ACS_SBSB := ACS_VLINE;
+end;
+
+function ACS_SSSS: TChType;
+begin
+  ACS_SSSS := ACS_PLUS;
+end;
+
+// cchar_t aliases
+{$IFDEF PDC_WIDE}
+function WACS_LRCORNER: TCChar;
+begin
+  WACS_LRCORNER := pdcSValAcsMap['V'];
+end;
+
+function WACS_URCORNER: TCChar;
+begin
+  WACS_URCORNER := pdcSValAcsMap['W'];
+end;
+
+function WACS_ULCORNER: TCChar;
+begin
+  WACS_ULCORNER := pdcSValAcsMap['X'];
+end;
+
+function WACS_LLCORNER: TCChar;
+begin
+  WACS_LLCORNER := pdcSValAcsMap['Y'];
+end;
+
+function WACS_PLUS: TCChar;
+begin
+  WACS_PLUS := pdcSValAcsMap['Z'];
+end;
+
+function WACS_LTEE: TCChar;
+begin
+  WACS_LTEE := pdcSValAcsMap['['];
+end;
+
+function WACS_RTEE: TCChar;
+begin
+  WACS_RTEE := pdcSValAcsMap['\'];
+end;
+
+function WACS_BTEE: TCChar;
+begin
+  WACS_BTEE := pdcSValAcsMap[']'];
+end;
+
+function WACS_TTEE: TCChar;
+begin
+  WACS_TTEE := pdcSValAcsMap['^'];
+end;
+
+function WACS_HLINE: TCChar;
+begin
+  WACS_HLINE := pdcSValAcsMap['_'];
+end;
+
+function WACS_VLINE: TCChar;
+begin
+  WACS_VLINE := pdcSValAcsMap['`'];
+end;
+
+function WACS_CENT: TCChar;
+begin
+  WACS_CENT := pdcSValAcsMap['{'];
+end;
+
+function WACS_YEN: TCChar;
+begin
+  WACS_YEN := pdcSValAcsMap['|'];
+end;
+
+function WACS_PESETA: TCChar;
+begin
+  WACS_PESETA := pdcSValAcsMap['}'];
+end;
+
+function WACS_HALF: TCChar;
+begin
+  WACS_HALF := pdcSValAcsMap['&'];
+end;
+
+function WACS_QUARTER: TCChar;
+begin
+  WACS_QUARTER := pdcSValAcsMap[#039]; // #039 = $027 = '
+end;
+
+function WACS_LEFT_ANG_QU: TCChar;
+begin
+  WACS_LEFT_ANG_QU := pdcSValAcsMap[')'];
+end;
+
+function WACS_RIGHT_ANG_QU: TCChar;
+begin
+  WACS_RIGHT_ANG_QU := pdcSValAcsMap['*'];
+end;
+
+function WACS_D_HLINE: TCChar;
+begin
+  WACS_D_HLINE := pdcSValAcsMap['a'];
+end;
+
+function WACS_D_VLINE: TCChar;
+begin
+  WACS_D_VLINE := pdcSValAcsMap['b'];
+end;
+
+function WACS_CLUB: TCChar;
+begin
+  WACS_CLUB := pdcSValAcsMap[#11];
+end;
+
+function WACS_HEART: TCChar;
+begin
+  WACS_HEART := pdcSValAcsMap[#12];
+end;
+
+function WACS_SPADE: TCChar;
+begin
+  WACS_SPADE := pdcSValAcsMap[#13];
+end;
+
+function WACS_SMILE: TCChar;
+begin
+  WACS_SMILE := pdcSValAcsMap[#14];
+end;
+
+function WACS_REV_SMILE: TCChar;
+begin
+  WACS_REV_SMILE := pdcSValAcsMap[#15];
+end;
+
+function WACS_MED_BULLET: TCChar;
+begin
+  WACS_MED_BULLET := pdcSValAcsMap[#16];
+end;
+
+function WACS_WHITE_BULLET: TCChar;
+begin
+  WACS_WHITE_BULLET := pdcSValAcsMap[#17];
+end;
+
+function WACS_PILCROW: TCChar;
+begin
+  WACS_PILCROW := pdcSValAcsMap[#18];
+end;
+
+function WACS_SECTION: TCChar;
+begin
+  WACS_SECTION := pdcSValAcsMap[#19];
+end;
+
+function WACS_SUP2: TCChar;
+begin
+  WACS_SUP2 := pdcSValAcsMap[','];
+end;
+
+function WACS_ALPHA: TCChar;
+begin
+  WACS_ALPHA := pdcSValAcsMap['.'];
+end;
+
+function WACS_BETA: TCChar;
+begin
+  WACS_BETA := pdcSValAcsMap['/'];
+end;
+
+function WACS_GAMMA: TCChar;
+begin
+  WACS_GAMMA := pdcSValAcsMap['0'];
+end;
+
+function WACS_UP_SIGMA: TCChar;
+begin
+  WACS_UP_SIGMA := pdcSValAcsMap['1'];
+end;
+
+function WACS_LO_SIGMA: TCChar;
+begin
+  WACS_LO_SIGMA := pdcSValAcsMap['2'];
+end;
+
+function WACS_MU: TCChar;
+begin
+  WACS_MU := pdcSValAcsMap['4'];
+end;
+
+function WACS_TAU: TCChar;
+begin
+  WACS_TAU := pdcSValAcsMap['5'];
+end;
+
+function WACS_UP_PHI: TCChar;
+begin
+  WACS_UP_PHI := pdcSValAcsMap['6'];
+end;
+
+function WACS_THETA: TCChar;
+begin
+  WACS_THETA := pdcSValAcsMap['7'];
+end;
+
+function WACS_OMEGA: TCChar;
+begin
+  WACS_OMEGA := pdcSValAcsMap['8'];
+end;
+
+function WACS_DELTA: TCChar;
+begin
+  WACS_DELTA := pdcSValAcsMap['9'];
+end;
+
+function WACS_INFINITY: TCChar;
+begin
+  WACS_INFINITY := pdcSValAcsMap['-'];
+end;
+
+function WACS_LO_PHI: TCChar;
+begin
+  WACS_LO_PHI := pdcSValAcsMap[#22];
+end;
+
+function WACS_EPSILON: TCChar;
+begin
+  WACS_EPSILON := pdcSValAcsMap[':'];
+end;
+
+function WACS_INTERSECT: TCChar;
+begin
+  WACS_INTERSECT := pdcSValAcsMap['e'];
+end;
+
+function WACS_TRIPLE_BAR: TCChar;
+begin
+  WACS_TRIPLE_BAR := pdcSValAcsMap['f'];
+end;
+
+function WACS_DIVISION: TCChar;
+begin
+  WACS_DIVISION := pdcSValAcsMap['c'];
+end;
+
+function WACS_APPROX_EQ: TCChar;
+begin
+  WACS_APPROX_EQ := pdcSValAcsMap['d'];
+end;
+
+function WACS_SM_BULLET: TCChar;
+begin
+  WACS_SM_BULLET := pdcSValAcsMap['g'];
+end;
+
+function WACS_SQUARE_ROOT: TCChar;
+begin
+  WACS_SQUARE_ROOT := pdcSValAcsMap['i'];
+end;
+
+function WACS_UBLOCK: TCChar;
+begin
+  WACS_UBLOCK := pdcSValAcsMap['p'];
+end;
+
+function WACS_BBLOCK: TCChar;
+begin
+  WACS_BBLOCK := pdcSValAcsMap['q'];
+end;
+
+function WACS_LBLOCK: TCChar;
+begin
+  WACS_LBLOCK := pdcSValAcsMap['r'];
+end;
+
+function WACS_RBLOCK: TCChar;
+begin
+  WACS_RBLOCK := pdcSValAcsMap['s'];
+end;
+
+function WACS_A_ORDINAL: TCChar;
+begin
+  WACS_A_ORDINAL := pdcSValAcsMap[#20];
+end;
+
+function WACS_O_ORDINAL: TCChar;
+begin
+  WACS_O_ORDINAL := pdcSValAcsMap[#21];
+end;
+
+function WACS_INV_QUERY: TCChar;
+begin
+  WACS_INV_QUERY := pdcSValAcsMap[#24];
+end;
+
+function WACS_REV_NOT: TCChar;
+begin
+  WACS_REV_NOT := pdcSValAcsMap[#25];
+end;
+
+function WACS_NOT: TCChar;
+begin
+  WACS_NOT := pdcSValAcsMap[#26];
+end;
+
+function WACS_INV_BANG: TCChar;
+begin
+  WACS_INV_BANG := pdcSValAcsMap[#23];
+end;
+
+function WACS_UP_INTEGRAL: TCChar;
+begin
+  WACS_UP_INTEGRAL := pdcSValAcsMap[#27];
+end;
+
+function WACS_LO_INTEGRAL: TCChar;
+begin
+  WACS_LO_INTEGRAL := pdcSValAcsMap[#28];
+end;
+
+function WACS_SUP_N: TCChar;
+begin
+  WACS_SUP_N := pdcSValAcsMap[#29];
+end;
+
+function WACS_CENTER_SQU: TCChar;
+begin
+  WACS_CENTER_SQU := pdcSValAcsMap[#30];
+end;
+
+function WACS_F_WITH_HOOK: TCChar;
+begin
+  WACS_F_WITH_HOOK := pdcSValAcsMap[#31];
+end;
+
+function WACS_SD_LRCORNER: TCChar;
+begin
+  WACS_SD_LRCORNER := pdcSValAcsMap[';'];
+end;
+
+function WACS_SD_URCORNER: TCChar;
+begin
+  WACS_SD_URCORNER := pdcSValAcsMap['<'];
+end;
+
+function WACS_SD_ULCORNER: TCChar;
+begin
+  WACS_SD_ULCORNER := pdcSValAcsMap['='];
+end;
+
+function WACS_SD_LLCORNER: TCChar;
+begin
+  WACS_SD_LLCORNER := pdcSValAcsMap['>'];
+end;
+
+function WACS_SD_PLUS: TCChar;
+begin
+  WACS_SD_PLUS := pdcSValAcsMap['?'];
+end;
+
+function WACS_SD_LTEE: TCChar;
+begin
+  WACS_SD_LTEE := pdcSValAcsMap['@'];
+end;
+
+function WACS_SD_RTEE: TCChar;
+begin
+  WACS_SD_RTEE := pdcSValAcsMap['A'];
+end;
+
+function WACS_SD_BTEE: TCChar;
+begin
+  WACS_SD_BTEE := pdcSValAcsMap['B'];
+end;
+
+function WACS_SD_TTEE: TCChar;
+begin
+  WACS_SD_TTEE := pdcSValAcsMap['C'];
+end;
+
+function WACS_D_LRCORNER: TCChar;
+begin
+  WACS_D_LRCORNER := pdcSValAcsMap['D'];
+end;
+
+function WACS_D_URCORNER: TCChar;
+begin
+  WACS_D_URCORNER := pdcSValAcsMap['E'];
+end;
+
+function WACS_D_ULCORNER: TCChar;
+begin
+  WACS_D_ULCORNER := pdcSValAcsMap['F'];
+end;
+
+function WACS_D_LLCORNER: TCChar;
+begin
+  WACS_D_LLCORNER := pdcSValAcsMap['G'];
+end;
+
+function WACS_D_PLUS: TCChar;
+begin
+  WACS_D_PLUS := pdcSValAcsMap['H'];
+end;
+
+function WACS_D_LTEE: TCChar;
+begin
+  WACS_D_LTEE := pdcSValAcsMap['I'];
+end;
+
+function WACS_D_RTEE: TCChar;
+begin
+  WACS_D_RTEE := pdcSValAcsMap['J'];
+end;
+
+function WACS_D_BTEE: TCChar;
+begin
+  WACS_D_BTEE := pdcSValAcsMap['K'];
+end;
+
+function WACS_D_TTEE: TCChar;
+begin
+  WACS_D_TTEE := pdcSValAcsMap['L'];
+end;
+
+function WACS_DS_LRCORNER: TCChar;
+begin
+  WACS_DS_LRCORNER := pdcSValAcsMap['M'];
+end;
+
+function WACS_DS_URCORNER: TCChar;
+begin
+  WACS_DS_URCORNER := pdcSValAcsMap['N'];
+end;
+
+function WACS_DS_ULCORNER: TCChar;
+begin
+  WACS_DS_ULCORNER := pdcSValAcsMap['O'];
+end;
+
+function WACS_DS_LLCORNER: TCChar;
+begin
+  WACS_DS_LLCORNER := pdcSValAcsMap['P'];
+end;
+
+function WACS_DS_PLUS: TCChar;
+begin
+  WACS_DS_PLUS := pdcSValAcsMap['Q'];
+end;
+
+function WACS_DS_LTEE: TCChar;
+begin
+  WACS_DS_LTEE := pdcSValAcsMap['R'];
+end;
+
+function WACS_DS_RTEE: TCChar;
+begin
+  WACS_DS_RTEE := pdcSValAcsMap['S'];
+end;
+
+function WACS_DS_BTEE: TCChar;
+begin
+  WACS_DS_BTEE := pdcSValAcsMap['T'];
+end;
+
+function WACS_DS_TTEE: TCChar;
+begin
+  WACS_DS_TTEE := pdcSValAcsMap['U'];
+end;
+
+function WACS_S1: TCChar;
+begin
+  WACS_S1 := pdcSValAcsMap['l'];
+end;
+
+function WACS_S9: TCChar;
+begin
+  WACS_S9 := pdcSValAcsMap['o'];
+end;
+
+function WACS_DIAMOND: TCChar;
+begin
+  WACS_DIAMOND := pdcSValAcsMap['j'];
+end;
+
+function WACS_CKBOARD: TCChar;
+begin
+  WACS_CKBOARD := pdcSValAcsMap['k'];
+end;
+
+function WACS_DEGREE: TCChar;
+begin
+  WACS_DEGREE := pdcSValAcsMap['w'];
+end;
+
+function WACS_PLMINUS: TCChar;
+begin
+  WACS_PLMINUS := pdcSValAcsMap['x'];
+end;
+
+function WACS_BULLET: TCChar;
+begin
+  WACS_BULLET := pdcSValAcsMap['h'];
+end;
+
+function WACS_LARROW: TCChar;
+begin
+  WACS_LARROW := pdcSValAcsMap['!'];
+end;
+
+function WACS_RARROW: TCChar;
+begin
+  WACS_RARROW := pdcSValAcsMap[' '];
+end;
+
+function WACS_DARROW: TCChar;
+begin
+  WACS_DARROW := pdcSValAcsMap['#'];
+end;
+
+function WACS_UARROW: TCChar;
+begin
+  WACS_UARROW := pdcSValAcsMap['"'];
+end;
+
+function WACS_BOARD: TCChar;
+begin
+  WACS_BOARD := pdcSValAcsMap['+'];
+end;
+
+function WACS_LTBOARD: TCChar;
+begin
+  WACS_LTBOARD := pdcSValAcsMap['y'];
+end;
+
+function WACS_LANTERN: TCChar;
+begin
+  WACS_LANTERN := pdcSValAcsMap['z'];
+end;
+
+function WACS_BLOCK: TCChar;
+begin
+  WACS_BLOCK := pdcSValAcsMap['t'];
+end;
+
+function WACS_S3: TCChar;
+begin
+  WACS_S3 := pdcSValAcsMap['m'];
+end;
+
+function WACS_S7: TCChar;
+begin
+  WACS_S7 := pdcSValAcsMap['n'];
+end;
+
+function WACS_LEQUAL: TCChar;
+begin
+  WACS_LEQUAL := pdcSValAcsMap['u'];
+end;
+
+function WACS_GEQUAL: TCChar;
+begin
+  WACS_GEQUAL := pdcSValAcsMap['v'];
+end;
+
+function WACS_PI: TCChar;
+begin
+  WACS_PI := pdcSValAcsMap['$'];
+end;
+
+function WACS_NEQUAL: TCChar;
+begin
+  WACS_NEQUAL := pdcSValAcsMap['%'];
+end;
+
+function WACS_STERLING: TCChar;
+begin
+  WACS_STERLING := pdcSValAcsMap['~'];
+end;
+
+function WACS_BSSB: TCChar;
+begin
+  WACS_BSSB := WACS_ULCORNER;
+end;
+
+function WACS_SSBB: TCChar;
+begin
+  WACS_SSBB := WACS_LLCORNER;
+end;
+
+function WACS_BBSS: TCChar;
+begin
+  WACS_BBSS := WACS_URCORNER;
+end;
+
+function WACS_SBBS: TCChar;
+begin
+  WACS_SBBS := WACS_LRCORNER;
+end;
+
+function WACS_SBSS: TCChar;
+begin
+  WACS_SBSS := WACS_RTEE;
+end;
+
+function WACS_SSSB: TCChar;
+begin
+  WACS_SSSB := WACS_LTEE;
+end;
+
+function WACS_SSBS: TCChar;
+begin
+  WACS_SSBS := WACS_BTEE;
+end;
+
+function WACS_BSSS: TCChar;
+begin
+  WACS_BSSS := WACS_TTEE;
+end;
+
+function WACS_BSBS: TCChar;
+begin
+  WACS_BSBS := WACS_HLINE;
+end;
+
+function WACS_SBSB: TCChar;
+begin
+  WACS_SBSB := WACS_VLINE;
+end;
+
+function WACS_SSSS: TCChar;
+begin
+  WACS_SSSS := WACS_PLUS;
+end;
+{$ENDIF PDC_WIDE}
 
 {$IFDEF ASSEMBLER}
 {
