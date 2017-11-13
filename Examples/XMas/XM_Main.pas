@@ -51,7 +51,10 @@ unit XM_Main;
 interface
 
 uses
-  SysUtils, PDCurses;
+  SysUtils, PDCurses
+{$IFDEF MSWINDOWS}
+  , Windows
+{$ENDIF MSWINDOWS};
 
 const
   FROM_WHO: PAnsiChar = 'From Larry Bartz, Mark Hessling and William McBrine';
@@ -766,7 +769,7 @@ begin
   pdcMvWAddStr(treescrn2, 9, 14, ',.:''');
   pdcMvWAddStr(treescrn2, 10, 10, ',.:''');
   pdcMvWAddStr(treescrn2, 11, 6, ',.:''');
-  pdcMvWAddCh(treescrn2, 12, 5, $27); // $27 = '
+  pdcMvWAddCh(treescrn2, 12, 5, $027); // $027 = '
 
   pdcWRefresh(treescrn2);
   pdcWRefresh(w_del_msg);

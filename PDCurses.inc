@@ -30,6 +30,7 @@ man-end****************************************************************
 {$IFNDEF CONSOLE}
   {$MESSAGE FATAL 'PDCurses is a console-only library.'}
 {$ENDIF}
+{$INLINE AUTO}
 
 {$DEFINE PDCURSES}             // PDCurses-only routines
 {$DEFINE XOPEN}                // X/Open Curses routines
