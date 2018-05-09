@@ -6,10 +6,10 @@
         <Projects Include="Firework\Firework.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="Rain\Rain.dproj">
+        <Projects Include="NewDemo\NewDemo.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="NewDemo\NewDemo.dproj">
+        <Projects Include="Rain\Rain.dproj">
             <Dependencies/>
         </Projects>
         <Projects Include="XMas\XMas.dproj">
@@ -32,15 +32,6 @@
     <Target Name="Firework:Make">
         <MSBuild Projects="Firework\Firework.dproj" Targets="Make"/>
     </Target>
-    <Target Name="Rain">
-        <MSBuild Projects="Rain\Rain.dproj"/>
-    </Target>
-    <Target Name="Rain:Clean">
-        <MSBuild Projects="Rain\Rain.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="Rain:Make">
-        <MSBuild Projects="Rain\Rain.dproj" Targets="Make"/>
-    </Target>
     <Target Name="NewDemo">
         <MSBuild Projects="NewDemo\NewDemo.dproj"/>
     </Target>
@@ -49,6 +40,15 @@
     </Target>
     <Target Name="NewDemo:Make">
         <MSBuild Projects="NewDemo\NewDemo.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Rain">
+        <MSBuild Projects="Rain\Rain.dproj"/>
+    </Target>
+    <Target Name="Rain:Clean">
+        <MSBuild Projects="Rain\Rain.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Rain:Make">
+        <MSBuild Projects="Rain\Rain.dproj" Targets="Make"/>
     </Target>
     <Target Name="XMas">
         <MSBuild Projects="XMas\XMas.dproj"/>
@@ -60,13 +60,13 @@
         <MSBuild Projects="XMas\XMas.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="Firework;Rain;NewDemo;XMas"/>
+        <CallTarget Targets="Firework;NewDemo;Rain;XMas"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="Firework:Clean;Rain:Clean;NewDemo:Clean;XMas:Clean"/>
+        <CallTarget Targets="Firework:Clean;NewDemo:Clean;Rain:Clean;XMas:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="Firework:Make;Rain:Make;NewDemo:Make;XMas:Make"/>
+        <CallTarget Targets="Firework:Make;NewDemo:Make;Rain:Make;XMas:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>
